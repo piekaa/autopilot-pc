@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:docs.flightsimulator.com)",
+      "WebSearch",
+      "Bash(dir \"C:\\MSFS 2024 SDK\")",
+      "Bash(where /R C: SimConnect.dll 2)",
+      "Bash(nul)",
+      "Bash(findstr:*)",
+      "Bash(powershell:*)",
+      "Bash(dir \"C:\\MSFS 2024 SDK\\SimConnect SDK\")",
+      "Bash(dir:*)",
+      "Bash(dir \"C:\\MSFS 2024 SDK\\SimConnect SDK\\lib\")",
+      "Bash(cmake:*)",
+      "Bash(./MSFS_controller.exe)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

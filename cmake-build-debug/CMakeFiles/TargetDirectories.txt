@@ -1,0 +1,3 @@
+C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/CMakeFiles/MSFS_controller.dir
+C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/CMakeFiles/rebuild_cache.dir

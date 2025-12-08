@@ -1,0 +1,7 @@
+# ninja log v5
+1	358	7849360198691418	CMakeFiles/MSFS_controller.dir/main.cpp.obj	1ff2e160fbf5baac
+359	497	7849360200035165	MSFS_controller.exe	a12bbad4ea1cbdc3
+9	1004	7849383874794129	CMakeFiles/MSFS_controller.dir/SimConnectClient.cpp.obj	3d5d08f6807a25af
+6	1007	7849383874804138	CMakeFiles/MSFS_controller.dir/HeadingReader.cpp.obj	3aa2cd0f27044a85
+3	1208	7849383876817000	CMakeFiles/MSFS_controller.dir/main.cpp.obj	1575f00b257573a0
+1208	1364	7849383878017215	MSFS_controller.exe	29a5628c03b5c32a
