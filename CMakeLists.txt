@@ -24,6 +24,8 @@ add_executable(MSFS_controller
     AutopilotController.h
     CommandProcessor.cpp
     CommandProcessor.h
+    AutopilotDataReader.cpp
+    AutopilotDataReader.h
 )
 
 # Link against SimConnect and Windows libraries

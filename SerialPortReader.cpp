@@ -140,3 +140,7 @@ bool SerialPortReader::isDataAvailable() {
 
     return status.cbInQue > 0;
 }
+
+HANDLE SerialPortReader::getHandle() const {
+    return hSerial;
+}

@@ -1,12 +1,17 @@
 # ninja log v5
-3	1208	7849383876817000	CMakeFiles/MSFS_controller.dir/main.cpp.obj	1575f00b257573a0
-1208	1364	7849383878017215	MSFS_controller.exe	29a5628c03b5c32a
-9	1004	7849383874794129	CMakeFiles/MSFS_controller.dir/SimConnectClient.cpp.obj	3d5d08f6807a25af
-6	1007	7849383874804138	CMakeFiles/MSFS_controller.dir/HeadingReader.cpp.obj	3aa2cd0f27044a85
-8	1160	7869025895977624	CMakeFiles/MSFS_controller.dir/AutopilotController.cpp.obj	faf6dcd05c759703
-13	1251	7869025896904121	CMakeFiles/MSFS_controller.dir/CommandProcessor.cpp.obj	fbc1b62adedfa7c8
-11	1255	7869025896959210	CMakeFiles/MSFS_controller.dir/SerialPortReader.cpp.obj	b1bcc0613ceec38f
-4	1612	7869025900510611	CMakeFiles/MSFS_controller.dir/main.cpp.obj	1575f00b257573a0
-1612	1979	7869025903834948	MSFS_controller.exe	d6f7abfcab62260e
 3	1239	7869026973872712	CMakeFiles/MSFS_controller.dir/main.cpp.obj	1575f00b257573a0
 1239	1376	7869026974909477	MSFS_controller.exe	d6f7abfcab62260e
+9	1004	7849383874794129	CMakeFiles/MSFS_controller.dir/SimConnectClient.cpp.obj	3d5d08f6807a25af
+13	1251	7869025896904121	CMakeFiles/MSFS_controller.dir/CommandProcessor.cpp.obj	fbc1b62adedfa7c8
+6	1007	7849383874804138	CMakeFiles/MSFS_controller.dir/HeadingReader.cpp.obj	3aa2cd0f27044a85
+8	1160	7869025895977624	CMakeFiles/MSFS_controller.dir/AutopilotController.cpp.obj	faf6dcd05c759703
+11	1255	7869025896959210	CMakeFiles/MSFS_controller.dir/SerialPortReader.cpp.obj	b1bcc0613ceec38f
+7	829	7869121455177621	CMakeFiles/MSFS_controller.dir/AutopilotController.cpp.obj	faf6dcd05c759703
+10	871	7869121455612041	CMakeFiles/MSFS_controller.dir/CommandProcessor.cpp.obj	fbc1b62adedfa7c8
+13	874	7869121455637172	CMakeFiles/MSFS_controller.dir/SerialPortReader.cpp.obj	b1bcc0613ceec38f
+3	1026	7869121457149266	CMakeFiles/MSFS_controller.dir/main.cpp.obj	1575f00b257573a0
+2	1338	7869122168937646	CMakeFiles/MSFS_controller.dir/AutopilotDataReader.cpp.obj	6f8c9c8a98a2e318
+1338	1700	7869122172027819	MSFS_controller.exe	6f410c568ea438c8
+6	994	7869123159089085	CMakeFiles/MSFS_controller.dir/AutopilotController.cpp.obj	faf6dcd05c759703
+3	1279	7869123161947188	CMakeFiles/MSFS_controller.dir/main.cpp.obj	1575f00b257573a0
+1279	1405	7869123162895272	MSFS_controller.exe	6f410c568ea438c8

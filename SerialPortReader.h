@@ -38,6 +38,9 @@ public:
 
     // Check if data is available
     bool isDataAvailable();
+
+    // Get the serial port handle (for writing)
+    HANDLE getHandle() const;
 };
 
 #endif // SERIALPORTREADER_H

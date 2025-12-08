@@ -6,10 +6,11 @@
 #include "SerialPortReader.h"
 #include "AutopilotController.h"
 #include "CommandProcessor.h"
+#include "AutopilotDataReader.h"
 
 /**
  * Main entry point - Java style with clear flow
- * Now with serial port control for autopilot!
+ * Now with bidirectional serial port control for autopilot!
  */
 int main() {
     std::cout << "=== MSFS SimConnect Autopilot Controller ===" << std::endl;
@@ -24,13 +25,6 @@ int main() {
         return 1;
     }
 
-    // Create autopilot controller and initialize
-    AutopilotController autopilot(client.getHandle());
-    if (!autopilot.initialize()) {
-        std::cerr << "Failed to initialize autopilot controller!" << std::endl;
-        return 1;
-    }
-
     // Create serial port reader
     SerialPortReader serialPort("COM5");
     if (!serialPort.open(115200)) {
@@ -38,14 +32,31 @@ int main() {
         return 1;
     }
 
-    // Create command processor
+    // Create autopilot controller and initialize
+    AutopilotController autopilot(client.getHandle());
+    if (!autopilot.initialize()) {
+        std::cerr << "Failed to initialize autopilot controller!" << std::endl;
+        return 1;
+    }
+
+    // Create command processor for incoming commands
     CommandProcessor commandProcessor(serialPort, autopilot);
 
+    // Create autopilot data reader for outgoing data
+    AutopilotDataReader dataReader(client.getHandle(), serialPort);
+    if (!dataReader.initialize()) {
+        std::cerr << "Failed to initialize autopilot data reader!" << std::endl;
+        return 1;
+    }
+
     std::cout << "========================================" << std::endl;
-    std::cout << "Ready! Listening for commands on COM5" << std::endl;
-    std::cout << "Command format:" << std::endl;
+    std::cout << "Ready! Bidirectional communication active on COM5" << std::endl;
+    std::cout << "Incoming commands:" << std::endl;
     std::cout << "  Line 1: Command type (H, VS, A, S)" << std::endl;
     std::cout << "  Line 2: Value (+, -)" << std::endl;
+    std::cout << "Outgoing updates (format: H120, V500, A5000, S250):" << std::endl;
+    std::cout << "  Every 100ms if values changed" << std::endl;
+    std::cout << "  Every 5s full update" << std::endl;
     std::cout << "========================================" << std::endl;
     std::cout << "Press Ctrl+C to exit" << std::endl;
     std::cout << std::endl;
@@ -55,11 +66,15 @@ int main() {
         // Process incoming serial commands
         commandProcessor.processIncomingData();
 
+        // Update autopilot data reader (handles timing and requests)
+        dataReader.update();
+
         // Process SimConnect messages
         DWORD cbData;
         SIMCONNECT_RECV* pData;
         while (SimConnect_GetNextDispatch(client.getHandle(), &pData, &cbData) == S_OK) {
-            // Process any SimConnect messages if needed
+            // Let data reader process its messages
+            dataReader.processMessage(pData);
         }
 
         // Small sleep to avoid burning CPU (like Thread.sleep in Java)
