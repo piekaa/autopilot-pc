@@ -1,7 +1,12 @@
 # ninja log v5
-1	358	7849360198691418	CMakeFiles/MSFS_controller.dir/main.cpp.obj	1ff2e160fbf5baac
-359	497	7849360200035165	MSFS_controller.exe	a12bbad4ea1cbdc3
-9	1004	7849383874794129	CMakeFiles/MSFS_controller.dir/SimConnectClient.cpp.obj	3d5d08f6807a25af
-6	1007	7849383874804138	CMakeFiles/MSFS_controller.dir/HeadingReader.cpp.obj	3aa2cd0f27044a85
 3	1208	7849383876817000	CMakeFiles/MSFS_controller.dir/main.cpp.obj	1575f00b257573a0
 1208	1364	7849383878017215	MSFS_controller.exe	29a5628c03b5c32a
+9	1004	7849383874794129	CMakeFiles/MSFS_controller.dir/SimConnectClient.cpp.obj	3d5d08f6807a25af
+6	1007	7849383874804138	CMakeFiles/MSFS_controller.dir/HeadingReader.cpp.obj	3aa2cd0f27044a85
+8	1160	7869025895977624	CMakeFiles/MSFS_controller.dir/AutopilotController.cpp.obj	faf6dcd05c759703
+13	1251	7869025896904121	CMakeFiles/MSFS_controller.dir/CommandProcessor.cpp.obj	fbc1b62adedfa7c8
+11	1255	7869025896959210	CMakeFiles/MSFS_controller.dir/SerialPortReader.cpp.obj	b1bcc0613ceec38f
+4	1612	7869025900510611	CMakeFiles/MSFS_controller.dir/main.cpp.obj	1575f00b257573a0
+1612	1979	7869025903834948	MSFS_controller.exe	d6f7abfcab62260e
+3	1239	7869026973872712	CMakeFiles/MSFS_controller.dir/main.cpp.obj	1575f00b257573a0
+1239	1376	7869026974909477	MSFS_controller.exe	d6f7abfcab62260e

@@ -18,6 +18,12 @@ add_executable(MSFS_controller
     SimConnectClient.h
     HeadingReader.cpp
     HeadingReader.h
+    SerialPortReader.cpp
+    SerialPortReader.h
+    AutopilotController.cpp
+    AutopilotController.h
+    CommandProcessor.cpp
+    CommandProcessor.h
 )
 
 # Link against SimConnect and Windows libraries

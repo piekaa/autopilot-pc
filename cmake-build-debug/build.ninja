@@ -70,6 +70,27 @@ build CMakeFiles/MSFS_controller.dir/HeadingReader.cpp.obj: CXX_COMPILER__MSFS_c
   OBJECT_DIR = CMakeFiles\MSFS_controller.dir
   OBJECT_FILE_DIR = CMakeFiles\MSFS_controller.dir
 
+build CMakeFiles/MSFS_controller.dir/SerialPortReader.cpp.obj: CXX_COMPILER__MSFS_controller_Debug C$:/Users/Piotr/CLionProjects/MSFS-controller/SerialPortReader.cpp || cmake_object_order_depends_target_MSFS_controller
+  DEP_FILE = CMakeFiles\MSFS_controller.dir\SerialPortReader.cpp.obj.d
+  FLAGS = -g -std=gnu++23
+  INCLUDES = -I"C:/MSFS 2024 SDK/SimConnect SDK/include"
+  OBJECT_DIR = CMakeFiles\MSFS_controller.dir
+  OBJECT_FILE_DIR = CMakeFiles\MSFS_controller.dir
+
+build CMakeFiles/MSFS_controller.dir/AutopilotController.cpp.obj: CXX_COMPILER__MSFS_controller_Debug C$:/Users/Piotr/CLionProjects/MSFS-controller/AutopilotController.cpp || cmake_object_order_depends_target_MSFS_controller
+  DEP_FILE = CMakeFiles\MSFS_controller.dir\AutopilotController.cpp.obj.d
+  FLAGS = -g -std=gnu++23
+  INCLUDES = -I"C:/MSFS 2024 SDK/SimConnect SDK/include"
+  OBJECT_DIR = CMakeFiles\MSFS_controller.dir
+  OBJECT_FILE_DIR = CMakeFiles\MSFS_controller.dir
+
+build CMakeFiles/MSFS_controller.dir/CommandProcessor.cpp.obj: CXX_COMPILER__MSFS_controller_Debug C$:/Users/Piotr/CLionProjects/MSFS-controller/CommandProcessor.cpp || cmake_object_order_depends_target_MSFS_controller
+  DEP_FILE = CMakeFiles\MSFS_controller.dir\CommandProcessor.cpp.obj.d
+  FLAGS = -g -std=gnu++23
+  INCLUDES = -I"C:/MSFS 2024 SDK/SimConnect SDK/include"
+  OBJECT_DIR = CMakeFiles\MSFS_controller.dir
+  OBJECT_FILE_DIR = CMakeFiles\MSFS_controller.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target MSFS_controller
@@ -78,7 +99,7 @@ build CMakeFiles/MSFS_controller.dir/HeadingReader.cpp.obj: CXX_COMPILER__MSFS_c
 #############################################
 # Link the executable MSFS_controller.exe
 
-build MSFS_controller.exe: CXX_EXECUTABLE_LINKER__MSFS_controller_Debug CMakeFiles/MSFS_controller.dir/main.cpp.obj CMakeFiles/MSFS_controller.dir/SimConnectClient.cpp.obj CMakeFiles/MSFS_controller.dir/HeadingReader.cpp.obj | C$:/MSFS$ 2024$ SDK/SimConnect$ SDK/lib/SimConnect.lib
+build MSFS_controller.exe: CXX_EXECUTABLE_LINKER__MSFS_controller_Debug CMakeFiles/MSFS_controller.dir/main.cpp.obj CMakeFiles/MSFS_controller.dir/SimConnectClient.cpp.obj CMakeFiles/MSFS_controller.dir/HeadingReader.cpp.obj CMakeFiles/MSFS_controller.dir/SerialPortReader.cpp.obj CMakeFiles/MSFS_controller.dir/AutopilotController.cpp.obj CMakeFiles/MSFS_controller.dir/CommandProcessor.cpp.obj | C$:/MSFS$ 2024$ SDK/SimConnect$ SDK/lib/SimConnect.lib
   FLAGS = -g
   LINK_LIBRARIES = "C:/MSFS 2024 SDK/SimConnect SDK/lib/SimConnect.lib"  -lshlwapi  -luser32  -lWs2_32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\MSFS_controller.dir
