@@ -12,7 +12,9 @@
       "Bash(dir:*)",
       "Bash(dir \"C:\\MSFS 2024 SDK\\SimConnect SDK\\lib\")",
       "Bash(cmake:*)",
-      "Bash(./MSFS_controller.exe)"
+      "Bash(./MSFS_controller.exe)",
+      "Bash(ninja clean:*)",
+      "Bash(ninja:*)"
     ],
     "deny": [],
     "ask": []

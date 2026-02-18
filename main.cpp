@@ -51,10 +51,13 @@ int main() {
 
     std::cout << "========================================" << std::endl;
     std::cout << "Ready! Bidirectional communication active on COM5" << std::endl;
-    std::cout << "Incoming commands:" << std::endl;
-    std::cout << "  Line 1: Command type (H, VS, A, S)" << std::endl;
-    std::cout << "  Line 2: Value (+, -)" << std::endl;
-    std::cout << "Outgoing updates (format: H120, V500, A5000, S250):" << std::endl;
+    std::cout << "Incoming commands from Arduino (single-line format):" << std::endl;
+    std::cout << "  H 100 - set heading to 100" << std::endl;
+    std::cout << "  S 231 - set speed to 231" << std::endl;
+    std::cout << "  A 13000 - set altitude to 13000" << std::endl;
+    std::cout << "  VS -1000 - set vertical speed to -1000" << std::endl;
+    std::cout << "  X ... - debug log (ignored)" << std::endl;
+    std::cout << "Outgoing updates to Arduino (format: H 120, VS 500, A 5000, S 250):" << std::endl;
     std::cout << "  Every 100ms if values changed" << std::endl;
     std::cout << "  Every 5s full update" << std::endl;
     std::cout << "========================================" << std::endl;

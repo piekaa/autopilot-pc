@@ -9,57 +9,40 @@ AutopilotController::AutopilotController(HANDLE simConnectHandle)
 bool AutopilotController::initialize() {
     HRESULT hr;
 
-    // Map SimConnect events to event IDs (like registering callbacks in Java)
+    // Map SimConnect events to set absolute values
 
-    // Heading events
-    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, EVENT_HEADING_INC, "HEADING_BUG_INC");
+    // Heading set event
+    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, EVENT_HEADING_SET, "HEADING_BUG_SET");
     if (hr != S_OK) {
-        std::cerr << "Failed to map HEADING_BUG_INC event" << std::endl;
+        std::cerr << "Failed to map HEADING_BUG_SET event" << std::endl;
         return false;
     }
 
-    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, EVENT_HEADING_DEC, "HEADING_BUG_DEC");
+    // Vertical Speed set event (in feet per minute)
+    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, EVENT_VS_SET, "AP_VS_VAR_SET_ENGLISH");
     if (hr != S_OK) {
-        std::cerr << "Failed to map HEADING_BUG_DEC event" << std::endl;
+        std::cerr << "Failed to map AP_VS_VAR_SET_ENGLISH event" << std::endl;
         return false;
     }
 
-    // Vertical Speed events
-    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, EVENT_VS_INC, "AP_VS_VAR_INC");
+    // Altitude set event (in feet)
+    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, EVENT_ALT_SET, "AP_ALT_VAR_SET_ENGLISH");
     if (hr != S_OK) {
-        std::cerr << "Failed to map AP_VS_VAR_INC event" << std::endl;
+        std::cerr << "Failed to map AP_ALT_VAR_SET_ENGLISH event" << std::endl;
         return false;
     }
 
-    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, EVENT_VS_DEC, "AP_VS_VAR_DEC");
+    // Airspeed set event (in knots)
+    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, EVENT_SPEED_SET, "AP_SPD_VAR_SET");
     if (hr != S_OK) {
-        std::cerr << "Failed to map AP_VS_VAR_DEC event" << std::endl;
+        std::cerr << "Failed to map AP_SPD_VAR_SET event" << std::endl;
         return false;
     }
 
-    // Altitude events
-    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, EVENT_ALT_INC, "AP_ALT_VAR_INC");
+    // Autopilot master toggle event
+    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, EVENT_AP_MASTER, "AP_MASTER");
     if (hr != S_OK) {
-        std::cerr << "Failed to map AP_ALT_VAR_INC event" << std::endl;
-        return false;
-    }
-
-    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, EVENT_ALT_DEC, "AP_ALT_VAR_DEC");
-    if (hr != S_OK) {
-        std::cerr << "Failed to map AP_ALT_VAR_DEC event" << std::endl;
-        return false;
-    }
-
-    // Airspeed events
-    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, EVENT_SPEED_INC, "AP_SPD_VAR_INC");
-    if (hr != S_OK) {
-        std::cerr << "Failed to map AP_SPD_VAR_INC event" << std::endl;
-        return false;
-    }
-
-    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, EVENT_SPEED_DEC, "AP_SPD_VAR_DEC");
-    if (hr != S_OK) {
-        std::cerr << "Failed to map AP_SPD_VAR_DEC event" << std::endl;
+        std::cerr << "Failed to map AP_MASTER event" << std::endl;
         return false;
     }
 
@@ -67,82 +50,57 @@ bool AutopilotController::initialize() {
     return true;
 }
 
-void AutopilotController::increaseHeading() {
-    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_HEADING_INC, 0, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
-    std::cout << "Command: Heading +" << std::endl;
+void AutopilotController::setHeading(int value) {
+    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_HEADING_SET,
+        value, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
+    std::cout << "Command: Set Heading = " << value << std::endl;
 }
 
-void AutopilotController::decreaseHeading() {
-    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_HEADING_DEC, 0, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
-    std::cout << "Command: Heading -" << std::endl;
+void AutopilotController::setVerticalSpeed(int value) {
+    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_VS_SET,
+        value, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
+    std::cout << "Command: Set Vertical Speed = " << value << " fpm" << std::endl;
 }
 
-void AutopilotController::increaseVerticalSpeed() {
-    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_VS_INC, 0, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
-    std::cout << "Command: Vertical Speed +" << std::endl;
+void AutopilotController::setAltitude(int value) {
+    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_ALT_SET,
+        value, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
+    std::cout << "Command: Set Altitude = " << value << " ft" << std::endl;
 }
 
-void AutopilotController::decreaseVerticalSpeed() {
-    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_VS_DEC, 0, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
-    std::cout << "Command: Vertical Speed -" << std::endl;
+void AutopilotController::setSpeed(int value) {
+    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_SPEED_SET,
+        value, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
+    std::cout << "Command: Set Speed = " << value << " kts" << std::endl;
 }
 
-void AutopilotController::increaseAltitude() {
-    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_ALT_INC, 0, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
-    std::cout << "Command: Altitude +" << std::endl;
+void AutopilotController::toggleAutopilot() {
+    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_AP_MASTER,
+        0, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
+    std::cout << "Command: Toggle Autopilot Master" << std::endl;
 }
 
-void AutopilotController::decreaseAltitude() {
-    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_ALT_DEC, 0, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
-    std::cout << "Command: Altitude -" << std::endl;
-}
-
-void AutopilotController::increaseSpeed() {
-    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_SPEED_INC, 0, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
-    std::cout << "Command: Speed +" << std::endl;
-}
-
-void AutopilotController::decreaseSpeed() {
-    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_SPEED_DEC, 0, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
-    std::cout << "Command: Speed -" << std::endl;
-}
-
-void AutopilotController::processCommand(const std::string& commandType, const std::string& commandValue) {
-    // Process command based on type and value (like a switch statement in Java)
+void AutopilotController::processCommand(const std::string& commandType, int value) {
+    // Process command based on type
     if (commandType == "H") {
-        if (commandValue == "+") {
-            increaseHeading();
-        } else if (commandValue == "-") {
-            decreaseHeading();
-        } else {
-            std::cerr << "Unknown heading command value: " << commandValue << std::endl;
-        }
+        setHeading(value);
     } else if (commandType == "VS") {
-        if (commandValue == "+") {
-            increaseVerticalSpeed();
-        } else if (commandValue == "-") {
-            decreaseVerticalSpeed();
-        } else {
-            std::cerr << "Unknown VS command value: " << commandValue << std::endl;
-        }
+        setVerticalSpeed(value);
     } else if (commandType == "A") {
-        if (commandValue == "+") {
-            increaseAltitude();
-        } else if (commandValue == "-") {
-            decreaseAltitude();
-        } else {
-            std::cerr << "Unknown altitude command value: " << commandValue << std::endl;
-        }
+        setAltitude(value);
     } else if (commandType == "S") {
-        if (commandValue == "+") {
-            increaseSpeed();
-        } else if (commandValue == "-") {
-            decreaseSpeed();
-        } else {
-            std::cerr << "Unknown speed command value: " << commandValue << std::endl;
-        }
+        setSpeed(value);
     } else {
-        // Ignore unknown commands as requested
+        // Ignore unknown commands
+        std::cout << "Ignoring unknown command type: " << commandType << std::endl;
+    }
+}
+
+void AutopilotController::processCommand(const std::string& commandType) {
+    // Process command without value
+    if (commandType == "AP") {
+        toggleAutopilot();
+    } else {
         std::cout << "Ignoring unknown command type: " << commandType << std::endl;
     }
 }

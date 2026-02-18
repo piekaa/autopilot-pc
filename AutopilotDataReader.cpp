@@ -6,8 +6,8 @@
 
 AutopilotDataReader::AutopilotDataReader(HANDLE simConnectHandle, SerialPortReader& serial)
     : hSimConnect(simConnectHandle), serialPort(serial),
-      currentHeading(0.0), currentVerticalSpeed(0.0), currentAltitude(0.0), currentSpeed(0.0),
-      lastSentHeading(-999.0), lastSentVerticalSpeed(-999.0), lastSentAltitude(-999.0), lastSentSpeed(-999.0),
+      currentHeading(0.0), currentVerticalSpeed(0.0), currentAltitude(0.0), currentSpeed(0.0), currentApMaster(0.0),
+      lastSentHeading(-999.0), lastSentVerticalSpeed(-999.0), lastSentAltitude(-999.0), lastSentSpeed(-999.0), lastSentApMaster(-999.0),
       dataReceived(false) {
     // Initialize timing
     lastFullUpdate = std::chrono::steady_clock::now();
@@ -46,6 +46,13 @@ bool AutopilotDataReader::initialize() {
         return false;
     }
 
+    hr = SimConnect_AddToDataDefinition(hSimConnect, DEFINITION_AUTOPILOT_DATA,
+        "AUTOPILOT MASTER", "Bool", SIMCONNECT_DATATYPE_FLOAT64);
+    if (hr != S_OK) {
+        std::cerr << "Failed to add autopilot master definition" << std::endl;
+        return false;
+    }
+
     std::cout << "AutopilotDataReader initialized successfully." << std::endl;
     return true;
 }
@@ -76,6 +83,7 @@ void AutopilotDataReader::processMessage(SIMCONNECT_RECV* pData) {
                 currentVerticalSpeed = apData->verticalSpeed;
                 currentAltitude = apData->altitude;
                 currentSpeed = apData->speed;
+                currentApMaster = apData->apMaster;
 
                 dataReceived = true;
 
@@ -86,7 +94,7 @@ void AutopilotDataReader::processMessage(SIMCONNECT_RECV* pData) {
                 }
 
                 if (hasChanged(currentVerticalSpeed, lastSentVerticalSpeed, 10.0)) {
-                    sendToSerial("V", currentVerticalSpeed);
+                    sendToSerial("VS", currentVerticalSpeed);
                     lastSentVerticalSpeed = currentVerticalSpeed;
                 }
 
@@ -98,6 +106,11 @@ void AutopilotDataReader::processMessage(SIMCONNECT_RECV* pData) {
                 if (hasChanged(currentSpeed, lastSentSpeed, 0.5)) {
                     sendToSerial("S", currentSpeed);
                     lastSentSpeed = currentSpeed;
+                }
+
+                if (hasChanged(currentApMaster, lastSentApMaster, 0.1)) {
+                    sendApStatusToSerial(currentApMaster > 0.5);
+                    lastSentApMaster = currentApMaster;
                 }
             }
             break;
@@ -142,7 +155,7 @@ void AutopilotDataReader::sendAllValues() {
     sendToSerial("H", currentHeading);
     lastSentHeading = currentHeading;
 
-    sendToSerial("V", currentVerticalSpeed);
+    sendToSerial("VS", currentVerticalSpeed);
     lastSentVerticalSpeed = currentVerticalSpeed;
 
     sendToSerial("A", currentAltitude);
@@ -150,6 +163,9 @@ void AutopilotDataReader::sendAllValues() {
 
     sendToSerial("S", currentSpeed);
     lastSentSpeed = currentSpeed;
+
+    sendApStatusToSerial(currentApMaster > 0.5);
+    lastSentApMaster = currentApMaster;
 }
 
 void AutopilotDataReader::sendToSerial(const std::string& type, double value) {
@@ -157,9 +173,9 @@ void AutopilotDataReader::sendToSerial(const std::string& type, double value) {
         return;
     }
 
-    // Convert to integer and format: TypeValue\n (e.g., H120, V500, A5000, S250)
+    // Convert to integer and format: Type Value\n (e.g., H 120, VS 500, A 5000, S 250)
     int intValue = static_cast<int>(std::round(value));
-    std::string message = type + std::to_string(intValue) + "\n";
+    std::string message = type + " " + std::to_string(intValue) + "\n";
 
     // Write to serial port
     DWORD bytesWritten;
@@ -169,6 +185,25 @@ void AutopilotDataReader::sendToSerial(const std::string& type, double value) {
         std::cerr << "Failed to write to serial port" << std::endl;
     } else {
         std::cout << "Sent to serial: " << type << " = " << intValue << std::endl;
+    }
+}
+
+void AutopilotDataReader::sendApStatusToSerial(bool isOn) {
+    if (!serialPort.isConnected()) {
+        return;
+    }
+
+    // Format: AP ON\n or AP OFF\n
+    std::string message = isOn ? "AP ON\n" : "AP OFF\n";
+
+    // Write to serial port
+    DWORD bytesWritten;
+    HANDLE hSerial = serialPort.getHandle();
+
+    if (!WriteFile(hSerial, message.c_str(), message.length(), &bytesWritten, nullptr)) {
+        std::cerr << "Failed to write to serial port" << std::endl;
+    } else {
+        std::cout << "Sent to serial: AP " << (isOn ? "ON" : "OFF") << std::endl;
     }
 }
 

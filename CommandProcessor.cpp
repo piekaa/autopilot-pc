@@ -1,8 +1,9 @@
 #include "CommandProcessor.h"
 #include <iostream>
+#include <sstream>
 
 CommandProcessor::CommandProcessor(SerialPortReader& serial, AutopilotController& ap)
-    : serialPort(serial), autopilot(ap), waitingForValue(false) {
+    : serialPort(serial), autopilot(ap) {
     // Constructor
 }
 
@@ -23,26 +24,47 @@ void CommandProcessor::processIncomingData() {
             return;
         }
 
-        // State machine: first line is command type, second line is value
-        if (!waitingForValue) {
-            // This is the command type line
-            currentCommandType = line;
-            waitingForValue = true;
-            std::cout << "Received command type: " << currentCommandType << std::endl;
-        } else {
-            // This is the command value line
-            std::cout << "Received command value: " << line << std::endl;
-
-            // Process the complete command
-            autopilot.processCommand(currentCommandType, line);
-
-            // Reset state machine for next command
-            reset();
-        }
+        parseCommand(line);
     }
 }
 
-void CommandProcessor::reset() {
-    currentCommandType.clear();
-    waitingForValue = false;
+void CommandProcessor::parseCommand(const std::string& line) {
+    // Parse single-line command: "CMD value" or "CMD SUBCOMMAND"
+    std::istringstream iss(line);
+    std::string command;
+
+    iss >> command;
+
+    // Ignore debug logs that start with X
+    if (command == "X") {
+        std::cout << "Debug log: " << line << std::endl;
+        return;
+    }
+
+    // Check for AP TOGGLE command
+    if (command == "AP") {
+        std::string subcommand;
+        iss >> subcommand;
+
+        if (subcommand == "TOGGLE") {
+            std::cout << "Received command: AP TOGGLE" << std::endl;
+            autopilot.processCommand(command);
+            return;
+        } else {
+            std::cerr << "Invalid AP subcommand: " << subcommand << std::endl;
+            return;
+        }
+    }
+
+    // Read the value for other commands
+    int value;
+    if (!(iss >> value)) {
+        std::cerr << "Invalid command format: " << line << std::endl;
+        return;
+    }
+
+    std::cout << "Received command: " << command << " " << value << std::endl;
+
+    // Process the command
+    autopilot.processCommand(command, value);
 }

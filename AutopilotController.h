@@ -15,14 +15,11 @@ private:
 
     // Event IDs for SimConnect events
     enum EVENT_ID {
-        EVENT_HEADING_INC,
-        EVENT_HEADING_DEC,
-        EVENT_VS_INC,
-        EVENT_VS_DEC,
-        EVENT_ALT_INC,
-        EVENT_ALT_DEC,
-        EVENT_SPEED_INC,
-        EVENT_SPEED_DEC
+        EVENT_HEADING_SET,
+        EVENT_VS_SET,
+        EVENT_ALT_SET,
+        EVENT_SPEED_SET,
+        EVENT_AP_MASTER
     };
 
 public:
@@ -32,18 +29,20 @@ public:
     // Initialize - map events
     bool initialize();
 
-    // Command methods (like Java methods)
-    void increaseHeading();
-    void decreaseHeading();
-    void increaseVerticalSpeed();
-    void decreaseVerticalSpeed();
-    void increaseAltitude();
-    void decreaseAltitude();
-    void increaseSpeed();
-    void decreaseSpeed();
+    // Command methods to set absolute values
+    void setHeading(int value);
+    void setVerticalSpeed(int value);
+    void setAltitude(int value);
+    void setSpeed(int value);
 
-    // Process a command string
-    void processCommand(const std::string& commandType, const std::string& commandValue);
+    // Toggle autopilot master
+    void toggleAutopilot();
+
+    // Process a command with value
+    void processCommand(const std::string& commandType, int value);
+
+    // Process a command without value
+    void processCommand(const std::string& commandType);
 };
 
 #endif // AUTOPILOTCONTROLLER_H

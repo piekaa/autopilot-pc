@@ -21,12 +21,14 @@ private:
     double currentVerticalSpeed;
     double currentAltitude;
     double currentSpeed;
+    double currentApMaster;
 
     // Last sent values (for change detection)
     double lastSentHeading;
     double lastSentVerticalSpeed;
     double lastSentAltitude;
     double lastSentSpeed;
+    double lastSentApMaster;
 
     bool dataReceived;
 
@@ -49,10 +51,12 @@ private:
         double verticalSpeed;
         double altitude;
         double speed;
+        double apMaster;
     };
 
     // Helper methods
     void sendToSerial(const std::string& type, double value);
+    void sendApStatusToSerial(bool isOn);
     bool hasChanged(double current, double last, double threshold = 0.5);
 
 public:
