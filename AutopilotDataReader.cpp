@@ -8,10 +8,10 @@ AutopilotDataReader::AutopilotDataReader(HANDLE simConnectHandle, SerialPortRead
     : hSimConnect(simConnectHandle), serialPort(serial),
       currentHeading(0.0), currentVerticalSpeed(0.0), currentAltitude(0.0), currentSpeed(0.0), currentApMaster(0.0),
       currentHeadingHold(0.0), currentNavHold(0.0), currentAltitudeHold(0.0), currentVsHold(0.0),
-      currentAirspeedHold(0.0), currentFlc(0.0),
+      currentAutoThrottle(0.0), currentFlc(0.0),
       lastSentHeading(-999.0), lastSentVerticalSpeed(-999.0), lastSentAltitude(-999.0), lastSentSpeed(-999.0), lastSentApMaster(-999.0),
       lastSentHeadingHold(-999.0), lastSentNavHold(-999.0), lastSentAltitudeHold(-999.0), lastSentVsHold(-999.0),
-      lastSentAirspeedHold(-999.0), lastSentFlc(-999.0),
+      lastSentAutoThrottle(-999.0), lastSentFlc(-999.0),
       dataReceived(false) {
     // Initialize timing
     lastFullUpdate = std::chrono::steady_clock::now();
@@ -86,9 +86,9 @@ bool AutopilotDataReader::initialize() {
     }
 
     hr = SimConnect_AddToDataDefinition(hSimConnect, DEFINITION_AUTOPILOT_DATA,
-        "AUTOPILOT AIRSPEED HOLD", "Bool", SIMCONNECT_DATATYPE_FLOAT64);
+        "AUTOPILOT THROTTLE ARM", "Bool", SIMCONNECT_DATATYPE_FLOAT64);
     if (hr != S_OK) {
-        std::cerr << "Failed to add autopilot airspeed hold definition" << std::endl;
+        std::cerr << "Failed to add autopilot throttle arm definition" << std::endl;
         return false;
     }
 
@@ -134,7 +134,7 @@ void AutopilotDataReader::processMessage(SIMCONNECT_RECV* pData) {
                 currentNavHold = apData->navHold;
                 currentAltitudeHold = apData->altitudeHold;
                 currentVsHold = apData->vsHold;
-                currentAirspeedHold = apData->airspeedHold;
+                currentAutoThrottle = apData->autoThrottle;
                 currentFlc = apData->flc;
 
                 dataReceived = true;
@@ -185,9 +185,9 @@ void AutopilotDataReader::processMessage(SIMCONNECT_RECV* pData) {
                     lastSentVsHold = currentVsHold;
                 }
 
-                if (hasChanged(currentAirspeedHold, lastSentAirspeedHold, 0.1)) {
-                    sendModeStatusToSerial("AP_SPEED", currentAirspeedHold > 0.5);
-                    lastSentAirspeedHold = currentAirspeedHold;
+                if (hasChanged(currentAutoThrottle, lastSentAutoThrottle, 0.1)) {
+                    sendModeStatusToSerial("AP_SPEED", currentAutoThrottle > 0.5);
+                    lastSentAutoThrottle = currentAutoThrottle;
                 }
 
                 if (hasChanged(currentFlc, lastSentFlc, 0.1)) {
@@ -261,8 +261,8 @@ void AutopilotDataReader::sendAllValues() {
     sendModeStatusToSerial("AP_VS", currentVsHold > 0.5);
     lastSentVsHold = currentVsHold;
 
-    sendModeStatusToSerial("AP_SPEED", currentAirspeedHold > 0.5);
-    lastSentAirspeedHold = currentAirspeedHold;
+    sendModeStatusToSerial("AP_SPEED", currentAutoThrottle > 0.5);
+    lastSentAutoThrottle = currentAutoThrottle;
 
     sendModeStatusToSerial("AP_VNAV", currentFlc > 0.5);
     lastSentFlc = currentFlc;

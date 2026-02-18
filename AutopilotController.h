@@ -24,7 +24,7 @@ private:
         EVENT_AP_NAV1_HOLD,
         EVENT_AP_ALT_HOLD,
         EVENT_AP_VS_HOLD,
-        EVENT_AP_AIRSPEED_HOLD,
+        EVENT_AUTO_THROTTLE_ARM,
         EVENT_AP_FLC
     };
 
@@ -49,7 +49,7 @@ public:
     void toggleNavHold();
     void toggleAltitudeHold();
     void toggleVerticalSpeedHold();
-    void toggleAirspeedHold();
+    void toggleAutoThrottle();
     void toggleFlightLevelChange();
 
     // Process a command with value

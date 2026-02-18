@@ -26,7 +26,7 @@ private:
     double currentNavHold;
     double currentAltitudeHold;
     double currentVsHold;
-    double currentAirspeedHold;
+    double currentAutoThrottle;
     double currentFlc;
 
     // Last sent values (for change detection)
@@ -39,7 +39,7 @@ private:
     double lastSentNavHold;
     double lastSentAltitudeHold;
     double lastSentVsHold;
-    double lastSentAirspeedHold;
+    double lastSentAutoThrottle;
     double lastSentFlc;
 
     bool dataReceived;
@@ -68,7 +68,7 @@ private:
         double navHold;
         double altitudeHold;
         double vsHold;
-        double airspeedHold;
+        double autoThrottle;
         double flc;
     };
 

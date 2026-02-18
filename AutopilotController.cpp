@@ -74,10 +74,10 @@ bool AutopilotController::initialize() {
         return false;
     }
 
-    // Airspeed hold toggle event
-    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, EVENT_AP_AIRSPEED_HOLD, "AP_AIRSPEED_HOLD");
+    // Auto-throttle arm toggle event
+    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, EVENT_AUTO_THROTTLE_ARM, "AUTO_THROTTLE_ARM");
     if (hr != S_OK) {
-        std::cerr << "Failed to map AP_AIRSPEED_HOLD event" << std::endl;
+        std::cerr << "Failed to map AUTO_THROTTLE_ARM event" << std::endl;
         return false;
     }
 
@@ -146,10 +146,10 @@ void AutopilotController::toggleVerticalSpeedHold() {
     std::cout << "Command: Toggle Vertical Speed Hold" << std::endl;
 }
 
-void AutopilotController::toggleAirspeedHold() {
-    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_AP_AIRSPEED_HOLD,
+void AutopilotController::toggleAutoThrottle() {
+    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_AUTO_THROTTLE_ARM,
         0, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
-    std::cout << "Command: Toggle Airspeed Hold" << std::endl;
+    std::cout << "Command: Toggle Auto-Throttle" << std::endl;
 }
 
 void AutopilotController::toggleFlightLevelChange() {
@@ -185,7 +185,7 @@ void AutopilotController::processCommand(const std::string& commandType) {
     } else if (commandType == "AP_VNAV") {
         toggleFlightLevelChange();
     } else if (commandType == "AP_SPEED") {
-        toggleAirspeedHold();
+        toggleAutoThrottle();
     } else if (commandType == "AP_ALTITUDE") {
         toggleAltitudeHold();
     } else if (commandType == "AP_VS") {
