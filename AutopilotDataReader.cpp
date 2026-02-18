@@ -7,7 +7,11 @@
 AutopilotDataReader::AutopilotDataReader(HANDLE simConnectHandle, SerialPortReader& serial)
     : hSimConnect(simConnectHandle), serialPort(serial),
       currentHeading(0.0), currentVerticalSpeed(0.0), currentAltitude(0.0), currentSpeed(0.0), currentApMaster(0.0),
+      currentHeadingHold(0.0), currentNavHold(0.0), currentAltitudeHold(0.0), currentVsHold(0.0),
+      currentAirspeedHold(0.0), currentFlc(0.0),
       lastSentHeading(-999.0), lastSentVerticalSpeed(-999.0), lastSentAltitude(-999.0), lastSentSpeed(-999.0), lastSentApMaster(-999.0),
+      lastSentHeadingHold(-999.0), lastSentNavHold(-999.0), lastSentAltitudeHold(-999.0), lastSentVsHold(-999.0),
+      lastSentAirspeedHold(-999.0), lastSentFlc(-999.0),
       dataReceived(false) {
     // Initialize timing
     lastFullUpdate = std::chrono::steady_clock::now();
@@ -53,6 +57,48 @@ bool AutopilotDataReader::initialize() {
         return false;
     }
 
+    hr = SimConnect_AddToDataDefinition(hSimConnect, DEFINITION_AUTOPILOT_DATA,
+        "AUTOPILOT HEADING LOCK", "Bool", SIMCONNECT_DATATYPE_FLOAT64);
+    if (hr != S_OK) {
+        std::cerr << "Failed to add autopilot heading lock definition" << std::endl;
+        return false;
+    }
+
+    hr = SimConnect_AddToDataDefinition(hSimConnect, DEFINITION_AUTOPILOT_DATA,
+        "AUTOPILOT NAV1 LOCK", "Bool", SIMCONNECT_DATATYPE_FLOAT64);
+    if (hr != S_OK) {
+        std::cerr << "Failed to add autopilot nav1 lock definition" << std::endl;
+        return false;
+    }
+
+    hr = SimConnect_AddToDataDefinition(hSimConnect, DEFINITION_AUTOPILOT_DATA,
+        "AUTOPILOT ALTITUDE LOCK", "Bool", SIMCONNECT_DATATYPE_FLOAT64);
+    if (hr != S_OK) {
+        std::cerr << "Failed to add autopilot altitude lock definition" << std::endl;
+        return false;
+    }
+
+    hr = SimConnect_AddToDataDefinition(hSimConnect, DEFINITION_AUTOPILOT_DATA,
+        "AUTOPILOT VERTICAL HOLD", "Bool", SIMCONNECT_DATATYPE_FLOAT64);
+    if (hr != S_OK) {
+        std::cerr << "Failed to add autopilot vertical hold definition" << std::endl;
+        return false;
+    }
+
+    hr = SimConnect_AddToDataDefinition(hSimConnect, DEFINITION_AUTOPILOT_DATA,
+        "AUTOPILOT AIRSPEED HOLD", "Bool", SIMCONNECT_DATATYPE_FLOAT64);
+    if (hr != S_OK) {
+        std::cerr << "Failed to add autopilot airspeed hold definition" << std::endl;
+        return false;
+    }
+
+    hr = SimConnect_AddToDataDefinition(hSimConnect, DEFINITION_AUTOPILOT_DATA,
+        "AUTOPILOT FLIGHT LEVEL CHANGE", "Bool", SIMCONNECT_DATATYPE_FLOAT64);
+    if (hr != S_OK) {
+        std::cerr << "Failed to add autopilot flight level change definition" << std::endl;
+        return false;
+    }
+
     std::cout << "AutopilotDataReader initialized successfully." << std::endl;
     return true;
 }
@@ -84,6 +130,12 @@ void AutopilotDataReader::processMessage(SIMCONNECT_RECV* pData) {
                 currentAltitude = apData->altitude;
                 currentSpeed = apData->speed;
                 currentApMaster = apData->apMaster;
+                currentHeadingHold = apData->headingHold;
+                currentNavHold = apData->navHold;
+                currentAltitudeHold = apData->altitudeHold;
+                currentVsHold = apData->vsHold;
+                currentAirspeedHold = apData->airspeedHold;
+                currentFlc = apData->flc;
 
                 dataReceived = true;
 
@@ -111,6 +163,36 @@ void AutopilotDataReader::processMessage(SIMCONNECT_RECV* pData) {
                 if (hasChanged(currentApMaster, lastSentApMaster, 0.1)) {
                     sendApStatusToSerial(currentApMaster > 0.5);
                     lastSentApMaster = currentApMaster;
+                }
+
+                if (hasChanged(currentHeadingHold, lastSentHeadingHold, 0.1)) {
+                    sendModeStatusToSerial("AP_HEADING", currentHeadingHold > 0.5);
+                    lastSentHeadingHold = currentHeadingHold;
+                }
+
+                if (hasChanged(currentNavHold, lastSentNavHold, 0.1)) {
+                    sendModeStatusToSerial("AP_LNAV", currentNavHold > 0.5);
+                    lastSentNavHold = currentNavHold;
+                }
+
+                if (hasChanged(currentAltitudeHold, lastSentAltitudeHold, 0.1)) {
+                    sendModeStatusToSerial("AP_ALTITUDE", currentAltitudeHold > 0.5);
+                    lastSentAltitudeHold = currentAltitudeHold;
+                }
+
+                if (hasChanged(currentVsHold, lastSentVsHold, 0.1)) {
+                    sendModeStatusToSerial("AP_VS", currentVsHold > 0.5);
+                    lastSentVsHold = currentVsHold;
+                }
+
+                if (hasChanged(currentAirspeedHold, lastSentAirspeedHold, 0.1)) {
+                    sendModeStatusToSerial("AP_SPEED", currentAirspeedHold > 0.5);
+                    lastSentAirspeedHold = currentAirspeedHold;
+                }
+
+                if (hasChanged(currentFlc, lastSentFlc, 0.1)) {
+                    sendModeStatusToSerial("AP_VNAV", currentFlc > 0.5);
+                    lastSentFlc = currentFlc;
                 }
             }
             break;
@@ -166,6 +248,24 @@ void AutopilotDataReader::sendAllValues() {
 
     sendApStatusToSerial(currentApMaster > 0.5);
     lastSentApMaster = currentApMaster;
+
+    sendModeStatusToSerial("AP_HEADING", currentHeadingHold > 0.5);
+    lastSentHeadingHold = currentHeadingHold;
+
+    sendModeStatusToSerial("AP_LNAV", currentNavHold > 0.5);
+    lastSentNavHold = currentNavHold;
+
+    sendModeStatusToSerial("AP_ALTITUDE", currentAltitudeHold > 0.5);
+    lastSentAltitudeHold = currentAltitudeHold;
+
+    sendModeStatusToSerial("AP_VS", currentVsHold > 0.5);
+    lastSentVsHold = currentVsHold;
+
+    sendModeStatusToSerial("AP_SPEED", currentAirspeedHold > 0.5);
+    lastSentAirspeedHold = currentAirspeedHold;
+
+    sendModeStatusToSerial("AP_VNAV", currentFlc > 0.5);
+    lastSentFlc = currentFlc;
 }
 
 void AutopilotDataReader::sendToSerial(const std::string& type, double value) {
@@ -204,6 +304,25 @@ void AutopilotDataReader::sendApStatusToSerial(bool isOn) {
         std::cerr << "Failed to write to serial port" << std::endl;
     } else {
         std::cout << "Sent to serial: AP " << (isOn ? "ON" : "OFF") << std::endl;
+    }
+}
+
+void AutopilotDataReader::sendModeStatusToSerial(const std::string& mode, bool isOn) {
+    if (!serialPort.isConnected()) {
+        return;
+    }
+
+    // Format: AP_HEADING ON\n or AP_HEADING OFF\n
+    std::string message = mode + (isOn ? " ON\n" : " OFF\n");
+
+    // Write to serial port
+    DWORD bytesWritten;
+    HANDLE hSerial = serialPort.getHandle();
+
+    if (!WriteFile(hSerial, message.c_str(), message.length(), &bytesWritten, nullptr)) {
+        std::cerr << "Failed to write to serial port" << std::endl;
+    } else {
+        std::cout << "Sent to serial: " << mode << " " << (isOn ? "ON" : "OFF") << std::endl;
     }
 }
 

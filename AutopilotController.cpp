@@ -46,6 +46,48 @@ bool AutopilotController::initialize() {
         return false;
     }
 
+    // Heading hold toggle event
+    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, EVENT_AP_HDG_HOLD, "AP_HDG_HOLD");
+    if (hr != S_OK) {
+        std::cerr << "Failed to map AP_HDG_HOLD event" << std::endl;
+        return false;
+    }
+
+    // Nav hold (LNAV) toggle event
+    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, EVENT_AP_NAV1_HOLD, "AP_NAV1_HOLD");
+    if (hr != S_OK) {
+        std::cerr << "Failed to map AP_NAV1_HOLD event" << std::endl;
+        return false;
+    }
+
+    // Altitude hold toggle event
+    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, EVENT_AP_ALT_HOLD, "AP_ALT_HOLD");
+    if (hr != S_OK) {
+        std::cerr << "Failed to map AP_ALT_HOLD event" << std::endl;
+        return false;
+    }
+
+    // Vertical speed hold toggle event
+    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, EVENT_AP_VS_HOLD, "AP_VS_HOLD");
+    if (hr != S_OK) {
+        std::cerr << "Failed to map AP_VS_HOLD event" << std::endl;
+        return false;
+    }
+
+    // Airspeed hold toggle event
+    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, EVENT_AP_AIRSPEED_HOLD, "AP_AIRSPEED_HOLD");
+    if (hr != S_OK) {
+        std::cerr << "Failed to map AP_AIRSPEED_HOLD event" << std::endl;
+        return false;
+    }
+
+    // Flight level change (VNAV) toggle event
+    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, EVENT_AP_FLC, "FLIGHT_LEVEL_CHANGE");
+    if (hr != S_OK) {
+        std::cerr << "Failed to map FLIGHT_LEVEL_CHANGE event" << std::endl;
+        return false;
+    }
+
     std::cout << "AutopilotController initialized successfully." << std::endl;
     return true;
 }
@@ -80,6 +122,42 @@ void AutopilotController::toggleAutopilot() {
     std::cout << "Command: Toggle Autopilot Master" << std::endl;
 }
 
+void AutopilotController::toggleHeadingHold() {
+    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_AP_HDG_HOLD,
+        0, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
+    std::cout << "Command: Toggle Heading Hold" << std::endl;
+}
+
+void AutopilotController::toggleNavHold() {
+    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_AP_NAV1_HOLD,
+        0, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
+    std::cout << "Command: Toggle Nav Hold (LNAV)" << std::endl;
+}
+
+void AutopilotController::toggleAltitudeHold() {
+    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_AP_ALT_HOLD,
+        0, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
+    std::cout << "Command: Toggle Altitude Hold" << std::endl;
+}
+
+void AutopilotController::toggleVerticalSpeedHold() {
+    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_AP_VS_HOLD,
+        0, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
+    std::cout << "Command: Toggle Vertical Speed Hold" << std::endl;
+}
+
+void AutopilotController::toggleAirspeedHold() {
+    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_AP_AIRSPEED_HOLD,
+        0, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
+    std::cout << "Command: Toggle Airspeed Hold" << std::endl;
+}
+
+void AutopilotController::toggleFlightLevelChange() {
+    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_AP_FLC,
+        0, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
+    std::cout << "Command: Toggle Flight Level Change (VNAV)" << std::endl;
+}
+
 void AutopilotController::processCommand(const std::string& commandType, int value) {
     // Process command based on type
     if (commandType == "H") {
@@ -100,6 +178,18 @@ void AutopilotController::processCommand(const std::string& commandType) {
     // Process command without value
     if (commandType == "AP") {
         toggleAutopilot();
+    } else if (commandType == "AP_HEADING") {
+        toggleHeadingHold();
+    } else if (commandType == "AP_LNAV") {
+        toggleNavHold();
+    } else if (commandType == "AP_VNAV") {
+        toggleFlightLevelChange();
+    } else if (commandType == "AP_SPEED") {
+        toggleAirspeedHold();
+    } else if (commandType == "AP_ALTITUDE") {
+        toggleAltitudeHold();
+    } else if (commandType == "AP_VS") {
+        toggleVerticalSpeedHold();
     } else {
         std::cout << "Ignoring unknown command type: " << commandType << std::endl;
     }

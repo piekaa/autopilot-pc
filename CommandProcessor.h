@@ -13,6 +13,13 @@
  *         S 231 - set speed to 231
  *         A 13000 - set altitude to 13000
  *         VS -1000 - set vertical speed to -1000
+ *         AP TOGGLE - toggle autopilot master
+ *         AP_HEADING TOGGLE - toggle heading hold mode
+ *         AP_VNAV TOGGLE - toggle VNAV mode
+ *         AP_LNAV TOGGLE - toggle LNAV mode
+ *         AP_SPEED TOGGLE - toggle speed/auto-throttle control
+ *         AP_ALTITUDE TOGGLE - toggle altitude hold mode
+ *         AP_VS TOGGLE - toggle vertical speed mode
  *         X ... - debug log (ignored)
  */
 class CommandProcessor {

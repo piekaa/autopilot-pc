@@ -41,17 +41,19 @@ void CommandProcessor::parseCommand(const std::string& line) {
         return;
     }
 
-    // Check for AP TOGGLE command
-    if (command == "AP") {
+    // Check for toggle commands (AP, AP_HEADING, AP_VNAV, AP_LNAV, AP_SPEED, AP_ALTITUDE, AP_VS)
+    if (command == "AP" || command == "AP_HEADING" || command == "AP_VNAV" ||
+        command == "AP_LNAV" || command == "AP_SPEED" || command == "AP_ALTITUDE" ||
+        command == "AP_VS") {
         std::string subcommand;
         iss >> subcommand;
 
         if (subcommand == "TOGGLE") {
-            std::cout << "Received command: AP TOGGLE" << std::endl;
+            std::cout << "Received command: " << command << " TOGGLE" << std::endl;
             autopilot.processCommand(command);
             return;
         } else {
-            std::cerr << "Invalid AP subcommand: " << subcommand << std::endl;
+            std::cerr << "Invalid " << command << " subcommand: " << subcommand << std::endl;
             return;
         }
     }

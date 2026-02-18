@@ -22,6 +22,12 @@ private:
     double currentAltitude;
     double currentSpeed;
     double currentApMaster;
+    double currentHeadingHold;
+    double currentNavHold;
+    double currentAltitudeHold;
+    double currentVsHold;
+    double currentAirspeedHold;
+    double currentFlc;
 
     // Last sent values (for change detection)
     double lastSentHeading;
@@ -29,6 +35,12 @@ private:
     double lastSentAltitude;
     double lastSentSpeed;
     double lastSentApMaster;
+    double lastSentHeadingHold;
+    double lastSentNavHold;
+    double lastSentAltitudeHold;
+    double lastSentVsHold;
+    double lastSentAirspeedHold;
+    double lastSentFlc;
 
     bool dataReceived;
 
@@ -52,11 +64,18 @@ private:
         double altitude;
         double speed;
         double apMaster;
+        double headingHold;
+        double navHold;
+        double altitudeHold;
+        double vsHold;
+        double airspeedHold;
+        double flc;
     };
 
     // Helper methods
     void sendToSerial(const std::string& type, double value);
     void sendApStatusToSerial(bool isOn);
+    void sendModeStatusToSerial(const std::string& mode, bool isOn);
     bool hasChanged(double current, double last, double threshold = 0.5);
 
 public:

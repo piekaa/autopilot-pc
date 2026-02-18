@@ -29,3 +29,8 @@
 2	1456	7931327209587153	CMakeFiles/MSFS_controller.dir/main.cpp.obj	1575f00b257573a0
 12	1574	7931327210788150	CMakeFiles/MSFS_controller.dir/AutopilotDataReader.cpp.obj	6f8c9c8a98a2e318
 1574	1725	7931327211869719	MSFS_controller.exe	6f410c568ea438c8
+9	1284	7931492631778995	CMakeFiles/MSFS_controller.dir/AutopilotController.cpp.obj	faf6dcd05c759703
+15	1381	7931492632738071	CMakeFiles/MSFS_controller.dir/CommandProcessor.cpp.obj	fbc1b62adedfa7c8
+4	1664	7931492635570534	CMakeFiles/MSFS_controller.dir/main.cpp.obj	1575f00b257573a0
+17	1705	7931492635977767	CMakeFiles/MSFS_controller.dir/AutopilotDataReader.cpp.obj	6f8c9c8a98a2e318
+1705	2150	7931492639731189	MSFS_controller.exe	6f410c568ea438c8
