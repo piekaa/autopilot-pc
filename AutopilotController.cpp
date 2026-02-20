@@ -81,6 +81,20 @@ bool AutopilotController::initialize() {
         return false;
     }
 
+    // Auto-throttle arm toggle event
+    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, AP_PANEL_SPEED_ON, "AP_PANEL_SPEED_HOLD");
+    if (hr != S_OK) {
+        std::cerr << "Failed to map AP_AIRSPEED_ON event" << std::endl;
+        return false;
+    }
+
+    // Auto-throttle arm toggle event
+    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, AP_SPEED_SLOT_INDEX_SET, "SPEED_SLOT_INDEX_SET");
+    if (hr != S_OK) {
+        std::cerr << "Failed to map AP_AIRSPEED_ON event" << std::endl;
+        return false;
+    }
+
     // Flight level change (VNAV) toggle event
     hr = SimConnect_MapClientEventToSimEvent(hSimConnect, EVENT_AP_FLC, "FLIGHT_LEVEL_CHANGE");
     if (hr != S_OK) {
@@ -105,8 +119,17 @@ void AutopilotController::setVerticalSpeed(int value) {
 }
 
 void AutopilotController::setAltitude(int value) {
-    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_ALT_SET,
-        value, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
+    SimConnect_TransmitClientEvent_EX1(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_ALT_SET,
+        SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY, value);
+
+    SimConnect_TransmitClientEvent_EX1(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_ALT_SET,
+                                       SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY, value, 1);
+
+    SimConnect_TransmitClientEvent_EX1(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_ALT_SET,
+                                       SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY, value, 2);
+
+    SimConnect_TransmitClientEvent_EX1(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_ALT_SET,
+                                       SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY, value, 3);
     std::cout << "Command: Set Altitude = " << value << " ft" << std::endl;
 }
 
@@ -147,9 +170,17 @@ void AutopilotController::toggleVerticalSpeedHold() {
 }
 
 void AutopilotController::toggleAutoThrottle() {
-    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_AUTO_THROTTLE_ARM,
-        0, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
-    std::cout << "Command: Toggle Auto-Throttle" << std::endl;
+//    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_AUTO_THROTTLE_ARM,
+//        0, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
+//    std::cout << "Command: Toggle Auto-Throttle" << std::endl;
+
+    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, AP_SPEED_SLOT_INDEX_SET,
+                                   4, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
+    std::cout << "Command: Enable Airspeed" << std::endl;
+
+    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, AP_PANEL_SPEED_ON,
+                                   0, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
+    std::cout << "Command: Enable Airspeed" << std::endl;
 }
 
 void AutopilotController::toggleFlightLevelChange() {

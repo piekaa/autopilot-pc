@@ -14,7 +14,8 @@
       "Bash(cmake:*)",
       "Bash(./MSFS_controller.exe)",
       "Bash(ninja clean:*)",
-      "Bash(ninja:*)"
+      "Bash(ninja:*)",
+      "WebFetch(domain:devsupport.flightsimulator.com)"
     ],
     "deny": [],
     "ask": []

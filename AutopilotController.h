@@ -25,6 +25,8 @@ private:
         EVENT_AP_ALT_HOLD,
         EVENT_AP_VS_HOLD,
         EVENT_AUTO_THROTTLE_ARM,
+        AP_SPEED_SLOT_INDEX_SET,
+        AP_PANEL_SPEED_ON,
         EVENT_AP_FLC
     };
 
