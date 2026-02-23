@@ -12,7 +12,7 @@
  * Main entry point - Java style with clear flow
  * Now with bidirectional serial port control for autopilot!
  */
-int main() {
+int mainn() {
     std::cout << "=== MSFS SimConnect Autopilot Controller ===" << std::endl;
     std::cout << "Connecting to Microsoft Flight Simulator 2024..." << std::endl;
 
@@ -56,6 +56,7 @@ int main() {
     std::cout << "  S 231 - set speed to 231" << std::endl;
     std::cout << "  A 13000 - set altitude to 13000" << std::endl;
     std::cout << "  VS -1000 - set vertical speed to -1000" << std::endl;
+    std::cout << "  FCC_SPEED - enable 737 speed mode (InputEvent API)" << std::endl;
     std::cout << "  X ... - debug log (ignored)" << std::endl;
     std::cout << "Outgoing updates to Arduino (format: H 120, VS 500, A 5000, S 250):" << std::endl;
     std::cout << "  Every 100ms if values changed" << std::endl;
@@ -76,8 +77,18 @@ int main() {
         DWORD cbData;
         SIMCONNECT_RECV* pData;
         while (SimConnect_GetNextDispatch(client.getHandle(), &pData, &cbData) == S_OK) {
-            // Let data reader process its messages
-            dataReader.processMessage(pData);
+            // Check message type
+            switch (pData->dwID) {
+                case SIMCONNECT_RECV_ID_ENUMERATE_INPUT_EVENTS:
+                    // Handle InputEvent enumeration responses
+                    autopilot.processInputEventEnumeration((SIMCONNECT_RECV_ENUMERATE_INPUT_EVENTS*)pData);
+                    break;
+
+                default:
+                    // Let data reader process other messages (like simobject data)
+                    dataReader.processMessage(pData);
+                    break;
+            }
         }
 
         // Small sleep to avoid burning CPU (like Thread.sleep in Java)

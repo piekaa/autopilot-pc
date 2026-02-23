@@ -1,8 +1,10 @@
 #include "AutopilotController.h"
 #include <iostream>
+#include <chrono>
+#include <thread>
 
 AutopilotController::AutopilotController(HANDLE simConnectHandle)
-    : hSimConnect(simConnectHandle) {
+    : hSimConnect(simConnectHandle), fccSpeedHash(0), fccSpeedHashFound(false) {
     // Constructor
 }
 
@@ -81,17 +83,16 @@ bool AutopilotController::initialize() {
         return false;
     }
 
-    // Auto-throttle arm toggle event
-    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, AP_PANEL_SPEED_ON, "AP_PANEL_SPEED_HOLD");
+    // Speed hold events (for 737 compatibility)
+    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, AP_PANEL_SPEED_ON, "AP_PANEL_SPEED_ON");
     if (hr != S_OK) {
-        std::cerr << "Failed to map AP_AIRSPEED_ON event" << std::endl;
+        std::cerr << "Failed to map AP_PANEL_SPEED_ON event" << std::endl;
         return false;
     }
 
-    // Auto-throttle arm toggle event
-    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, AP_SPEED_SLOT_INDEX_SET, "SPEED_SLOT_INDEX_SET");
+    hr = SimConnect_MapClientEventToSimEvent(hSimConnect, AP_SPEED_SLOT_INDEX_SET, "AP_AIRSPEED_HOLD");
     if (hr != S_OK) {
-        std::cerr << "Failed to map AP_AIRSPEED_ON event" << std::endl;
+        std::cerr << "Failed to map AP_AIRSPEED_HOLD event" << std::endl;
         return false;
     }
 
@@ -103,6 +104,14 @@ bool AutopilotController::initialize() {
     }
 
     std::cout << "AutopilotController initialized successfully." << std::endl;
+
+    // Enumerate InputEvents to find FCC_SPEED for 737 compatibility
+    std::cout << "Enumerating InputEvents for aircraft-specific controls..." << std::endl;
+    hr = SimConnect_EnumerateInputEvents(hSimConnect, REQUEST_ENUMERATE_INPUT_EVENTS);
+    if (hr != S_OK) {
+        std::cerr << "Warning: Failed to enumerate InputEvents (this is normal if aircraft doesn't support it)" << std::endl;
+    }
+
     return true;
 }
 
@@ -134,9 +143,14 @@ void AutopilotController::setAltitude(int value) {
 }
 
 void AutopilotController::setSpeed(int value) {
+    // AP_SPD_VAR_SET requires two parameters: speed in knots and slot index (0-4)
+    // Slot index: 0 = all slots, 1-4 = specific managed speed slots
+    // Using slot 0 to set all managed speed references
+    DWORD combinedValue = MAKELONG(value, 0); // speed in low word, slot index (0) in high word
+
     SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_SPEED_SET,
-        value, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
-    std::cout << "Command: Set Speed = " << value << " kts" << std::endl;
+        combinedValue, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
+    std::cout << "Command: Set Speed = " << value << " kts (slot 0)" << std::endl;
 }
 
 void AutopilotController::toggleAutopilot() {
@@ -170,17 +184,15 @@ void AutopilotController::toggleVerticalSpeedHold() {
 }
 
 void AutopilotController::toggleAutoThrottle() {
-//    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_AUTO_THROTTLE_ARM,
-//        0, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
-//    std::cout << "Command: Toggle Auto-Throttle" << std::endl;
+    // For 737: Sequence to enable autothrottle speed mode
+    // 1. Arm autothrottle
+    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, EVENT_AUTO_THROTTLE_ARM,
+        0, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
+    std::cout << "Command: Arm Auto-Throttle" << std::endl;
 
-    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, AP_SPEED_SLOT_INDEX_SET,
-                                   4, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
-    std::cout << "Command: Enable Airspeed" << std::endl;
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
-    SimConnect_TransmitClientEvent(hSimConnect, SIMCONNECT_OBJECT_ID_USER, AP_PANEL_SPEED_ON,
-                                   0, SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG_GROUPID_IS_PRIORITY);
-    std::cout << "Command: Enable Airspeed" << std::endl;
+    triggerFccSpeed();
 }
 
 void AutopilotController::toggleFlightLevelChange() {
@@ -223,5 +235,57 @@ void AutopilotController::processCommand(const std::string& commandType) {
         toggleVerticalSpeedHold();
     } else {
         std::cout << "Ignoring unknown command type: " << commandType << std::endl;
+    }
+}
+
+void AutopilotController::processInputEventEnumeration(SIMCONNECT_RECV_ENUMERATE_INPUT_EVENTS* pData) {
+    // Process enumerated InputEvents to find FCC_SPEED
+    std::cout << "Processing InputEvent enumeration batch (RequestID: " << pData->dwRequestID
+              << ", Entry count: " << pData->dwEntryNumber << "/" << pData->dwOutOf << ")" << std::endl;
+
+    // Iterate through all InputEvent descriptors in this batch
+    for (DWORD i = 0; i < pData->dwArraySize; i++) {
+        SIMCONNECT_INPUT_EVENT_DESCRIPTOR* descriptor = &pData->rgData[i];
+        std::string eventName(descriptor->Name);
+
+        std::cout << "  Found InputEvent: " << eventName << " (hash: " << descriptor->Hash << ")" << std::endl;
+
+        // Check if this is FCC_SPEED
+        if (eventName == "FCC_SPEED") {
+            fccSpeedHash = descriptor->Hash;
+            fccSpeedHashFound = true;
+            std::cout << "*** Found FCC_SPEED InputEvent! Hash: " << fccSpeedHash << " ***" << std::endl;
+        }
+    }
+
+    // Log completion when we've received all batches
+    if (pData->dwEntryNumber == pData->dwOutOf - 1) {
+        std::cout << "InputEvent enumeration complete." << std::endl;
+        if (fccSpeedHashFound) {
+            std::cout << "FCC_SPEED is available for this aircraft." << std::endl;
+        } else {
+            std::cout << "FCC_SPEED not found - this aircraft may not support it." << std::endl;
+        }
+    }
+}
+
+void AutopilotController::triggerFccSpeed() {
+    if (!fccSpeedHashFound) {
+        std::cerr << "Error: FCC_SPEED InputEvent not available for this aircraft." << std::endl;
+        std::cerr << "       Make sure you're in a 737 and SimConnect has enumerated InputEvents." << std::endl;
+        return;
+    }
+
+    std::cout << "Triggering FCC_SPEED InputEvent (hash: " << fccSpeedHash << ")" << std::endl;
+
+    // Set FCC_SPEED to 1.0 to enable speed mode
+    // Based on 737 behavior, setting FCC_SPEED to 1.0 activates the speed mode
+    double value = 1.0;
+    HRESULT hr = SimConnect_SetInputEvent(hSimConnect, fccSpeedHash, sizeof(value), &value);
+
+    if (hr == S_OK) {
+        std::cout << "Successfully triggered FCC_SPEED InputEvent." << std::endl;
+    } else {
+        std::cerr << "Failed to trigger FCC_SPEED InputEvent (HRESULT: " << hr << ")" << std::endl;
     }
 }

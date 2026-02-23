@@ -1,5 +1,6 @@
 #include "SimConnectClient.h"
 #include <iostream>
+#include <SimConnect.h>
 
 SimConnectClient::SimConnectClient() : hSimConnect(nullptr), connected(false) {
     // Constructor - initialize member variables

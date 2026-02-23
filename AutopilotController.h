@@ -30,6 +30,15 @@ private:
         EVENT_AP_FLC
     };
 
+    // Request IDs for SimConnect requests
+    enum REQUEST_ID {
+        REQUEST_ENUMERATE_INPUT_EVENTS = 1000
+    };
+
+    // InputEvent hash storage
+    UINT64 fccSpeedHash;
+    bool fccSpeedHashFound;
+
 public:
     // Constructor
     AutopilotController(HANDLE simConnectHandle);
@@ -53,6 +62,13 @@ public:
     void toggleVerticalSpeedHold();
     void toggleAutoThrottle();
     void toggleFlightLevelChange();
+
+    // Enhanced speed control for 737 compatibility
+    void enableSpeedModeAndSet(int speedKnots);
+
+    // InputEvent API methods for 737 FCC_SPEED control
+    void processInputEventEnumeration(SIMCONNECT_RECV_ENUMERATE_INPUT_EVENTS* pData);
+    void triggerFccSpeed();
 
     // Process a command with value
     void processCommand(const std::string& commandType, int value);
