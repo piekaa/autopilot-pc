@@ -18,34 +18,18 @@ public:
             std::cerr << "Failed to map " << fieldName << " event" << std::endl;
         }
     }
-    static AutopilotValues* readAutopilot(HANDLE *connection) {
-        HRESULT hr = SimConnect_RequestDataOnSimObject(
-            *connection,
-            0,
-            0,
-            SIMCONNECT_OBJECT_ID_USER,
-            SIMCONNECT_PERIOD_ONCE
-        );
 
-        if (hr != S_OK) {
-            std::cerr << "Failed to request autopilot data" << std::endl;
-        }
-
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-
+    static AutopilotValues* readAutopilotData(HANDLE *connection) {
         DWORD cbData;
         SIMCONNECT_RECV *pData;
         if (SUCCEEDED(SimConnect_GetNextDispatch(*connection, &pData, &cbData))) {
-            std::cout << "Did read successfuly next dispatch" << std::endl;
         } else {
-            std::cout << "Failed to read next dispach" << std::endl;
             return nullptr;
         }
 
 
         switch (pData->dwID) {
             case SIMCONNECT_RECV_ID_SIMOBJECT_DATA: {
-                std::cout << "Autopilot data received" << std::endl;
                 auto *pObjData = (SIMCONNECT_RECV_SIMOBJECT_DATA *) pData;
 
                 if (pObjData->dwRequestID == 0) {
@@ -62,6 +46,10 @@ public:
                 break;
             }
 
+            case SIMCONNECT_RECV_ID_OPEN: {
+                break;
+            }
+
             default: {
                 std::cout << "Unexpected type of message in registerAutopilotField: " << pData->dwID << std::endl;
                 break;
@@ -69,6 +57,20 @@ public:
         }
 
         return nullptr;
+    }
+
+    static void requestAutopilotData(HANDLE *connection) {
+        HRESULT hr = SimConnect_RequestDataOnSimObject(
+           *connection,
+           0,
+           0,
+           SIMCONNECT_OBJECT_ID_USER,
+           SIMCONNECT_PERIOD_ONCE
+       );
+
+        if (hr != S_OK) {
+            std::cerr << "Failed to request autopilot data" << std::endl;
+        }
     }
 };
 
