@@ -4,16 +4,19 @@
 #include <Windows.h>
 #include <SimConnect.h>
 
-#include "SimConnect.h"
-#include "SimConnectReadonlyField.h"
+#include "AutopilotValues.h"
+#include "SdkConnection.h"
 
 class AutopilotReader {
     HANDLE* connection;
 public:
     AutopilotReader(HANDLE* connection) {
         this->connection = connection;
+        SdkConnection::registerAutopilotField(connection, "AUTOPILOT HEADING LOCK DIR", "degrees");
+    }
 
-        auto heading = SimConnect::registerField(connection, "AUTOPILOT HEADING LOCK DIR", "degrees");
+    AutopilotValues* read() {
+        return SdkConnection::readAutopilot(connection);
     }
 };
 

@@ -28,8 +28,8 @@ add_executable(MSFS_controller
     AutopilotDataReader.h
         NewMain.cpp GameClient.h
         AutopilotReader.h
-        SimConnect.h
-        SimConnectReadonlyField.h)
+        SdkConnection.h
+        AutopilotValues.h)
 
 # Link against SimConnect and Windows libraries
 target_link_libraries(MSFS_controller
