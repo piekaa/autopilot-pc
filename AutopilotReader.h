@@ -8,7 +8,7 @@
 #include <chrono>
 
 #include "AutopilotValues.h"
-#include "SdkConnection.h"
+#include "SdkReadConnection.h"
 
 class AutopilotReader {
     HANDLE* connection;
@@ -27,13 +27,13 @@ class AutopilotReader {
             auto currentTime = steady_clock::now();
 
             if (duration_cast<milliseconds>(currentTime - lastRequestTime) >= requestInterval) {
-                SdkConnection::requestAutopilotData(connection);
+                SdkReadConnection::requestAutopilotData(connection);
                 lastRequestTime = currentTime;
             }
 
             {
                 std::lock_guard lock(dataMutex);
-                auto data = SdkConnection::readAutopilotData(connection);
+                auto data = SdkReadConnection::readAutopilotData(connection);
                 if (data) {
                     lastValues =  data;
                 }
@@ -47,7 +47,7 @@ public:
         this->connection = connection;
         this->running = false;
         this->lastValues = new AutopilotValues();
-        SdkConnection::registerAutopilotField(connection, "AUTOPILOT HEADING LOCK DIR", "degrees");
+        SdkReadConnection::registerAutopilotField(connection, "AUTOPILOT HEADING LOCK DIR", "degrees");
         this->running = true;
         this->workerThread = std::thread(&AutopilotReader::threadLoop, this);
     }
@@ -57,6 +57,7 @@ public:
         if (workerThread.joinable()) {
             workerThread.join();
         }
+        delete lastValues;
     }
 
     AutopilotValues* read() {

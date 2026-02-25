@@ -7,7 +7,7 @@
 #include <chrono>
 
 
-class SdkConnection {
+class SdkReadConnection {
 public:
     static void registerAutopilotField(HANDLE *connection, std::string fieldName, std::string units) {
         auto hr = SimConnect_AddToDataDefinition(*connection,
