@@ -4,15 +4,19 @@
 #include <iostream>
 #include <Windows.h>
 #include <SimConnect.h>
+#include <string>
 
 class GameClient {
     HANDLE* connection = new HANDLE();
 public:
     GameClient() {
+        // Create connection name with a simple ID
+        std::string connectionName = "Piekoszek: " + std::to_string(GetTickCount64());
+
         HRESULT hr = SimConnect_Open(
-               connection,
-               "Piekoszek Autopilot",
-               nullptr,
+            connection,
+            connectionName.c_str(),
+            nullptr,
                0,
                nullptr,
                0

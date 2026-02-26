@@ -19,8 +19,8 @@ class AutopilotReader {
 
     void threadLoop() {
         using namespace std::chrono;
-        auto lastRequestTime = steady_clock::now();
         const milliseconds requestInterval(200);
+        auto lastRequestTime = steady_clock::now() - requestInterval;
         const milliseconds readInterval(50);
 
         while (running) {
