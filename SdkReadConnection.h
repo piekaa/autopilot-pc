@@ -4,7 +4,6 @@
 #include <SimConnect.h>
 #include <iostream>
 #include <thread>
-#include <chrono>
 
 
 class SdkReadConnection {
@@ -48,7 +47,7 @@ public:
                 if (pObjData->dwRequestID == 0) {
                     auto* autopilotData = (AutopilotValues*)&pObjData->dwData;
 
-                    return autopilotData;
+                    return new AutopilotValues(*autopilotData);
                 }
                 break;
             }

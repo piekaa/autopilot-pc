@@ -34,7 +34,9 @@ add_executable(MSFS_controller
         AutopilotWriteField.h
         SdkWriteConnection.h
         AutopilotManager.h
-        AircraftNameProvider.h)
+        AircraftNameProvider.h
+        aircrafts/AutopilotWriter747.h
+)
 
 # Link against SimConnect and Windows libraries
 target_link_libraries(MSFS_controller

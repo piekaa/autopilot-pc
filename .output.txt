@@ -1,0 +1,396 @@
+
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        19.02.2026     19:28                .claude
+d-----        27.02.2026     16:19                .idea
+d-----        27.02.2026     16:22                aircrafts
+d-----         8.12.2025     15:38                build
+d-----        27.02.2026     16:17                cmake-build-debug
+-a----        26.02.2026     19:57           2206 AircraftNameProvider.h
+-a----        20.02.2026     14:49          12582 AutopilotController.cpp
+-a----        20.02.2026     14:36           2081 AutopilotController.h
+-a----        26.02.2026     19:46          12830 AutopilotDataReader.cpp
+-a----        18.02.2026     21:32           2675 AutopilotDataReader.h
+-a----        27.02.2026     16:17            954 AutopilotManager.h
+-a----        26.02.2026     19:57           2029 AutopilotReader.h
+-a----        24.02.2026     12:14            182 AutopilotValues.h
+-a----        27.02.2026     16:17            791 AutopilotWriteField.h
+-a----        27.02.2026     16:19           1015 AutopilotWriter.h
+-a----        18.02.2026     16:20           3635 build_output.txt
+-a----        18.02.2026     16:44           5256 CLAUDE.md
+-a----        27.02.2026     16:17           1437 CMakeLists.txt
+-a----        20.02.2026     14:49           2066 CommandProcessor.cpp
+-a----        18.02.2026     21:00           1342 CommandProcessor.h
+-a----        26.02.2026     19:53           1193 GameClient.h
+-a----        15.11.2025     20:28           2798 HeadingReader.cpp
+-a----        15.11.2025     20:28           1221 HeadingReader.h
+-a----        24.02.2026     11:58           3992 main.cpp
+-a----        27.02.2026     16:17            934 NewMain.cpp
+-a----        18.02.2026     16:20              0 nul
+-a----        26.02.2026     19:40           4580 SdkReadConnection.h
+-a----        27.02.2026     16:11           1479 SdkWriteConnection.h
+-a----         8.12.2025     15:37           3945 SerialPortReader.cpp
+-a----         8.12.2025     15:37           1004 SerialPortReader.h
+-a----        22.02.2026     19:05           1753 SimConnectClient.cpp
+-a----        15.11.2025     20:27            782 SimConnectClient.h
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\.claude
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        19.02.2026     19:28            614 settings.local.json
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\.idea
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        15.11.2025     19:53            184 .gitignore
+-a----        15.11.2025     19:54             15 .name
+-a----        27.02.2026     16:11          53008 editor.xml
+-a----        22.02.2026     19:18            255 misc.xml
+-a----        22.02.2026     19:18            289 modules.xml
+-a----        22.02.2026     19:18             97 MSFS-controller.iml
+-a----         8.12.2025     13:59            185 vcs.xml
+-a----        27.02.2026     16:19          16634 workspace.xml
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\aircrafts
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        27.02.2026     16:22            379 AutopilorWriter737.h
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----         8.12.2025     16:51                CMakeFiles
+d-----        15.11.2025     20:30                MSFS_controller.dir
+d-----        15.11.2025     20:30                Release
+d-----        15.11.2025     20:30                x64
+-a----         8.12.2025     14:08          18443 ALL_BUILD.vcxproj
+-a----        15.11.2025     20:30            299 ALL_BUILD.vcxproj.filters
+-a----        15.11.2025     20:30          14132 CMakeCache.txt
+-a----        15.11.2025     20:30           1784 cmake_install.cmake
+-a----        15.11.2025     20:30           3130 MSFS_controller.sln
+-a----         8.12.2025     15:38          33200 MSFS_controller.vcxproj
+-a----         8.12.2025     15:38           2537 MSFS_controller.vcxproj.filte
+                                                  rs
+-a----         8.12.2025     14:08          18523 ZERO_CHECK.vcxproj
+-a----        15.11.2025     20:30            542 ZERO_CHECK.vcxproj.filters
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build\CMakeFiles
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        15.11.2025     20:30                3.30.4
+d-----        15.11.2025     20:30                8d217addf2739d965fb1684f67f79
+                                                  920
+d-----         8.12.2025     15:38                pkgRedirects
+-a----         8.12.2025     15:38             86 cmake.check_cache
+-a----        15.11.2025     20:30          20802 CMakeConfigureLog.yaml
+-a----         8.12.2025     16:51             55 generate.stamp
+-a----         8.12.2025     15:38           1960 generate.stamp.depend
+-a----         8.12.2025     15:38             78 generate.stamp.list
+-a----         8.12.2025     15:38            238 TargetDirectories.txt
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build\CMakeFiles\3.
+    30.4
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        15.11.2025     20:30                CompilerIdC
+d-----        15.11.2025     20:30                CompilerIdCXX
+d-----        15.11.2025     20:30                VCTargetsPath
+d-----        15.11.2025     20:30                x64
+-a----        15.11.2025     20:30           3155 CMakeCCompiler.cmake
+-a----        15.11.2025     20:30           6407 CMakeCXXCompiler.cmake
+-a----        15.11.2025     20:30          53248 CMakeDetermineCompilerABI_C.b
+                                                  in
+-a----        15.11.2025     20:30          53248 CMakeDetermineCompilerABI_CXX
+                                                  .bin
+-a----        15.11.2025     20:30            212 CMakeRCCompiler.cmake
+-a----        15.11.2025     20:30            395 CMakeSystem.cmake
+-a----        15.11.2025     20:30             90 VCTargetsPath.txt
+-a----        15.11.2025     20:30           1255 VCTargetsPath.vcxproj
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build\CMakeFiles\3.
+    30.4\CompilerIdC
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        15.11.2025     20:30                Debug
+d-----        15.11.2025     20:30                tmp
+-a----        15.11.2025     20:30          28524 CMakeCCompilerId.c
+-a----        15.11.2025     20:30          14848 CompilerIdC.exe
+-a----        15.11.2025     20:30           2798 CompilerIdC.vcxproj
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build\CMakeFiles\3.
+    30.4\CompilerIdC\Debug
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        15.11.2025     20:30                CompilerIdC.tlog
+-a----        15.11.2025     20:30           2314 CMakeCCompilerId.obj
+-a----        15.11.2025     20:30            339 CompilerIdC.exe.recipe
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build\CMakeFiles\3.
+    30.4\CompilerIdC\Debug\CompilerIdC.tlog
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        15.11.2025     20:30            780 CL.command.1.tlog
+-a----        15.11.2025     20:30            209 Cl.items.tlog
+-a----        15.11.2025     20:30            608 CL.read.1.tlog
+-a----        15.11.2025     20:30            424 CL.write.1.tlog
+-a----        15.11.2025     20:30            210 CompilerIdC.lastbuildstate
+-a----        15.11.2025     20:30           1044 link.command.1.tlog
+-a----        15.11.2025     20:30           3474 link.read.1.tlog
+-a----        15.11.2025     20:30            110 link.secondary.1.tlog
+-a----        15.11.2025     20:30            418 link.write.1.tlog
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build\CMakeFiles\3.
+    30.4\CompilerIdCXX
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        15.11.2025     20:30                Debug
+d-----        15.11.2025     20:30                tmp
+-a----        15.11.2025     20:30          29376 CMakeCXXCompilerId.cpp
+-a----        15.11.2025     20:30          15360 CompilerIdCXX.exe
+-a----        15.11.2025     20:30           2806 CompilerIdCXX.vcxproj
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build\CMakeFiles\3.
+    30.4\CompilerIdCXX\Debug
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        15.11.2025     20:30                CompilerIdCXX.tlog
+-a----        15.11.2025     20:30           2381 CMakeCXXCompilerId.obj
+-a----        15.11.2025     20:30            343 CompilerIdCXX.exe.recipe
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build\CMakeFiles\3.
+    30.4\CompilerIdCXX\Debug\CompilerIdCXX.tlog
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        15.11.2025     20:30            804 CL.command.1.tlog
+-a----        15.11.2025     20:30            219 Cl.items.tlog
+-a----        15.11.2025     20:30            620 CL.read.1.tlog
+-a----        15.11.2025     20:30            444 CL.write.1.tlog
+-a----        15.11.2025     20:30            212 CompilerIdCXX.lastbuildstate
+-a----        15.11.2025     20:30           1068 link.command.1.tlog
+-a----        15.11.2025     20:30           3490 link.read.1.tlog
+-a----        15.11.2025     20:30            114 link.secondary.1.tlog
+-a----        15.11.2025     20:30            434 link.write.1.tlog
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build\CMakeFiles\3.
+    30.4\VCTargetsPath
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        15.11.2025     20:30                x64
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build\CMakeFiles\3.
+    30.4\VCTargetsPath\x64
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        15.11.2025     20:30                Debug
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build\CMakeFiles\3.
+    30.4\VCTargetsPath\x64\Debug
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        15.11.2025     20:30                VCTargetsPath.tlog
+-a----        15.11.2025     20:30            335 VCTargetsPath.recipe
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build\CMakeFiles\3.
+    30.4\VCTargetsPath\x64\Debug\VCTargetsPath.tlog
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        15.11.2025     20:30            198 VCTargetsPath.lastbuildstate
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build\CMakeFiles\3.
+    30.4\x64
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        15.11.2025     20:30                Debug
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build\CMakeFiles\8d
+    217addf2739d965fb1684f67f79920
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----         1.01.2001     01:00             24 generate.stamp.rule
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build\MSFS_controll
+    er.dir
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----         8.12.2025     16:50                Release
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build\MSFS_controll
+    er.dir\Release
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        15.11.2025     20:30                microsoft
+d-----         8.12.2025     16:51                MSFS_controller.tlog
+d-----        15.11.2025     20:30                MSFS_controller_MD.tlog
+-a----         8.12.2025     16:51          34022 AutopilotController.obj
+-a----         8.12.2025     16:50          60818 AutopilotDataReader.obj
+-a----         8.12.2025     15:38          37405 CommandProcessor.obj
+-a----        15.11.2025     20:30          20751 HeadingReader.obj
+-a----         8.12.2025     16:51          40098 main.obj
+-a----         8.12.2025     16:51            466 MSFS_controller.exe.recipe
+-a----         8.12.2025     15:38          44964 SerialPortReader.obj
+-a----        15.11.2025     20:30          21124 SimConnectClient.obj
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build\MSFS_controll
+    er.dir\Release\microsoft
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        15.11.2025     20:30                STL
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build\MSFS_controll
+    er.dir\Release\MSFS_controller.tlog
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----         8.12.2025     16:51           6602 CL.command.1.tlog
+-a----         8.12.2025     16:51           1151 Cl.items.tlog
+-a----         8.12.2025     16:51         348802 CL.read.1.tlog
+-a----         8.12.2025     16:51           5524 CL.write.1.tlog
+-a----         8.12.2025     14:08            481 CustomBuild.command.1.tlog
+-a----         8.12.2025     14:08           1905 CustomBuild.read.1.tlog
+-a----         8.12.2025     14:08            140 CustomBuild.write.1.tlog
+-a----         8.12.2025     16:51           3356 link.command.1.tlog
+-a----         8.12.2025     16:51           6134 link.read.1.tlog
+-a----         8.12.2025     16:51            693 link.secondary.1.tlog
+-a----         8.12.2025     16:51           1548 link.write.1.tlog
+-a----         8.12.2025     16:51            182 MSFS_controller.lastbuildstat
+                                                  e
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build\Release
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----         8.12.2025     16:51          33792 MSFS_controller.exe
+-a----        15.11.2025     20:30          78848 SimConnect.dll
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build\x64
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        15.11.2025     20:30                Release
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build\x64\Release
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        15.11.2025     20:30                ALL_BUILD
+d-----        15.11.2025     20:30                ZERO_CHECK
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build\x64\Release\A
+    LL_BUILD
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----         8.12.2025     16:51                ALL_BUILD.tlog
+-a----         8.12.2025     16:51            610 ALL_BUILD.recipe
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build\x64\Release\A
+    LL_BUILD\ALL_BUILD.tlog
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----         8.12.2025     16:51            182 ALL_BUILD.lastbuildstate
+-a----         8.12.2025     14:08            481 CustomBuild.command.1.tlog
+-a----         8.12.2025     14:08           1905 CustomBuild.read.1.tlog
+-a----         8.12.2025     14:08            140 CustomBuild.write.1.tlog
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build\x64\Release\Z
+    ERO_CHECK
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----         8.12.2025     16:51                ZERO_CHECK.tlog
+-a----         8.12.2025     16:51            316 ZERO_CHECK.recipe
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\build\x64\Release\Z
+    ERO_CHECK\ZERO_CHECK.tlog
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----         8.12.2025     14:08            580 CustomBuild.command.1.tlog
+-a----         8.12.2025     14:08           2021 CustomBuild.read.1.tlog
+-a----         8.12.2025     14:08            195 CustomBuild.write.1.tlog
+-a----         8.12.2025     16:51            182 ZERO_CHECK.lastbuildstate
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        15.11.2025     19:53                .cmake
+d-----        27.02.2026     16:17                CMakeFiles
+d-----        15.11.2025     19:53                Testing
+-a----        27.02.2026     16:17          71832 .ninja_deps
+-a----        27.02.2026     16:17           1058 .ninja_log
+-a----        27.02.2026     16:17          17807 build.ninja
+-a----        22.02.2026     19:18          17832 CMakeCache.txt
+-a----        27.02.2026     16:17           2178 cmake_install.cmake
+-a----        27.02.2026     16:17           4893 compile_commands.json
+-a----        27.02.2026     16:12        1087414 MSFS_controller.exe
+-a----        15.11.2025     20:33          78848 SimConnect.dll
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug\.
+    cmake
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        15.11.2025     19:53                api
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug\.
+    cmake\api
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        27.02.2026     16:17                v1
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug\.
+    cmake\api\v1
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        15.11.2025     19:53                query
+d-----        27.02.2026     16:17                reply
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug\.
+    cmake\api\v1\query
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        15.11.2025     19:53              0 cache-v2
+-a----        15.11.2025     19:53              0 cmakeFiles-v1
+-a----        15.11.2025     19:53              0 codemodel-v2
+-a----        15.11.2025     19:53              0 toolchains-v1
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug\.
+    cmake\api\v1\reply
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        22.02.2026     19:18          27981 cache-v2-858c1a1bed20c0e804ba
+                                                  .json
+-a----        23.02.2026     15:24           8104 cmakeFiles-v1-acd7c87c8de7c4f
+                                                  4c933.json
+-a----        27.02.2026     16:17           1060 codemodel-v2-63e1d5dfa920e2d7
+                                                  3a66.json
+-a----        22.02.2026     19:18            168 directory-.-Debug-d0094a50bb2
+                                                  071803777.json
+-a----        27.02.2026     16:17           2041 index-2026-02-27T15-17-57-055
+                                                  7.json
+-a----        27.02.2026     16:17           4972 target-MSFS_controller-Debug-
+                                                  67833d7ce8572134b15d.json
+-a----        22.02.2026     19:18           3789 toolchains-v1-fee88921e70025e
+                                                  c44c8.json
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug\C
+    MakeFiles
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        22.02.2026     19:18                4.1.2
+d-----        27.02.2026     16:12                MSFS_controller.dir
+d-----        27.02.2026     16:17                pkgRedirects
+-a----        27.02.2026     16:17            470 clion-Debug-log.txt
+-a----        27.02.2026     16:17            277 clion-environment.txt
+-a----        27.02.2026     16:17             86 cmake.check_cache
+-a----        22.02.2026     19:18         302345 CMakeConfigureLog.yaml
+-a----        27.02.2026     16:17            146 InstallScripts.json
+-a----        27.02.2026     16:17           2483 rules.ninja
+-a----        27.02.2026     16:17            278 TargetDirectories.txt
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug\C
+    MakeFiles\4.1.2
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        22.02.2026     19:18                CompilerIdC
+d-----        22.02.2026     19:18                CompilerIdCXX
+-a----        22.02.2026     19:18           3909 CMakeCCompiler.cmake
+-a----        22.02.2026     19:18           7588 CMakeCXXCompiler.cmake
+-a----        22.02.2026     19:18          43097 CMakeDetermineCompilerABI_C.b
+                                                  in
+-a----        22.02.2026     19:18          43120 CMakeDetermineCompilerABI_CXX
+                                                  .bin
+-a----        22.02.2026     19:18            279 CMakeRCCompiler.cmake
+-a----        22.02.2026     19:18            395 CMakeSystem.cmake
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug\C
+    MakeFiles\4.1.2\CompilerIdC
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        22.02.2026     19:18                tmp
+-a----        22.02.2026     19:18          43144 a.exe
+-a----        22.02.2026     19:18          29602 CMakeCCompilerId.c
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug\C
+    MakeFiles\4.1.2\CompilerIdCXX
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        22.02.2026     19:18                tmp
+-a----        22.02.2026     19:18          43172 a.exe
+-a----        22.02.2026     19:18          30429 CMakeCXXCompilerId.cpp
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug\C
+    MakeFiles\MSFS_controller.dir
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        24.02.2026     13:08         226136 AutopilotController.cpp.obj
+-a----        26.02.2026     19:46         293619 AutopilotDataReader.cpp.obj
+-a----        24.02.2026     13:08         126660 CommandProcessor.cpp.obj
+-a----        24.02.2026     13:08          43928 HeadingReader.cpp.obj
+-a----        24.02.2026     13:08         216090 main.cpp.obj
+-a----        27.02.2026     16:12         541310 NewMain.cpp.obj
+-a----        24.02.2026     13:08         140729 SerialPortReader.cpp.obj
+-a----        24.02.2026     13:08          80986 SimConnectClient.cpp.obj
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug\T
+    esting
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        27.02.2026     16:17                Temporary
+    Directory: C:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug\T
+    esting\Temporary
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        27.02.2026     16:17            178 LastTest.log

@@ -1,13 +1,14 @@
 #ifndef MSFS_CONTROLLER_AUTOPILOTWRITEFIELD_H
 #define MSFS_CONTROLLER_AUTOPILOTWRITEFIELD_H
 #include <string>
-#include <Windows.h>
-#include <SimConnect.h>
 
 class AutopilotWriteField {
     static inline long idGenerator = 0;
     long id;
     std::string eventName;
+    int value2 = 0;
+    bool doubleValued = false;
+
 public:
     int value = 0;
 
@@ -16,6 +17,14 @@ public:
         this->eventName = eventName;
     }
 
+
+    void setValue2(int value2) {
+        doubleValued = true;
+        this->value2 = value2;
+    }
+
+    int getValue2() { return value2; }
+    bool isDoubleValued() { return doubleValued; }
     long getId() const { return id; }
     std::string getEventName() const { return eventName; }
 };

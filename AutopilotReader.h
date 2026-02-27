@@ -35,6 +35,7 @@ class AutopilotReader {
                 std::lock_guard lock(dataMutex);
                 auto data = SdkReadConnection::readAutopilotData(connection);
                 if (data) {
+                    delete lastValues;
                     lastValues =  data;
                 }
             }
@@ -48,6 +49,7 @@ public:
         this->running = false;
         this->lastValues = new AutopilotValues();
         SdkReadConnection::registerAutopilotField(connection, "AUTOPILOT HEADING LOCK DIR", "degrees");
+        SdkReadConnection::registerAutopilotField(connection, "AUTOPILOT ALTITUDE LOCK VAR", "feet");
         this->running = true;
         this->workerThread = std::thread(&AutopilotReader::threadLoop, this);
     }
@@ -60,9 +62,9 @@ public:
         delete lastValues;
     }
 
-    AutopilotValues* read() {
+    AutopilotValues read() {
         std::lock_guard lock(dataMutex);
-        return lastValues;
+        return AutopilotValues(*lastValues);
     }
 };
 
