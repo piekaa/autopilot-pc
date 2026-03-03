@@ -22,7 +22,11 @@ class AutopilotManager {
             lastAircraftName = aircraftName;
             std::cout << "Aircraft name changed to: " << aircraftName << std::endl;
             delete autopilotWriter;
-            autopilotWriter = resolveAutopilotWriter(aircraftName);
+
+            SdkReadConnection::requestEnumerateInputEvents(autopilotConnection);
+            auto inputEvents = SdkReadConnection::readEnumerations(autopilotConnection);
+
+            autopilotWriter = resolveAutopilotWriter(aircraftName, inputEvents);
             autopilotWriter->setAltitudeIndex();
             autopilotReader = resolveAutopilotReader(aircraftName);
             return true;
@@ -30,11 +34,11 @@ class AutopilotManager {
         return false;
     }
 
-    AutopilotWriter* resolveAutopilotWriter(const std::string& aircraftName) {
+    AutopilotWriter* resolveAutopilotWriter(const std::string& aircraftName, std::unordered_map<std::string, unsigned long long> inputEvents) {
         if (aircraftName.contains("737")) {
-            return new AutopilotWriter737(autopilotConnection);
+            return new AutopilotWriter737(autopilotConnection, inputEvents);
         }
-        return new AutopilotWriter(autopilotConnection);
+        return new AutopilotWriter(autopilotConnection, inputEvents);
     }
 
     AutopilotReader* resolveAutopilotReader(const std::string& aircraftName) {

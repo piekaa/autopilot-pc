@@ -4,19 +4,28 @@
 #include "SdkWriteConnection.h"
 
 class AutopilotWriter {
-    HANDLE* connection;
-
 protected:
+    HANDLE* connection;
     AutopilotWriteField* heading = new AutopilotWriteField("HEADING_BUG_SET");
     AutopilotWriteField* altitude = new AutopilotWriteField("AP_ALT_VAR_SET_ENGLISH");
     AutopilotWriteField* altitudeIndex = new AutopilotWriteField("ALTITUDE_SLOT_INDEX_SET");
+    AutopilotWriteField* autoThrottleToggle = new AutopilotWriteField("AUTO_THROTTLE_ARM");
+
+    std::unordered_map<std::string, unsigned long long> inputEvents;
 
 public:
-    AutopilotWriter(HANDLE* connection) {
+    AutopilotWriter(HANDLE* connection, std::unordered_map<std::string, unsigned long long> inputEvents) {
         this->connection = connection;
         SdkWriteConnection::registerField(connection, heading);
         SdkWriteConnection::registerField(connection, altitude);
         SdkWriteConnection::registerField(connection, altitudeIndex);
+        SdkWriteConnection::registerField(connection, autoThrottleToggle);
+        this->inputEvents = inputEvents;
+
+        // for (const auto& [eventName, eventId] : inputEvents) {
+        //     std::cout << "Registering event " << eventName << " with id " << eventId << std::endl;
+        // }
+
     }
 
     virtual void setHeading(int headingValue) {
@@ -32,6 +41,10 @@ public:
         altitude->value = altitudeValue;
 
         SdkWriteConnection::setValue(connection, altitude);
+    }
+
+    virtual void toggleSpeed() {
+        SdkWriteConnection::setValue(connection, autoThrottleToggle);
     }
 
     virtual ~AutopilotWriter() {

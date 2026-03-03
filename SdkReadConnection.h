@@ -4,11 +4,11 @@
 #include <SimConnect.h>
 #include <iostream>
 #include <thread>
+#include <unordered_map>
 
 
 class SdkReadConnection {
 public:
-
     static void registerForAircraftName(HANDLE *connection) {
         auto hr = SimConnect_AddToDataDefinition(*connection,
                                                  1,
@@ -31,7 +31,7 @@ public:
         }
     }
 
-    static AutopilotValues* readAutopilotData(HANDLE *connection) {
+    static AutopilotValues *readAutopilotData(HANDLE *connection) {
         DWORD cbData;
         SIMCONNECT_RECV *pData;
         if (SUCCEEDED(SimConnect_GetNextDispatch(*connection, &pData, &cbData))) {
@@ -45,7 +45,7 @@ public:
                 auto *pObjData = (SIMCONNECT_RECV_SIMOBJECT_DATA *) pData;
 
                 if (pObjData->dwRequestID == 0) {
-                    auto* autopilotData = (AutopilotValues*)&pObjData->dwData;
+                    auto *autopilotData = (AutopilotValues *) &pObjData->dwData;
 
                     return new AutopilotValues(*autopilotData);
                 }
@@ -71,21 +71,69 @@ public:
         return nullptr;
     }
 
-    static void requestAutopilotData(HANDLE *connection) {
-        HRESULT hr = SimConnect_RequestDataOnSimObject(
-           *connection,
-           0,
-           0,
-           SIMCONNECT_OBJECT_ID_USER,
-           SIMCONNECT_PERIOD_ONCE
-       );
+    static std::unordered_map<std::string, unsigned long long> readEnumerations(HANDLE *connection) {
+        std::unordered_map<std::string, unsigned long long> eventMap;
 
-        if (hr != S_OK) {
+        while (true) {
+            DWORD cbData;
+            SIMCONNECT_RECV *pData;
+
+            if (SUCCEEDED(SimConnect_GetNextDispatch(*connection, &pData, &cbData))) {
+                switch (pData->dwID) {
+                    case SIMCONNECT_RECV_ID_ENUMERATE_INPUT_EVENTS: {
+                        // Handle InputEvent enumeration responses
+                        auto data = (SIMCONNECT_RECV_ENUMERATE_INPUT_EVENTS *) pData;
+
+                        // Process enumerated InputEvents
+                        std::cout << "Processing InputEvent enumeration batch (RequestID: " << data->dwRequestID
+                                << ", Entry count: " << data->dwEntryNumber << "/" << data->dwOutOf << ")" << std::endl;
+
+                        // Iterate through all InputEvent descriptors in this batch
+                        for (DWORD i = 0; i < data->dwArraySize; i++) {
+                            SIMCONNECT_INPUT_EVENT_DESCRIPTOR *descriptor = &data->rgData[i];
+                            eventMap[descriptor->Name] = descriptor->Hash;
+                        }
+
+                        // Return when we've received all batches
+                        if (data->dwEntryNumber >= data->dwOutOf - 1) {
+                            return eventMap;
+                        }
+                        break;
+                    }
+                    default:
+                        // Ignore other message types and continue polling
+                        break;
+                }
+            } else {
+                // No message available, sleep briefly to avoid busy-waiting
+                std::this_thread::sleep_for(std::chrono::milliseconds(10));
+            }
+        }
+    }
+
+    static void requestAutopilotData(HANDLE *connection) {
+        HRESULT result = SimConnect_RequestDataOnSimObject(
+            *connection,
+            0,
+            0,
+            SIMCONNECT_OBJECT_ID_USER,
+            SIMCONNECT_PERIOD_ONCE
+        );
+
+        if (result != S_OK) {
             std::cerr << "Failed to request autopilot data" << std::endl;
         }
     }
 
-    static char* readAircraftName(HANDLE *connection) {
+    static void requestEnumerateInputEvents(HANDLE *connection) {
+        auto result = SimConnect_EnumerateInputEvents(*connection, 1000);
+        if (result != S_OK) {
+            std::cerr << "Warning: Failed to enumerate InputEvents (this is normal if aircraft doesn't support it)" <<
+                    std::endl;
+        }
+    }
+
+    static char *readAircraftName(HANDLE *connection) {
         DWORD cbData;
         SIMCONNECT_RECV *pData;
         if (SUCCEEDED(SimConnect_GetNextDispatch(*connection, &pData, &cbData))) {
@@ -98,7 +146,7 @@ public:
                 auto *pObjData = (SIMCONNECT_RECV_SIMOBJECT_DATA *) pData;
 
                 if (pObjData->dwRequestID == 1) {
-                    auto* aircraftName = (char*)&pObjData->dwData;
+                    auto *aircraftName = (char *) &pObjData->dwData;
                     return aircraftName;
                 }
                 break;
@@ -125,12 +173,12 @@ public:
 
     static void requestAircraftName(HANDLE *connection) {
         HRESULT hr = SimConnect_RequestDataOnSimObject(
-           *connection,
-           1,
-           1,
-           SIMCONNECT_OBJECT_ID_USER,
-           SIMCONNECT_PERIOD_ONCE
-       );
+            *connection,
+            1,
+            1,
+            SIMCONNECT_OBJECT_ID_USER,
+            SIMCONNECT_PERIOD_ONCE
+        );
 
         if (hr != S_OK) {
             std::cerr << "Failed to request aircraft name" << std::endl;

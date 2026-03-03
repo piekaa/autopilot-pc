@@ -28,6 +28,13 @@ public:
             std::cout << "Failed to set " << autopilotWriteField->getEventName() << " value" << std::endl;
         }
     }
+
+    static void sendInputEvent(HANDLE *connection, unsigned long long hash, double value) {
+        auto result = SimConnect_SetInputEvent(*connection, hash, sizeof(value), &value);
+        if (result != S_OK) {
+            std::cerr << "Failed to trigger FCC_SPEED InputEvent (HRESULT: " << result << ")" << std::endl;
+        }
+    }
 };
 
 #endif //MSFS_CONTROLLER_SDKWRITECONNECTION_H
