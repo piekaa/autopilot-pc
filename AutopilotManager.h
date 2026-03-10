@@ -65,9 +65,12 @@ public:
             // autopilotWriter->setAltitude(15000);
             // autopilotWriter->setHeading(123);
 
-            std::cout << "Altitude: " << autopilotReader->read().altitude << std::endl;
+            // std::cout << "Altitude: " << autopilotReader->read().altitude << std::endl;
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            autopilotWriter->toggleLNav();
+
+
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         }
     }
     
