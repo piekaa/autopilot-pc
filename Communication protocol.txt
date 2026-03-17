@@ -1,0 +1,36 @@
+Communication protocol
+
+All commands are one line of text, first word is command name
+Examples are in [], but brackets themselves are not part of command
+Debug logs always start with X, example [X sensor initiated] 
+
+From Arduino do PC:
+
+Set heading, example: [H 100] - sets autopilot heading at 100
+Set speed, example [S 231] - sets autopilot speed at 231
+Set altitude, example [A 13000] - sets autopilot altitude at 13000
+Set vertical speed, example [VS -1000] - sets autopilot vertical speed at -1000
+
+Toggle autopilot [AP TOGGLE] - turns off/on autopilot
+Toggle autopilot heading [AP_HEADING TOGGLE] - turns off/on heading in autopilot
+Toggle autopilot VNAV [AP_VNAV TOGGLE] - turns off/on vnav in autopilot
+Toggle autopilot VNAV [AP_LNAV TOGGLE] - turns off/on lnav in autopilot
+Toggle speed control (like both "AT" and "MAN" button in G2 jet for example) [AP_SPEED TOGGLE]
+Toggle autopilot altitude [AP_ALTITUDE TOGGLE] - turns off/on ALT in autopilot
+Toggle autopilot vertical speed [AP_VS TOGGLE] - turns off/on vertical speed "VS" in autopilot 
+
+From PC to Arduino:
+
+Set heading, example: [H 100] - informs that autopilot heading is at 100
+Set speed, example [S 231] - informs that autopilot speed is at 231
+Set altitude, example [A 13000] - informs that autopilot altitude is at 13000
+Set vertical speed, example [VS -1000] - informs that autopilot vertical speed is at -1000
+
+
+Set autopilot status example [AP ON] - autopilot is ON, [AP OFF] - autopilot is off
+Set heading mode status [AP_HEADING ON] - heading hold active, [AP_HEADING OFF] - heading hold inactive
+Set LNAV mode status [AP_LNAV ON] - LNAV engaged, [AP_LNAV OFF] - LNAV disengaged
+Set VNAV mode status [AP_VNAV ON] - VNAV engaged, [AP_VNAV OFF] - VNAV disengaged
+Set speed mode status [AP_SPEED ON] - speed/auto-throttle mode active, [AP_SPEED OFF] - speed/auto-throttle inactive (manual thrust)
+Set altitude hold status [AP_ALTITUDE ON] - altitude hold active, [AP_ALTITUDE OFF] - altitude hold inactive
+Set vertical speed mode status [AP_VS ON] - vertical speed mode active, [AP_VS OFF] - vertical speed mode inactive
