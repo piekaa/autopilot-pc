@@ -5,9 +5,13 @@
 #include <string>
 #include "AircraftNameProvider.h"
 #include "AutopilotWriter.h"
+#include "Serial.h"
+#include "SerialUpdatesSender.h"
 #include "aircrafts/AutopilotWriter747.h"
 
 class AutopilotManager {
+    SerialUpdatesSender* serialUpdatesSender;
+    Serial* serial;
     HANDLE* nameConnection;
     HANDLE* autopilotConnection;
     AircraftNameProvider* aircraftNameProvider;
@@ -22,6 +26,7 @@ class AutopilotManager {
             lastAircraftName = aircraftName;
             std::cout << "Aircraft name changed to: " << aircraftName << std::endl;
             delete autopilotWriter;
+            delete autopilotReader;
 
             SdkReadConnection::requestEnumerateInputEvents(autopilotConnection);
             auto inputEvents = SdkReadConnection::readEnumerations(autopilotConnection);
@@ -50,7 +55,8 @@ public:
         this->nameConnection = connection;
         this->autopilotConnection = autopilotConnection;
         aircraftNameProvider = new AircraftNameProvider(connection);
-
+        serial = new Serial();
+        serialUpdatesSender = new SerialUpdatesSender(serial);
 
         for (;;) {
 
@@ -62,15 +68,11 @@ public:
 
         for (;;) {
             resolveAircraftIfNew();
-            // autopilotWriter->setAltitude(15000);
-            // autopilotWriter->setHeading(123);
 
-            // std::cout << "Altitude: " << autopilotReader->read().altitude << std::endl;
+            auto values = autopilotReader->read();
+            serialUpdatesSender->sendIfNeeded(values);
 
-            autopilotWriter->toggleLNav();
-
-
-            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
     }
     

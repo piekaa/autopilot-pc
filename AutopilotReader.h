@@ -52,7 +52,6 @@ public:
         SdkReadConnection::registerAutopilotField(connection, "AUTOPILOT ALTITUDE LOCK VAR", "feet");
         this->running = true;
         this->workerThread = std::thread(&AutopilotReader::threadLoop, this);
-        SdkReadConnection::requestEnumerateInputEvents(connection);
     }
 
     ~AutopilotReader() {

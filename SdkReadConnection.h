@@ -63,7 +63,7 @@ public:
             }
 
             default: {
-                std::cout << "Unexpected type of message in registerAutopilotField: " << pData->dwID << std::endl;
+                std::cout << "Unexpected type of message in readAutopilotData: " << pData->dwID << std::endl;
                 break;
             }
         }

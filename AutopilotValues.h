@@ -14,6 +14,8 @@ struct AutopilotValues {
     oss << "A " << static_cast<int>(altitude) << "\n";
     return oss.str();
   }
+
+  bool operator==(const AutopilotValues & autopilot_values) const = default;
 };
 
 #endif //MSFS_CONTROLLER_AUTOPILOTVALUES_H

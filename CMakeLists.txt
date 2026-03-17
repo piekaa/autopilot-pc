@@ -36,6 +36,7 @@ add_executable(MSFS_controller
         AutopilotManager.h
         AircraftNameProvider.h
         aircrafts/AutopilotWriter747.h
+        SerialUpdatesSender.h
 )
 
 # Link against SimConnect and Windows libraries

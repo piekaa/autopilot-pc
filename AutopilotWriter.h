@@ -31,11 +31,6 @@ public:
         SdkWriteConnection::registerField(connection, lNavToggle);
         SdkWriteConnection::registerField(connection, vNavToggle);
         this->inputEvents = inputEvents;
-
-        // for (const auto& [eventName, eventId] : inputEvents) {
-        //     std::cout << "Registering event " << eventName << " with id " << eventId << std::endl;
-        // }
-
     }
 
     virtual void setHeading(int headingValue) {
