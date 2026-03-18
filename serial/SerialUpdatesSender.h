@@ -2,6 +2,7 @@
 #define MSFS_CONTROLLER_SERIALUPDATESSENDER_H
 #include "../autopilot/rw/AutopilotValues.h"
 #include "Serial.h"
+#include "SerialCommandDiff.h"
 
 class SerialUpdatesSender {
     Serial* serial;
@@ -20,7 +21,7 @@ public:
             serial->write(values.toCommunicationString());
         } else {
             if (values != lastValues) {
-                serial->write(lastValues.toCommunicationString());
+                serial->write(SerialCommandDiff::diff(lastValues.toCommunicationString(), values.toCommunicationString()));
             }
         }
         lastValues = values;

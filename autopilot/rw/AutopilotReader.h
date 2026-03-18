@@ -49,7 +49,9 @@ public:
         this->running = false;
         this->lastValues = new AutopilotValues();
         SdkReadConnection::registerAutopilotField(connection, "AUTOPILOT HEADING LOCK DIR", "degrees");
+        SdkReadConnection::registerAutopilotField(connection, "AUTOPILOT AIRSPEED HOLD VAR", "knots");
         SdkReadConnection::registerAutopilotField(connection, "AUTOPILOT ALTITUDE LOCK VAR", "feet");
+        SdkReadConnection::registerAutopilotField(connection, "AUTOPILOT VERTICAL HOLD VAR", "feet per minute");
         this->running = true;
         this->workerThread = std::thread(&AutopilotReader::threadLoop, this);
     }

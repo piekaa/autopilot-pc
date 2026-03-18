@@ -6,12 +6,16 @@
 
 struct AutopilotValues {
   double heading;
+  double speed;
   double altitude;
+  double verticalSpeed;
 
   std::string toCommunicationString() {
     std::ostringstream oss;
     oss << "H " << static_cast<int>(heading) << "\n";
+    oss << "S " << static_cast<int>(speed) << "\n";
     oss << "A " << static_cast<int>(altitude) << "\n";
+    oss << "VS " << static_cast<int>(verticalSpeed) << "\n";
     return oss.str();
   }
 
