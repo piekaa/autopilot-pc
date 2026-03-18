@@ -4,6 +4,7 @@
 #include <Windows.h>
 #include <string>
 #include <iostream>
+#include <optional>
 
 
 class SerialConnection {
@@ -87,6 +88,45 @@ public:
     bool isConnected() const {
         return this->connected;
     }
+
+    // Read a line from serial port (until '\n')
+    // Returns nullopt if no complete line is available
+    std::optional<std::string> readLine() {
+        if (!this->connected) {
+            return std::nullopt;
+        }
+
+        static std::string buffer;
+        char tempBuffer[256];
+        DWORD bytesRead = 0;
+
+        // Read available data
+        BOOL readSuccess = ReadFile(this->hSerial, tempBuffer, sizeof(tempBuffer) - 1, &bytesRead, nullptr);
+        if (!readSuccess) {
+            DWORD error = GetLastError();
+            std::cerr << "ReadFile failed with error: " << error << std::endl;
+        } else if (bytesRead > 0) {
+            tempBuffer[bytesRead] = '\0';
+            buffer.append(tempBuffer, bytesRead);
+        }
+
+        // Check if we have a complete line (ending with '\n')
+        size_t newlinePos = buffer.find('\n');
+        if (newlinePos != std::string::npos) {
+            std::string line = buffer.substr(0, newlinePos);
+            buffer.erase(0, newlinePos + 1);
+
+            // Remove trailing '\r' if present
+            if (!line.empty() && line.back() == '\r') {
+                line.pop_back();
+            }
+
+            return line;
+        }
+
+        return std::nullopt;
+    }
+
 };
 
 #endif //MSFS_CONTROLLER_SERIALCONNECTION_H

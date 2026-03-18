@@ -3,14 +3,21 @@
 
 #include <Windows.h>
 #include <string>
-#include "../SerialConnection.h"
+
+#include "CommandProcessor.h"
+#include "SerialConnection.h"
 
 class Serial {
     SerialConnection* connection;
+    AutopilotWriter* autopilotWriter = nullptr;
 
 public:
     Serial(const std::string& portName = "COM5") {
         this->connection = new SerialConnection(portName);
+    }
+
+    void setAutopilotWriter(AutopilotWriter* autopilotWriter) {
+        this->autopilotWriter = autopilotWriter;
     }
 
     ~Serial() {
@@ -19,6 +26,17 @@ public:
 
     bool isConnected() const {
         return this->connection->isConnected();
+    }
+
+    void handleCommand() {
+        if (auto line = connection->readLine()) {
+            if (auto cmd = CommandProcessor::toValidCommand(line.value())) {
+                auto [command, value] = *cmd;
+                if (command == "H") {
+                    autopilotWriter->setHeading(std::stoi(value));
+                }
+            }
+        }
     }
 
     bool write(const std::string& data) {

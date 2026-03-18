@@ -9,7 +9,7 @@
 #include <cstring>
 #include <string>
 
-#include "autopilot/sdk/SdkReadConnection.h"
+#include "../sdk/SdkReadConnection.h"
 
 class AircraftNameProvider {
     HANDLE* connection;

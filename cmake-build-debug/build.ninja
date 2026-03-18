@@ -89,14 +89,6 @@ build CMakeFiles/MSFS_controller.dir/AutopilotController.cpp.obj: CXX_COMPILER__
   OBJECT_DIR = CMakeFiles\MSFS_controller.dir
   OBJECT_FILE_DIR = CMakeFiles\MSFS_controller.dir
 
-build CMakeFiles/MSFS_controller.dir/CommandProcessor.cpp.obj: CXX_COMPILER__MSFS_controller_unscanned_Debug C$:/Users/Piotr/CLionProjects/MSFS-controller/CommandProcessor.cpp || cmake_object_order_depends_target_MSFS_controller
-  CONFIG = Debug
-  DEP_FILE = CMakeFiles\MSFS_controller.dir\CommandProcessor.cpp.obj.d
-  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
-  INCLUDES = -I"C:/MSFS 2024 SDK/SimConnect SDK/include"
-  OBJECT_DIR = CMakeFiles\MSFS_controller.dir
-  OBJECT_FILE_DIR = CMakeFiles\MSFS_controller.dir
-
 build CMakeFiles/MSFS_controller.dir/AutopilotDataReader.cpp.obj: CXX_COMPILER__MSFS_controller_unscanned_Debug C$:/Users/Piotr/CLionProjects/MSFS-controller/AutopilotDataReader.cpp || cmake_object_order_depends_target_MSFS_controller
   CONFIG = Debug
   DEP_FILE = CMakeFiles\MSFS_controller.dir\AutopilotDataReader.cpp.obj.d
@@ -121,7 +113,7 @@ build CMakeFiles/MSFS_controller.dir/NewMain.cpp.obj: CXX_COMPILER__MSFS_control
 #############################################
 # Link the executable MSFS_controller.exe
 
-build MSFS_controller.exe: CXX_EXECUTABLE_LINKER__MSFS_controller_Debug CMakeFiles/MSFS_controller.dir/main.cpp.obj CMakeFiles/MSFS_controller.dir/SimConnectClient.cpp.obj CMakeFiles/MSFS_controller.dir/HeadingReader.cpp.obj CMakeFiles/MSFS_controller.dir/SerialPortReader.cpp.obj CMakeFiles/MSFS_controller.dir/AutopilotController.cpp.obj CMakeFiles/MSFS_controller.dir/CommandProcessor.cpp.obj CMakeFiles/MSFS_controller.dir/AutopilotDataReader.cpp.obj CMakeFiles/MSFS_controller.dir/NewMain.cpp.obj | C$:/MSFS$ 2024$ SDK/SimConnect$ SDK/lib/SimConnect.lib
+build MSFS_controller.exe: CXX_EXECUTABLE_LINKER__MSFS_controller_Debug CMakeFiles/MSFS_controller.dir/main.cpp.obj CMakeFiles/MSFS_controller.dir/SimConnectClient.cpp.obj CMakeFiles/MSFS_controller.dir/HeadingReader.cpp.obj CMakeFiles/MSFS_controller.dir/SerialPortReader.cpp.obj CMakeFiles/MSFS_controller.dir/AutopilotController.cpp.obj CMakeFiles/MSFS_controller.dir/AutopilotDataReader.cpp.obj CMakeFiles/MSFS_controller.dir/NewMain.cpp.obj | C$:/MSFS$ 2024$ SDK/SimConnect$ SDK/lib/SimConnect.lib
   CONFIG = Debug
   FLAGS = -g
   LINK_LIBRARIES = "C:/MSFS 2024 SDK/SimConnect SDK/lib/SimConnect.lib"  -lshlwapi  -luser32  -lWs2_32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
@@ -186,8 +178,9 @@ build test: phony CMakeFiles/test.util
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug && C:\Users\Piotr\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -E echo "No interactive CMake dialog available.""
-  DESC = No interactive CMake dialog available...
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug && "C:\Program Files\CMake\bin\cmake-gui.exe" -SC:\Users\Piotr\CLionProjects\MSFS-controller -BC:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug"
+  DESC = Running CMake cache editor...
+  pool = console
   restat = 1
 
 build edit_cache: phony CMakeFiles/edit_cache.util
@@ -268,8 +261,9 @@ build _deps/googletest-build/test: phony _deps/googletest-build/CMakeFiles/test.
 # Utility command for edit_cache
 
 build _deps/googletest-build/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug\_deps\googletest-build && C:\Users\Piotr\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -E echo "No interactive CMake dialog available.""
-  DESC = No interactive CMake dialog available...
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug\_deps\googletest-build && "C:\Program Files\CMake\bin\cmake-gui.exe" -SC:\Users\Piotr\CLionProjects\MSFS-controller -BC:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug"
+  DESC = Running CMake cache editor...
+  pool = console
   restat = 1
 
 build _deps/googletest-build/edit_cache: phony _deps/googletest-build/CMakeFiles/edit_cache.util
@@ -418,8 +412,9 @@ build _deps/googletest-build/googlemock/test: phony _deps/googletest-build/googl
 # Utility command for edit_cache
 
 build _deps/googletest-build/googlemock/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug\_deps\googletest-build\googlemock && C:\Users\Piotr\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -E echo "No interactive CMake dialog available.""
-  DESC = No interactive CMake dialog available...
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug\_deps\googletest-build\googlemock && "C:\Program Files\CMake\bin\cmake-gui.exe" -SC:\Users\Piotr\CLionProjects\MSFS-controller -BC:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug"
+  DESC = Running CMake cache editor...
+  pool = console
   restat = 1
 
 build _deps/googletest-build/googlemock/edit_cache: phony _deps/googletest-build/googlemock/CMakeFiles/edit_cache.util
@@ -568,8 +563,9 @@ build _deps/googletest-build/googletest/test: phony _deps/googletest-build/googl
 # Utility command for edit_cache
 
 build _deps/googletest-build/googletest/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug\_deps\googletest-build\googletest && C:\Users\Piotr\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -E echo "No interactive CMake dialog available.""
-  DESC = No interactive CMake dialog available...
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug\_deps\googletest-build\googletest && "C:\Program Files\CMake\bin\cmake-gui.exe" -SC:\Users\Piotr\CLionProjects\MSFS-controller -BC:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug"
+  DESC = Running CMake cache editor...
+  pool = console
   restat = 1
 
 build _deps/googletest-build/googletest/edit_cache: phony _deps/googletest-build/googletest/CMakeFiles/edit_cache.util

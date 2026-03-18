@@ -3,7 +3,7 @@
 
 #include <windows.h>
 #include <string>
-#include "../AircraftNameProvider.h"
+#include "rw/AircraftNameProvider.h"
 #include "rw/AutopilotWriter.h"
 #include "../serial/Serial.h"
 #include "../serial/SerialUpdatesSender.h"
@@ -33,6 +33,7 @@ class AutopilotManager {
 
             autopilotWriter = resolveAutopilotWriter(aircraftName, inputEvents);
             autopilotWriter->setAltitudeIndex();
+            serial->setAutopilotWriter(autopilotWriter);
             autopilotReader = resolveAutopilotReader(aircraftName);
             return true;
         }
@@ -71,6 +72,9 @@ public:
 
             auto values = autopilotReader->read();
             serialUpdatesSender->sendIfNeeded(values);
+
+            serial->handleCommand();
+
 
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }

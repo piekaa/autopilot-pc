@@ -33,8 +33,7 @@ add_executable(MSFS_controller
     SerialPortReader.h
     AutopilotController.cpp
     AutopilotController.h
-    CommandProcessor.cpp
-    CommandProcessor.h
+        serial/CommandProcessor.h
     AutopilotDataReader.cpp
     AutopilotDataReader.h
         NewMain.cpp GameClient.h
@@ -45,7 +44,7 @@ add_executable(MSFS_controller
         autopilot/rw/AutopilotWriteField.h
         autopilot/sdk/SdkWriteConnection.h
         autopilot/AutopilotManager.h
-        AircraftNameProvider.h
+        autopilot/rw/AircraftNameProvider.h
         aircrafts/AutopilotWriter747.h
         serial/SerialUpdatesSender.h
         serial/SerialCommandDiff.h
