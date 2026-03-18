@@ -3,6 +3,17 @@ project(MSFS_controller)
 
 set(CMAKE_CXX_STANDARD 23)
 
+# Google Test setup
+include(FetchContent)
+FetchContent_Declare(
+    googletest
+    URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
+)
+# For Windows: Prevent overriding the parent project's compiler/linker settings
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+enable_testing()
+
 # SimConnect SDK paths
 set(SIMCONNECT_SDK_PATH "C:/MSFS 2024 SDK/SimConnect SDK")
 set(SIMCONNECT_INCLUDE_DIR "${SIMCONNECT_SDK_PATH}/include")
@@ -37,6 +48,7 @@ add_executable(MSFS_controller
         AircraftNameProvider.h
         aircrafts/AutopilotWriter747.h
         serial/SerialUpdatesSender.h
+        serial/SerialCommandDiff.h
 )
 
 # Link against SimConnect and Windows libraries
@@ -53,3 +65,13 @@ add_custom_command(TARGET MSFS_controller POST_BUILD
     "${SIMCONNECT_LIB_DIR}/SimConnect.dll"
     $<TARGET_FILE_DIR:MSFS_controller>
 )
+
+# Tests
+add_executable(SerialCommandDiffTest
+    tests/SerialCommandDiffTest.cpp
+    serial/SerialCommandDiff.h
+)
+target_link_libraries(SerialCommandDiffTest GTest::gtest_main)
+
+include(GoogleTest)
+gtest_discover_tests(SerialCommandDiffTest)
