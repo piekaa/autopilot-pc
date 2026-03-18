@@ -1,6 +1,6 @@
 #ifndef MSFS_CONTROLLER_SDKWRITECONNECTION_H
 #define MSFS_CONTROLLER_SDKWRITECONNECTION_H
-#include "AutopilotWriteField.h"
+#include "../rw/AutopilotWriteField.h"
 #include <iostream>
 
 class SdkWriteConnection {

@@ -3,11 +3,11 @@
 
 #include <windows.h>
 #include <string>
-#include "AircraftNameProvider.h"
-#include "AutopilotWriter.h"
-#include "Serial.h"
-#include "SerialUpdatesSender.h"
-#include "aircrafts/AutopilotWriter747.h"
+#include "../AircraftNameProvider.h"
+#include "rw/AutopilotWriter.h"
+#include "../serial/Serial.h"
+#include "../serial/SerialUpdatesSender.h"
+#include "../aircrafts/AutopilotWriter747.h"
 
 class AutopilotManager {
     SerialUpdatesSender* serialUpdatesSender;

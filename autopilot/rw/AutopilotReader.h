@@ -8,7 +8,7 @@
 #include <chrono>
 
 #include "AutopilotValues.h"
-#include "SdkReadConnection.h"
+#include "../sdk/SdkReadConnection.h"
 
 class AutopilotReader {
     HANDLE* connection;

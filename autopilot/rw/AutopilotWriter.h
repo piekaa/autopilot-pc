@@ -1,7 +1,7 @@
 #ifndef MSFS_CONTROLLER_AUTOPILOTWRITER_H
 #define MSFS_CONTROLLER_AUTOPILOTWRITER_H
 
-#include "SdkWriteConnection.h"
+#include "../sdk/SdkWriteConnection.h"
 
 class AutopilotWriter {
 protected:

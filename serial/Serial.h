@@ -3,7 +3,7 @@
 
 #include <Windows.h>
 #include <string>
-#include "SerialConnection.h"
+#include "../SerialConnection.h"
 
 class Serial {
     SerialConnection* connection;

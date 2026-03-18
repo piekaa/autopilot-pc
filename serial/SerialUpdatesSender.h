@@ -1,6 +1,6 @@
 #ifndef MSFS_CONTROLLER_SERIALUPDATESSENDER_H
 #define MSFS_CONTROLLER_SERIALUPDATESSENDER_H
-#include "AutopilotValues.h"
+#include "../autopilot/rw/AutopilotValues.h"
 #include "Serial.h"
 
 class SerialUpdatesSender {

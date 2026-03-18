@@ -1,17 +1,17 @@
 # ninja log v6
-15	2936	7954707616473697	CMakeFiles/MSFS_controller.dir/NewMain.cpp.obj	ee23e8e2d6acd94
-9	1520	7939235257679965	CMakeFiles/MSFS_controller.dir/SimConnectClient.cpp.obj	bda84caa38febead
+3	1734	7954719451336797	CMakeFiles/MSFS_controller.dir/NewMain.cpp.obj	ee23e8e2d6acd94
 21	1737	7939235257802511	CMakeFiles/MSFS_controller.dir/CommandProcessor.cpp.obj	2bfe0c362c4753f
-12	1532	7939235257701510	CMakeFiles/MSFS_controller.dir/HeadingReader.cpp.obj	fc9a629ce86a8c46
+9	1520	7939235257679965	CMakeFiles/MSFS_controller.dir/SimConnectClient.cpp.obj	bda84caa38febead
 23	2474	7939235257827662	CMakeFiles/MSFS_controller.dir/AutopilotDataReader.cpp.obj	3de532913116c1e
+12	1532	7939235257701510	CMakeFiles/MSFS_controller.dir/HeadingReader.cpp.obj	fc9a629ce86a8c46
 14	1710	7939235257737303	CMakeFiles/MSFS_controller.dir/SerialPortReader.cpp.obj	a50505801b6fd518
-4	166	7954709903093555	C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/cmake_install.cmake	1580a52f442562ca
+4	166	7955242629847605	C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/cmake_install.cmake	1580a52f442562ca
 5	2471	7942440153512449	CMakeFiles/MSFS_controller.dir/AutopilotController.cpp.obj	d20c84a3b3ed08e9
 5	2360	7939235257644872	CMakeFiles/MSFS_controller.dir/main.cpp.obj	a68fcdeb72fe692b
-2936	3545	7954707645683201	MSFS_controller.exe	dfefd12c168141ae
-4	166	7954709903123612	build.ninja	1580a52f442562ca
-2	12	7939235256635106	clean	30076d2c593f36be
-4	2434	7954714869090035	CMakeFiles/MSFS_controller.dir/NewMain.cpp.obj	ee23e8e2d6acd94
-2434	2669	7954714893386184	MSFS_controller.exe	dfefd12c168141ae
-3	1734	7954719451336797	CMakeFiles/MSFS_controller.dir/NewMain.cpp.obj	ee23e8e2d6acd94
 1734	1910	7954719468642578	MSFS_controller.exe	dfefd12c168141ae
+4	166	7955242629867656	build.ninja	1580a52f442562ca
+2	12	7939235256635106	clean	30076d2c593f36be
+11	754	7955242629867656	build.ninja	1580a52f442562ca
+11	754	7955242629867656	C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/cmake_install.cmake	1580a52f442562ca
+3	2517	7955242630073199	CMakeFiles/MSFS_controller.dir/NewMain.cpp.obj	ee23e8e2d6acd94
+2518	3041	7955242655219746	MSFS_controller.exe	dfefd12c168141ae

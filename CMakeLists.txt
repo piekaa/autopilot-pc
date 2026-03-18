@@ -27,16 +27,16 @@ add_executable(MSFS_controller
     AutopilotDataReader.cpp
     AutopilotDataReader.h
         NewMain.cpp GameClient.h
-        AutopilotReader.h
-        SdkReadConnection.h
-        AutopilotValues.h
-        AutopilotWriter.h
-        AutopilotWriteField.h
-        SdkWriteConnection.h
-        AutopilotManager.h
+        autopilot/rw/AutopilotReader.h
+        autopilot/sdk/SdkReadConnection.h
+        autopilot/rw/AutopilotValues.h
+        autopilot/rw/AutopilotWriter.h
+        autopilot/rw/AutopilotWriteField.h
+        autopilot/sdk/SdkWriteConnection.h
+        autopilot/AutopilotManager.h
         AircraftNameProvider.h
         aircrafts/AutopilotWriter747.h
-        SerialUpdatesSender.h
+        serial/SerialUpdatesSender.h
 )
 
 # Link against SimConnect and Windows libraries

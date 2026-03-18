@@ -2,7 +2,7 @@
 #define MSFS_CONTROLLER_AUTOPILORWRITER737_H
 
 #include <windows.h>
-#include "../AutopilotWriter.h"
+#include "../autopilot/rw/AutopilotWriter.h"
 
 class AutopilotWriter737 : public AutopilotWriter {
 public:

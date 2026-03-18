@@ -1,9 +1,9 @@
-#include "AutopilotReader.h"
-#include "AutopilotWriter.h"
+#include "autopilot/rw/AutopilotReader.h"
+#include "autopilot/rw/AutopilotWriter.h"
 #include "GameClient.h"
 #include <iostream>
 
-#include "AutopilotManager.h"
+#include "autopilot/AutopilotManager.h"
 
 
 int main() {
