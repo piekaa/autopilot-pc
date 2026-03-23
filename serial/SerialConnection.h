@@ -90,17 +90,44 @@ public:
     }
 
     // Read a line from serial port (until '\n')
-    // Returns nullopt if no complete line is available
+    // Returns nullopt immediately if no complete line is available (non-blocking)
     std::optional<std::string> readLine() {
         if (!this->connected) {
             return std::nullopt;
         }
 
         static std::string buffer;
+
+        // Check if we already have a complete line in the buffer
+        size_t newlinePos = buffer.find('\n');
+        if (newlinePos != std::string::npos) {
+            std::string line = buffer.substr(0, newlinePos);
+            buffer.erase(0, newlinePos + 1);
+
+            // Remove trailing '\r' if present
+            if (!line.empty() && line.back() == '\r') {
+                line.pop_back();
+            }
+
+            return line;
+        }
+
+        // Check if there's any data available in the serial port buffer
+        COMSTAT comStat;
+        DWORD errors;
+        if (!ClearCommError(this->hSerial, &errors, &comStat)) {
+            return std::nullopt;
+        }
+
+        // If no data is available, return immediately (non-blocking)
+        if (comStat.cbInQue == 0) {
+            return std::nullopt;
+        }
+
+        // Data is available, read it
         char tempBuffer[256];
         DWORD bytesRead = 0;
 
-        // Read available data
         BOOL readSuccess = ReadFile(this->hSerial, tempBuffer, sizeof(tempBuffer) - 1, &bytesRead, nullptr);
         if (!readSuccess) {
             DWORD error = GetLastError();
@@ -110,8 +137,8 @@ public:
             buffer.append(tempBuffer, bytesRead);
         }
 
-        // Check if we have a complete line (ending with '\n')
-        size_t newlinePos = buffer.find('\n');
+        // Check again if we now have a complete line
+        newlinePos = buffer.find('\n');
         if (newlinePos != std::string::npos) {
             std::string line = buffer.substr(0, newlinePos);
             buffer.erase(0, newlinePos + 1);

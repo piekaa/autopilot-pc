@@ -35,6 +35,36 @@ public:
                 if (command == "H") {
                     autopilotWriter->setHeading(std::stoi(value));
                 }
+                if (command == "S") {
+                    autopilotWriter->setSpeed(std::stoi(value));
+                }
+                if (command == "A") {
+                    autopilotWriter->setAltitude(std::stoi(value));
+                }
+                if (command == "VS") {
+                    autopilotWriter->setVerticalSpeed(std::stoi(value));
+                }
+                if (command == "AP") {
+                    autopilotWriter->toggleAutopilot();
+                }
+                if (command == "AP_HEADING") {
+                    autopilotWriter->toggleHeading();
+                }
+                if (command == "AP_VS") {
+                    autopilotWriter->toggleVerticalSpeed();
+                }
+                if (command == "AP_VNAV") {
+                    autopilotWriter->toggleVNav();
+                }
+                if (command == "AP_LNAV") {
+                    autopilotWriter->toggleLNav();
+                }
+                if (command == "AP_SPEED") {
+                    autopilotWriter->toggleSpeed();
+                }
+                if (command == "AP_ALTITUDE") {
+                    autopilotWriter->toggleAltitude();
+                }
             }
         }
     }

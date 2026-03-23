@@ -11,6 +11,8 @@ protected:
     AutopilotWriteField* altitude = new AutopilotWriteField("AP_ALT_VAR_SET_ENGLISH");
     AutopilotWriteField* verticalSpeed = new AutopilotWriteField("AP_VS_VAR_SET_ENGLISH");
     AutopilotWriteField* altitudeIndex = new AutopilotWriteField("ALTITUDE_SLOT_INDEX_SET");
+    AutopilotWriteField* autopilotToggle = new AutopilotWriteField("AP_MASTER");
+    AutopilotWriteField* headingToggle = new AutopilotWriteField("AP_HDG_HOLD");
     AutopilotWriteField* autoThrottleToggle = new AutopilotWriteField("AUTO_THROTTLE_ARM");
     AutopilotWriteField* altitudeHoldToggle = new AutopilotWriteField("AP_ALT_HOLD");
     AutopilotWriteField* verticalSpeedToggle = new AutopilotWriteField("AP_VS_HOLD");
@@ -23,8 +25,12 @@ public:
     AutopilotWriter(HANDLE* connection, std::unordered_map<std::string, unsigned long long> inputEvents) {
         this->connection = connection;
         SdkWriteConnection::registerField(connection, heading);
+        SdkWriteConnection::registerField(connection, speed);
         SdkWriteConnection::registerField(connection, altitude);
+        SdkWriteConnection::registerField(connection, verticalSpeed);
         SdkWriteConnection::registerField(connection, altitudeIndex);
+        SdkWriteConnection::registerField(connection, autopilotToggle);
+        SdkWriteConnection::registerField(connection, headingToggle);
         SdkWriteConnection::registerField(connection, autoThrottleToggle);
         SdkWriteConnection::registerField(connection, altitudeHoldToggle);
         SdkWriteConnection::registerField(connection, verticalSpeedToggle);
@@ -56,6 +62,14 @@ public:
     virtual void setVerticalSpeed(int verticalSpeedValue) {
         verticalSpeed->value = verticalSpeedValue;
         SdkWriteConnection::setValue(connection, verticalSpeed);
+    }
+
+    virtual void toggleAutopilot() {
+        SdkWriteConnection::setValue(connection, autopilotToggle);
+    }
+
+    virtual void toggleHeading() {
+        SdkWriteConnection::setValue(connection, headingToggle);
     }
 
     virtual void toggleSpeed() {

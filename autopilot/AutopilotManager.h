@@ -68,6 +68,7 @@ public:
         }
 
         for (;;) {
+
             resolveAircraftIfNew();
 
             auto values = autopilotReader->read();
