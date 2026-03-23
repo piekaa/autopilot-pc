@@ -14,7 +14,7 @@ Set vertical speed, example [VS -1000] - sets autopilot vertical speed at -1000
 Toggle autopilot [AP TOGGLE] - turns off/on autopilot
 Toggle autopilot heading [AP_HEADING TOGGLE] - turns off/on heading in autopilot
 Toggle autopilot VNAV [AP_VNAV TOGGLE] - turns off/on vnav in autopilot
-Toggle autopilot VNAV [AP_LNAV TOGGLE] - turns off/on lnav in autopilot
+Toggle autopilot LNAV [AP_LNAV TOGGLE] - turns off/on lnav in autopilot
 Toggle speed control (like both "AT" and "MAN" button in G2 jet for example) [AP_SPEED TOGGLE]
 Toggle autopilot altitude [AP_ALTITUDE TOGGLE] - turns off/on ALT in autopilot
 Toggle autopilot vertical speed [AP_VS TOGGLE] - turns off/on vertical speed "VS" in autopilot 

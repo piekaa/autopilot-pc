@@ -70,6 +70,9 @@ public:
     }
 
     bool write(const std::string& data) {
+
+        std::cout << data << std::endl;
+
         if (!this->connection->isConnected()) {
             return false;
         }

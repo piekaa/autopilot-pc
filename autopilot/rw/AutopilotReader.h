@@ -52,6 +52,16 @@ public:
         SdkReadConnection::registerAutopilotField(connection, "AUTOPILOT AIRSPEED HOLD VAR", "knots");
         SdkReadConnection::registerAutopilotField(connection, "AUTOPILOT ALTITUDE LOCK VAR", "feet");
         SdkReadConnection::registerAutopilotField(connection, "AUTOPILOT VERTICAL HOLD VAR", "feet per minute");
+        SdkReadConnection::registerAutopilotField(connection, "AUTOPILOT MASTER", "Bool");
+        SdkReadConnection::registerAutopilotField(connection, "AUTOPILOT HEADING LOCK", "Bool");
+        SdkReadConnection::registerAutopilotField(connection, "AUTOPILOT AIRSPEED HOLD", "Bool");
+        SdkReadConnection::registerAutopilotField(connection, "AUTOPILOT ALTITUDE LOCK", "Bool");
+        SdkReadConnection::registerAutopilotField(connection, "AUTOPILOT VERTICAL HOLD", "Bool");
+        SdkReadConnection::registerAutopilotField(connection, "AUTOPILOT NAV1 LOCK", "Bool");
+        SdkReadConnection::registerAutopilotField(connection, "AUTOPILOT FLIGHT LEVEL CHANGE", "Bool");
+
+
+        // double vNavState;
         this->running = true;
         this->workerThread = std::thread(&AutopilotReader::threadLoop, this);
     }
