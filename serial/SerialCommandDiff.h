@@ -23,6 +23,7 @@ public:
 
             // Extract next line from command2
             size_t newline2 = command2.find('\n', pos2);
+            bool hasNewline = (newline2 != std::string::npos);
             if (newline2 == std::string::npos) newline2 = command2.size();
             line2 = command2.substr(pos2, newline2 - pos2);
             pos2 = newline2 + 1;
@@ -31,6 +32,7 @@ public:
             if (line1 != line2 && !line2.empty()) {
                 if (!result.empty()) result += "\n";
                 result += line2;
+                if (hasNewline) result += "\n";
             }
         }
 

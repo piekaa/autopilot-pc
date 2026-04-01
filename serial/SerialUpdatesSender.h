@@ -17,7 +17,7 @@ public:
     }
 
     void sendIfNeeded(AutopilotValues values) {
-        if (i % 50 == 0) {
+        if (i % 200 == 0) {
             serial->write(values.toCommunicationString());
         } else {
             if (values != lastValues) {
