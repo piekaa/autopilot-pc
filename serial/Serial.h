@@ -5,15 +5,15 @@
 #include <string>
 
 #include "CommandProcessor.h"
-#include "SerialConnection.h"
+#include "../tcp/TcpServer.h"
 
 class Serial {
-    SerialConnection* connection;
+    TcpServer* connection;
     AutopilotWriter* autopilotWriter = nullptr;
 
 public:
-    Serial(const std::string& portName = "COM5") {
-        this->connection = new SerialConnection(portName);
+    Serial(int port = 5000) {
+        this->connection = new TcpServer(port);
     }
 
     void setAutopilotWriter(AutopilotWriter* autopilotWriter) {
@@ -24,7 +24,7 @@ public:
         delete this->connection;
     }
 
-    bool isConnected() const {
+    bool isConnected() {
         return this->connection->isConnected();
     }
 
@@ -70,23 +70,8 @@ public:
     }
 
     bool write(const std::string& data) {
-
         std::cout << data << std::endl;
-
-        if (!this->connection->isConnected()) {
-            return false;
-        }
-
-        DWORD bytesWritten;
-        bool result = WriteFile(
-            this->connection->getHandle(),
-            data.c_str(),
-            data.length(),
-            &bytesWritten,
-            nullptr
-        );
-
-        return result && (bytesWritten == data.length());
+        return this->connection->write(data);
     }
 };
 

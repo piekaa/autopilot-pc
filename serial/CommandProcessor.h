@@ -2,13 +2,10 @@
 #define COMMANDPROCESSOR_H
 
 #include <string>
-#include <vector>
 #include <iostream>
 #include <sstream>
 #include <utility>
 #include <optional>
-#include "../SerialPortReader.h"
-#include "../AutopilotController.h"
 
 /**
  * CommandProcessor class (Java-style)

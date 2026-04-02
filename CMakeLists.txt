@@ -24,18 +24,13 @@ include_directories(${SIMCONNECT_INCLUDE_DIR})
 
 # Add all source files
 add_executable(MSFS_controller
-    main.cpp
-    SimConnectClient.cpp
+        SimConnectClient.cpp
     SimConnectClient.h
     HeadingReader.cpp
     HeadingReader.h
-    SerialPortReader.cpp
-    SerialPortReader.h
-    AutopilotController.cpp
+        AutopilotController.cpp
     AutopilotController.h
         serial/CommandProcessor.h
-    AutopilotDataReader.cpp
-    AutopilotDataReader.h
         NewMain.cpp GameClient.h
         autopilot/rw/AutopilotReader.h
         autopilot/sdk/SdkReadConnection.h
