@@ -2,7 +2,6 @@
 #define MSFS_CONTROLLER_TCPSERVER_H
 
 #include <winsock2.h>
-#include <ws2tcpip.h>
 #include <string>
 #include <iostream>
 #include <optional>
@@ -96,7 +95,7 @@ class TcpServer {
         connected = false;
         waitingForPong = false;
         buffer.clear();
-        std::cout << "Client disconnected" << std::endl;
+        std::cout << "Client disconnected, awaiting new client connection..." << std::endl;
     }
 
     void checkHeartbeat() {
