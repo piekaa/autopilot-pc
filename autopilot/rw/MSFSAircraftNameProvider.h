@@ -1,5 +1,5 @@
-#ifndef MSFS_CONTROLLER_AIRCRAFTNAMEPROVIDER_H
-#define MSFS_CONTROLLER_AIRCRAFTNAMEPROVIDER_H
+#ifndef MSFS_CONTROLLER_MSFSAIRCRAFTNAMEPROVIDER_H
+#define MSFS_CONTROLLER_MSFSAIRCRAFTNAMEPROVIDER_H
 
 #include <windows.h>
 #include <thread>
@@ -9,9 +9,10 @@
 #include <cstring>
 #include <string>
 
+#include "AircractNameProvider.h"
 #include "../sdk/SdkReadConnection.h"
 
-class AircraftNameProvider {
+class MSFSAircraftNameProvider : public AircractNameProvider{
     HANDLE* connection;
     std::thread workerThread;
     std::atomic<bool> running;
@@ -45,7 +46,7 @@ class AircraftNameProvider {
     }
 
 public:
-    AircraftNameProvider(HANDLE* connection) {
+    MSFSAircraftNameProvider(HANDLE* connection) {
         this->connection = connection;
         this->running = false;
         memset(currentAircraftName, 0, 256);
@@ -53,10 +54,10 @@ public:
         SdkReadConnection::registerForAircraftName(connection);
 
         this->running = true;
-        this->workerThread = std::thread(&AircraftNameProvider::threadLoop, this);
+        this->workerThread = std::thread(&MSFSAircraftNameProvider::threadLoop, this);
     }
 
-    ~AircraftNameProvider() {
+    ~MSFSAircraftNameProvider() {
         running = false;
         if (workerThread.joinable()) {
             workerThread.join();
@@ -69,4 +70,4 @@ public:
     }
 };
 
-#endif //MSFS_CONTROLLER_AIRCRAFTNAMEPROVIDER_H
+#endif //MSFS_CONTROLLER_MSFSAIRCRAFTNAMEPROVIDER_H

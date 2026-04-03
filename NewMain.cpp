@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "autopilot/AutopilotManager.h"
+#include "autopilot/MSFSDependencyResolver.h"
 
 
 int main() {
@@ -11,9 +12,7 @@ int main() {
     auto aircraftNameClient = new GameClient();
 
 
-    new AutopilotManager(
-        aircraftNameClient->getConnection(),
-        autopilotClient->getConnection());
+    new AutopilotManager(new MSFSDependencyResolver(aircraftNameClient->getConnection(), autopilotClient->getConnection()));
 
 
     return 0;

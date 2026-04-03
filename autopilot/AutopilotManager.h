@@ -1,24 +1,27 @@
 #ifndef MSFS_CONTROLLER_AUTOPILOTMANAGER_H
 #define MSFS_CONTROLLER_AUTOPILOTMANAGER_H
 
-#include <windows.h>
 #include <string>
-#include "rw/AircraftNameProvider.h"
+
+#include "DependencyResolver.h"
+#include "rw/MSFSAircraftNameProvider.h"
 #include "rw/AutopilotWriter.h"
 #include "../serial/Serial.h"
 #include "../serial/SerialUpdatesSender.h"
-#include "../aircrafts/AutopilotWriter747.h"
 
 class AutopilotManager {
-    SerialUpdatesSender* serialUpdatesSender;
-    Serial* serial;
-    HANDLE* nameConnection;
-    HANDLE* autopilotConnection;
-    AircraftNameProvider* aircraftNameProvider;
+    SerialUpdatesSender *serialUpdatesSender;
+    Serial *serial;
+
+    DependencyResolver *dependencyResolver;
+
+    InputEventsProvider* inputEventsProvider;
+
+    AircractNameProvider *aircraftNameProvider;
     std::string lastAircraftName;
-    
-    AutopilotWriter* autopilotWriter = nullptr;
-    AutopilotReader* autopilotReader = nullptr;
+
+    AutopilotWriter *autopilotWriter = nullptr;
+    AutopilotReader *autopilotReader = nullptr;
 
     bool resolveAircraftIfNew() {
         auto aircraftName = aircraftNameProvider->getAircraftName();
@@ -28,39 +31,26 @@ class AutopilotManager {
             delete autopilotWriter;
             delete autopilotReader;
 
-            SdkReadConnection::requestEnumerateInputEvents(autopilotConnection);
-            auto inputEvents = SdkReadConnection::readEnumerations(autopilotConnection);
+            auto inputEvents = inputEventsProvider->getInputEvents();
 
-            autopilotWriter = resolveAutopilotWriter(aircraftName, inputEvents);
+            autopilotWriter = dependencyResolver->resolveAutopilotWriter(aircraftName, inputEvents);
             autopilotWriter->setAltitudeIndex();
             serial->setAutopilotWriter(autopilotWriter);
-            autopilotReader = resolveAutopilotReader(aircraftName);
+            autopilotReader = dependencyResolver->resolveAutopilotReader(aircraftName);
             return true;
         }
         return false;
     }
 
-    AutopilotWriter* resolveAutopilotWriter(const std::string& aircraftName, std::unordered_map<std::string, unsigned long long> inputEvents) {
-        if (aircraftName.contains("737")) {
-            return new AutopilotWriter737(autopilotConnection, inputEvents);
-        }
-        return new AutopilotWriter(autopilotConnection, inputEvents);
-    }
-
-    AutopilotReader* resolveAutopilotReader(const std::string& aircraftName) {
-        return new AutopilotReader(autopilotConnection);
-    }
-    
 public:
-    AutopilotManager(HANDLE* connection, HANDLE* autopilotConnection) {
-        this->nameConnection = connection;
-        this->autopilotConnection = autopilotConnection;
-        aircraftNameProvider = new AircraftNameProvider(connection);
+    AutopilotManager(DependencyResolver *dependencyResolver) {
+        this->dependencyResolver = dependencyResolver;
+        this->inputEventsProvider = dependencyResolver->resolveInputEventsProvider();
+        aircraftNameProvider = dependencyResolver->resolveAircraftNameProvider();
         serial = new Serial();
         serialUpdatesSender = new SerialUpdatesSender(serial);
 
         for (;;) {
-
             if (resolveAircraftIfNew()) {
                 break;
             }
@@ -68,8 +58,6 @@ public:
         }
 
         for (;;) {
-
-
             resolveAircraftIfNew();
 
             auto values = autopilotReader->read();
@@ -81,7 +69,6 @@ public:
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
     }
-    
 };
 
 #endif //MSFS_CONTROLLER_AUTOPILOTMANAGER_H

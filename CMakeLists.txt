@@ -39,10 +39,18 @@ add_executable(MSFS_controller
         autopilot/rw/AutopilotWriteField.h
         autopilot/sdk/SdkWriteConnection.h
         autopilot/AutopilotManager.h
-        autopilot/rw/AircraftNameProvider.h
+        autopilot/rw/MSFSAircraftNameProvider.h
         aircrafts/AutopilotWriter747.h
         serial/SerialUpdatesSender.h
         serial/SerialCommandDiff.h
+        autopilot/MSFSDependencyResolver.h
+        autopilot/DependencyResolver.h
+        autopilot/rw/InputEventsProvider.h
+        autopilot/FakeDependencyResolver.h
+        autopilot/rw/FakeInputEventsProvider.h
+        autopilot/rw/AircractNameProvider.h
+        autopilot/rw/FakeAircraftNameProvider.h
+        autopilot/rw/FakeAutopilotWriter.h
 )
 
 # Link against SimConnect and Windows libraries
