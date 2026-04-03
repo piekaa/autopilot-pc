@@ -1,0 +1,5 @@
+if(EXISTS "C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/SerialCommandDiffTest[1]_tests.cmake")
+  include("C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/SerialCommandDiffTest[1]_tests.cmake")
+else()
+  add_test(SerialCommandDiffTest_NOT_BUILT SerialCommandDiffTest_NOT_BUILT)
+endif()

@@ -6,6 +6,7 @@
 #include <string>
 #include <iostream>
 #include <optional>
+#include <chrono>
 
 #pragma comment(lib, "Ws2_32.lib")
 
@@ -15,6 +16,11 @@ class TcpServer {
     bool connected;
     int port;
     std::string buffer;
+
+    // Heartbeat tracking
+    std::chrono::steady_clock::time_point lastPingSent;
+    std::chrono::steady_clock::time_point lastPongReceived;
+    bool waitingForPong;
 
     void initializeWinsock() {
         WSADATA wsaData;
@@ -75,33 +81,71 @@ class TcpServer {
             ioctlsocket(clientSocket, FIONBIO, &mode);
 
             connected = true;
+            waitingForPong = false;
+            lastPingSent = std::chrono::steady_clock::now();
+            lastPongReceived = std::chrono::steady_clock::now();
             std::cout << "Client connected to TCP server" << std::endl;
         }
     }
 
-    void checkClientConnection() {
+    void disconnectClient() {
+        if (clientSocket != INVALID_SOCKET) {
+            closesocket(clientSocket);
+            clientSocket = INVALID_SOCKET;
+        }
+        connected = false;
+        waitingForPong = false;
+        buffer.clear();
+        std::cout << "Client disconnected" << std::endl;
+    }
+
+    void checkHeartbeat() {
         if (!connected) {
             return;
         }
 
-        // Check if client is still connected by trying to peek at the socket
-        char testBuf[1];
-        int result = recv(clientSocket, testBuf, 0, 0);
-        if (result == SOCKET_ERROR) {
-            int error = WSAGetLastError();
-            if (error != WSAEWOULDBLOCK) {
-                std::cout << "Client disconnected" << std::endl;
-                closesocket(clientSocket);
-                clientSocket = INVALID_SOCKET;
-                connected = false;
-                buffer.clear();
+        auto now = std::chrono::steady_clock::now();
+
+        // Check if we need to send PING (every 5 seconds)
+        auto timeSinceLastPing = std::chrono::duration_cast<std::chrono::seconds>(now - lastPingSent);
+        if (timeSinceLastPing.count() >= 5 && !waitingForPong) {
+            // Send PING PING
+            if (sendRaw("PING PING\n")) {
+                lastPingSent = now;
+                waitingForPong = true;
+                std::cout << "Sent PING PING" << std::endl;
+            }
+        }
+
+        // Check if PONG timeout occurred (3 seconds after PING)
+        if (waitingForPong) {
+            auto timeSincePing = std::chrono::duration_cast<std::chrono::seconds>(now - lastPingSent);
+            if (timeSincePing.count() >= 3) {
+                std::cout << "PONG timeout - disconnecting client" << std::endl;
+                disconnectClient();
             }
         }
     }
 
+    bool sendRaw(const std::string& data) {
+        if (!connected || clientSocket == INVALID_SOCKET) {
+            return false;
+        }
+
+        int bytesSent = send(clientSocket, data.c_str(), data.length(), 0);
+        if (bytesSent == SOCKET_ERROR) {
+            int error = WSAGetLastError();
+            std::cerr << "send failed with error: " << error << std::endl;
+            disconnectClient();
+            return false;
+        }
+
+        return bytesSent == data.length();
+    }
+
 public:
     TcpServer(int serverPort = 5000) : listenSocket(INVALID_SOCKET), clientSocket(INVALID_SOCKET),
-                                        connected(false), port(serverPort) {
+                                        connected(false), port(serverPort), waitingForPong(false) {
         try {
             initializeWinsock();
             createListenSocket();
@@ -130,7 +174,7 @@ public:
         if (!connected) {
             acceptClient();
         } else {
-            checkClientConnection();
+            checkHeartbeat();
         }
         return connected;
     }
@@ -153,6 +197,14 @@ public:
                 line.pop_back();
             }
 
+            // Check if this is a PONG PONG response
+            if (line == "PONG PONG") {
+                std::cout << "Received PONG PONG" << std::endl;
+                waitingForPong = false;
+                lastPongReceived = std::chrono::steady_clock::now();
+                return std::nullopt; // Don't pass PONG to application layer
+            }
+
             return line;
         }
 
@@ -167,19 +219,13 @@ public:
             int error = WSAGetLastError();
             if (error != WSAEWOULDBLOCK) {
                 std::cerr << "recv failed with error: " << error << std::endl;
-                closesocket(clientSocket);
-                clientSocket = INVALID_SOCKET;
-                connected = false;
-                buffer.clear();
+                disconnectClient();
                 return std::nullopt;
             }
         } else if (bytesRead == 0) {
             // Client closed connection gracefully
             std::cout << "Client closed connection" << std::endl;
-            closesocket(clientSocket);
-            clientSocket = INVALID_SOCKET;
-            connected = false;
-            buffer.clear();
+            disconnectClient();
             return std::nullopt;
         }
 
@@ -194,6 +240,14 @@ public:
                 line.pop_back();
             }
 
+            // Check if this is a PONG PONG response
+            if (line == "PONG PONG") {
+                std::cout << "Received PONG PONG" << std::endl;
+                waitingForPong = false;
+                lastPongReceived = std::chrono::steady_clock::now();
+                return std::nullopt; // Don't pass PONG to application layer
+            }
+
             return line;
         }
 
@@ -201,22 +255,7 @@ public:
     }
 
     bool write(const std::string& data) {
-        if (!isConnected()) {
-            return false;
-        }
-
-        int bytesSent = send(clientSocket, data.c_str(), data.length(), 0);
-        if (bytesSent == SOCKET_ERROR) {
-            int error = WSAGetLastError();
-            std::cerr << "send failed with error: " << error << std::endl;
-            closesocket(clientSocket);
-            clientSocket = INVALID_SOCKET;
-            connected = false;
-            buffer.clear();
-            return false;
-        }
-
-        return bytesSent == data.length();
+        return sendRaw(data);
     }
 };
 

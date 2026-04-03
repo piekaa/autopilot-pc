@@ -1,0 +1,56 @@
+[
+{
+  "directory": "C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug",
+  "command": "C:\\Users\\Piotr\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\g++.exe -I\"C:/MSFS 2024 SDK/SimConnect SDK/include\" -g -std=gnu++23 -fdiagnostics-color=always -o CMakeFiles\\MSFS_controller.dir\\SimConnectClient.cpp.obj -c C:\\Users\\Piotr\\CLionProjects\\MSFS-controller\\SimConnectClient.cpp",
+  "file": "C:/Users/Piotr/CLionProjects/MSFS-controller/SimConnectClient.cpp",
+  "output": "C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/CMakeFiles/MSFS_controller.dir/SimConnectClient.cpp.obj"
+},
+{
+  "directory": "C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug",
+  "command": "C:\\Users\\Piotr\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\g++.exe -I\"C:/MSFS 2024 SDK/SimConnect SDK/include\" -g -std=gnu++23 -fdiagnostics-color=always -o CMakeFiles\\MSFS_controller.dir\\HeadingReader.cpp.obj -c C:\\Users\\Piotr\\CLionProjects\\MSFS-controller\\HeadingReader.cpp",
+  "file": "C:/Users/Piotr/CLionProjects/MSFS-controller/HeadingReader.cpp",
+  "output": "C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/CMakeFiles/MSFS_controller.dir/HeadingReader.cpp.obj"
+},
+{
+  "directory": "C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug",
+  "command": "C:\\Users\\Piotr\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\g++.exe -I\"C:/MSFS 2024 SDK/SimConnect SDK/include\" -g -std=gnu++23 -fdiagnostics-color=always -o CMakeFiles\\MSFS_controller.dir\\AutopilotController.cpp.obj -c C:\\Users\\Piotr\\CLionProjects\\MSFS-controller\\AutopilotController.cpp",
+  "file": "C:/Users/Piotr/CLionProjects/MSFS-controller/AutopilotController.cpp",
+  "output": "C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/CMakeFiles/MSFS_controller.dir/AutopilotController.cpp.obj"
+},
+{
+  "directory": "C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug",
+  "command": "C:\\Users\\Piotr\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\g++.exe -I\"C:/MSFS 2024 SDK/SimConnect SDK/include\" -g -std=gnu++23 -fdiagnostics-color=always -o CMakeFiles\\MSFS_controller.dir\\NewMain.cpp.obj -c C:\\Users\\Piotr\\CLionProjects\\MSFS-controller\\NewMain.cpp",
+  "file": "C:/Users/Piotr/CLionProjects/MSFS-controller/NewMain.cpp",
+  "output": "C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/CMakeFiles/MSFS_controller.dir/NewMain.cpp.obj"
+},
+{
+  "directory": "C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug",
+  "command": "C:\\Users\\Piotr\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\g++.exe -I\"C:/MSFS 2024 SDK/SimConnect SDK/include\" -isystem C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/_deps/googletest-src/googletest/include -isystem C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/_deps/googletest-src/googletest -g -std=gnu++23 -fdiagnostics-color=always -o CMakeFiles\\SerialCommandDiffTest.dir\\tests\\SerialCommandDiffTest.cpp.obj -c C:\\Users\\Piotr\\CLionProjects\\MSFS-controller\\tests\\SerialCommandDiffTest.cpp",
+  "file": "C:/Users/Piotr/CLionProjects/MSFS-controller/tests/SerialCommandDiffTest.cpp",
+  "output": "C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/CMakeFiles/SerialCommandDiffTest.dir/tests/SerialCommandDiffTest.cpp.obj"
+},
+{
+  "directory": "C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug",
+  "command": "C:\\Users\\Piotr\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\g++.exe -IC:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/_deps/googletest-src/googlemock/include -IC:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/_deps/googletest-src/googlemock -isystem C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/_deps/googletest-src/googletest/include -isystem C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/_deps/googletest-src/googletest -g -std=c++23 -fdiagnostics-color=always -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=0 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o _deps\\googletest-build\\googlemock\\CMakeFiles\\gmock.dir\\src\\gmock-all.cc.obj -c C:\\Users\\Piotr\\CLionProjects\\MSFS-controller\\cmake-build-debug\\_deps\\googletest-src\\googlemock\\src\\gmock-all.cc",
+  "file": "C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/_deps/googletest-src/googlemock/src/gmock-all.cc",
+  "output": "C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/_deps/googletest-build/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.obj"
+},
+{
+  "directory": "C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug",
+  "command": "C:\\Users\\Piotr\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\g++.exe -isystem C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/_deps/googletest-src/googlemock/include -isystem C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/_deps/googletest-src/googlemock -isystem C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/_deps/googletest-src/googletest/include -isystem C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/_deps/googletest-src/googletest -g -std=c++23 -fdiagnostics-color=always -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=0 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o _deps\\googletest-build\\googlemock\\CMakeFiles\\gmock_main.dir\\src\\gmock_main.cc.obj -c C:\\Users\\Piotr\\CLionProjects\\MSFS-controller\\cmake-build-debug\\_deps\\googletest-src\\googlemock\\src\\gmock_main.cc",
+  "file": "C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/_deps/googletest-src/googlemock/src/gmock_main.cc",
+  "output": "C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/_deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.obj"
+},
+{
+  "directory": "C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug",
+  "command": "C:\\Users\\Piotr\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\g++.exe -IC:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/_deps/googletest-src/googletest/include -IC:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/_deps/googletest-src/googletest -g -std=c++23 -fdiagnostics-color=always -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=0 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o _deps\\googletest-build\\googletest\\CMakeFiles\\gtest.dir\\src\\gtest-all.cc.obj -c C:\\Users\\Piotr\\CLionProjects\\MSFS-controller\\cmake-build-debug\\_deps\\googletest-src\\googletest\\src\\gtest-all.cc",
+  "file": "C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/_deps/googletest-src/googletest/src/gtest-all.cc",
+  "output": "C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/_deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.obj"
+},
+{
+  "directory": "C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug",
+  "command": "C:\\Users\\Piotr\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\g++.exe -isystem C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/_deps/googletest-src/googletest/include -isystem C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/_deps/googletest-src/googletest -g -std=c++23 -fdiagnostics-color=always -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=0 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o _deps\\googletest-build\\googletest\\CMakeFiles\\gtest_main.dir\\src\\gtest_main.cc.obj -c C:\\Users\\Piotr\\CLionProjects\\MSFS-controller\\cmake-build-debug\\_deps\\googletest-src\\googletest\\src\\gtest_main.cc",
+  "file": "C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc",
+  "output": "C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/_deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.obj"
+}
+]

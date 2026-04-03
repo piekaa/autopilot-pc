@@ -1,0 +1,10 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/cmake_install.cmake",
+		"C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/_deps/googletest-build/cmake_install.cmake",
+		"C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/_deps/googletest-build/googlemock/cmake_install.cmake",
+		"C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug/_deps/googletest-build/googletest/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

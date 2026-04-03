@@ -1,0 +1,3 @@
+C:/Users/Piotr/CLionProjects/MSFS-controller/build/CMakeFiles/MSFS_controller.dir
+C:/Users/Piotr/CLionProjects/MSFS-controller/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Piotr/CLionProjects/MSFS-controller/build/CMakeFiles/ZERO_CHECK.dir

@@ -17,7 +17,18 @@ struct AutopilotValues {
   double lNavState;
   double vNavState;
 
-  std::string toCommunicationString() {
+  std::string toTogglesCommunicationString() {
+    std::ostringstream oss;
+    oss << "AP_HEADING " << (headingState == 0 ? "OFF" : "ON") << "\n";
+    oss << "AP_LNAV " << (lNavState == 0 ? "OFF" : "ON") << "\n";
+    oss << "AP_VNAV " << (vNavState == 0 ? "OFF" : "ON") << "\n";
+    oss << "AP_SPEED " << (speedState == 0 ? "OFF" : "ON") << "\n";
+    oss << "AP_ALTITUDE " << (altitudeState == 0 ? "OFF" : "ON") << "\n";
+    oss << "AP_VS " << (verticalSpeedState == 0 ? "OFF" : "ON") << "\n";
+    return oss.str();
+  }
+
+  std::string toFullCommunicationString() {
     std::ostringstream oss;
     oss << "H " << static_cast<int>(heading) << "\n";
     oss << "S " << static_cast<int>(speed) << "\n";

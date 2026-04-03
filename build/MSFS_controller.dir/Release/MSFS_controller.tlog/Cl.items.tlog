@@ -1,0 +1,7 @@
+C:\Users\Piotr\CLionProjects\MSFS-controller\main.cpp;C:\Users\Piotr\CLionProjects\MSFS-controller\build\MSFS_controller.dir\Release\main.obj
+C:\Users\Piotr\CLionProjects\MSFS-controller\SimConnectClient.cpp;C:\Users\Piotr\CLionProjects\MSFS-controller\build\MSFS_controller.dir\Release\SimConnectClient.obj
+C:\Users\Piotr\CLionProjects\MSFS-controller\HeadingReader.cpp;C:\Users\Piotr\CLionProjects\MSFS-controller\build\MSFS_controller.dir\Release\HeadingReader.obj
+C:\Users\Piotr\CLionProjects\MSFS-controller\SerialPortReader.cpp;C:\Users\Piotr\CLionProjects\MSFS-controller\build\MSFS_controller.dir\Release\SerialPortReader.obj
+C:\Users\Piotr\CLionProjects\MSFS-controller\AutopilotController.cpp;C:\Users\Piotr\CLionProjects\MSFS-controller\build\MSFS_controller.dir\Release\AutopilotController.obj
+C:\Users\Piotr\CLionProjects\MSFS-controller\CommandProcessor.cpp;C:\Users\Piotr\CLionProjects\MSFS-controller\build\MSFS_controller.dir\Release\CommandProcessor.obj
+C:\Users\Piotr\CLionProjects\MSFS-controller\AutopilotDataReader.cpp;C:\Users\Piotr\CLionProjects\MSFS-controller\build\MSFS_controller.dir\Release\AutopilotDataReader.obj

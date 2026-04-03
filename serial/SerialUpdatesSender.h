@@ -17,11 +17,11 @@ public:
     }
 
     void sendIfNeeded(AutopilotValues values) {
-        if (i % 200 == 0) {
-            serial->write(values.toCommunicationString());
+        if (i % 100 == 0) {
+            serial->write(values.toFullCommunicationString());
         } else {
             if (values != lastValues) {
-                serial->write(SerialCommandDiff::diff(lastValues.toCommunicationString(), values.toCommunicationString()));
+                serial->write(SerialCommandDiff::diff(lastValues.toTogglesCommunicationString(), values.toTogglesCommunicationString()));
             }
         }
         lastValues = values;
