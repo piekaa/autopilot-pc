@@ -1,11 +1,11 @@
-#ifndef MSFS_CONTROLLER_SIMCONNECT_H
-#define MSFS_CONTROLLER_SIMCONNECT_H
+#ifndef MSFS_CONTROLLER_SDK_READ_CONNECTION_H
+#define MSFS_CONTROLLER_SDK_READ_CONNECTION_H
 #include <Windows.h>
 #include <SimConnect.h>
 #include <iostream>
 #include <thread>
 #include <unordered_map>
-
+#include "../rw/AutopilotValues.h"
 
 class SdkReadConnection {
 public:
@@ -186,4 +186,4 @@ public:
     }
 };
 
-#endif //MSFS_CONTROLLER_SIMCONNECT_H
+#endif //MSFS_CONTROLLER_SDK_READ_CONNECTION_H

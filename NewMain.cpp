@@ -1,18 +1,20 @@
-#include "autopilot/rw/AutopilotReader.h"
-#include "autopilot/rw/AutopilotWriter.h"
 #include "GameClient.h"
-#include <iostream>
 
 #include "autopilot/AutopilotManager.h"
+#include "autopilot/FakeDependencyResolver.h"
 #include "autopilot/MSFSDependencyResolver.h"
 
 
 int main() {
-    auto autopilotClient = new GameClient();
-    auto aircraftNameClient = new GameClient();
 
 
-    new AutopilotManager(new MSFSDependencyResolver(aircraftNameClient->getConnection(), autopilotClient->getConnection()));
+    // DependencyResolver* dependencyResolver = new MSFSDependencyResolver(
+    // (new GameClient())->getConnection(),
+    // (new GameClient())->getConnection());
+
+    DependencyResolver* dependencyResolver = new FakeDependencyResolver();
+
+    new AutopilotManager(dependencyResolver);
 
 
     return 0;

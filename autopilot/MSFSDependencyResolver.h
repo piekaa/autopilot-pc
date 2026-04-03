@@ -1,8 +1,8 @@
 #ifndef MSFS_CONTROLLER_MSFSDEPENDENCYRESOLVER_H
 #define MSFS_CONTROLLER_MSFSDEPENDENCYRESOLVER_H
 #include "DependencyResolver.h"
-#include "rw/AutopilotReader.h"
-#include "rw/AutopilotWriter.h"
+#include "rw/MSFSAutopilotReader.h"
+#include "rw/MSFSAutopilotWriter.h"
 #include "../aircrafts/AutopilotWriter747.h"
 #include "rw/MSFSInputEventsProvider.h"
 
@@ -21,11 +21,11 @@ public:
         if (aircraftName.contains("737")) {
             return new AutopilotWriter737(autopilotConnection, inputEvents);
         }
-        return new AutopilotWriter(autopilotConnection, inputEvents);
+        return new MSFSAutopilotWriter(autopilotConnection, inputEvents);
     }
 
     AutopilotReader* resolveAutopilotReader(const std::string& aircraftName) override {
-        return new AutopilotReader(autopilotConnection);
+        return new MSFSAutopilotReader(autopilotConnection);
     }
 
 

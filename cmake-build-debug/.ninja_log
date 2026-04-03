@@ -29,3 +29,9 @@
 7	514	7959668797561657	lib/libgmock.a	3fc8a18fd2f559c8
 7	2841	7959668717560143	_deps/googletest-build/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.obj	63df63f338d7f513
 514	586	7959668802626215	lib/libgmock_main.a	85b75aeec4a5f83c
+3	1756	7969055458161520	CMakeFiles/MSFS_controller.dir/NewMain.cpp.obj	ee23e8e2d6acd94
+1757	1943	7969055475690942	MSFS_controller.exe	23f550a99c550ec1
+4	1703	7969055786546776	CMakeFiles/MSFS_controller.dir/NewMain.cpp.obj	ee23e8e2d6acd94
+1703	1880	7969055803538226	MSFS_controller.exe	23f550a99c550ec1
+4	1578	7969058024846080	CMakeFiles/MSFS_controller.dir/NewMain.cpp.obj	ee23e8e2d6acd94
+1578	1709	7969058040593015	MSFS_controller.exe	23f550a99c550ec1

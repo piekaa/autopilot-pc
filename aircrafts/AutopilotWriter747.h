@@ -2,14 +2,14 @@
 #define MSFS_CONTROLLER_AUTOPILORWRITER737_H
 
 #include <windows.h>
-#include "../autopilot/rw/AutopilotWriter.h"
+#include "../autopilot/rw/MSFSAutopilotWriter.h"
 
-class AutopilotWriter737 : public AutopilotWriter {
+class AutopilotWriter737 : public MSFSAutopilotWriter {
 public:
     unsigned long long fccSpeedHash;
 
     AutopilotWriter737(HANDLE *connection,
-                       std::unordered_map<std::string, unsigned long long> inputEvents) : AutopilotWriter(
+                       std::unordered_map<std::string, unsigned long long> inputEvents) : MSFSAutopilotWriter(
         connection, inputEvents) {
         altitudeIndex->value = 3;
         for (const auto &[eventName, hash]: inputEvents) {
@@ -21,11 +21,11 @@ public:
 
     void setAltitude(int altitudeValue) override {
         altitude->setValue2(3);
-        AutopilotWriter::setAltitude(altitudeValue);
+        MSFSAutopilotWriter::setAltitude(altitudeValue);
     }
 
     void toggleSpeed() override {
-        AutopilotWriter::toggleSpeed();
+        MSFSAutopilotWriter::toggleSpeed();
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
         SdkWriteConnection::sendInputEvent(connection, inputEvents["FCC_SPEED"], 1.0);
     }
