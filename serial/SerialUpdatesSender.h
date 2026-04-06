@@ -21,7 +21,7 @@ public:
             serial->write(values.toFullCommunicationString());
         } else {
             if (values != lastValues) {
-                serial->write(SerialCommandDiff::diff(lastValues.toTogglesCommunicationString(), values.toTogglesCommunicationString()));
+                serial->write(SerialCommandDiff::diff(lastValues.toShortCommunicationString(), values.toShortCommunicationString()));
             }
         }
         lastValues = values;

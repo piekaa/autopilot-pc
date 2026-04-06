@@ -25,7 +25,7 @@ Set heading, example: [H 100] - informs that autopilot heading is at 100
 Set speed, example [S 231] - informs that autopilot speed is at 231
 Set altitude, example [A 13000] - informs that autopilot altitude is at 13000
 Set vertical speed, example [VS -1000] - informs that autopilot vertical speed is at -1000
-
+Set ground velocity, example [GV 20] - informs that ground velocity is at 20
 
 Set autopilot status example [AP ON] - autopilot is ON, [AP OFF] - autopilot is off
 Set heading mode status [AP_HEADING ON] - heading hold active, [AP_HEADING OFF] - heading hold inactive

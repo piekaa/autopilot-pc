@@ -38,6 +38,10 @@ class MSFSAutopilotReader : public AutopilotReader {
                 if (data) {
                     delete lastValues;
                     lastValues =  data;
+                    lastValues->groundVelocity = static_cast<int>(lastValues->groundVelocity);
+                    if (lastValues->groundVelocity > 25) {
+                        lastValues->groundVelocity = -1;
+                    }
                 }
             }
             std::this_thread::sleep_for(readInterval);
@@ -60,6 +64,7 @@ public:
         SdkReadConnection::registerAutopilotField(connection, "AUTOPILOT VERTICAL HOLD", "Bool");
         SdkReadConnection::registerAutopilotField(connection, "AUTOPILOT NAV1 LOCK", "Bool");
         SdkReadConnection::registerAutopilotField(connection, "AUTOPILOT FLIGHT LEVEL CHANGE", "Bool");
+        SdkReadConnection::registerAutopilotField(connection, "GROUND VELOCITY", "knots");
 
 
         // double vNavState;
