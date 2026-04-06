@@ -51,6 +51,7 @@ add_executable(MSFS_controller
         autopilot/rw/AircractNameProvider.h
         autopilot/rw/FakeAircraftNameProvider.h
         autopilot/rw/FakeAutopilotWriter.h
+        aircrafts/VisionJetWriter.h
 )
 
 # Link against SimConnect and Windows libraries

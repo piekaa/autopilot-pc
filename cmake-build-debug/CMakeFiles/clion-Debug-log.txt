@@ -1,4 +1,16 @@
 C:\Users\Piotr\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=C:/Users/Piotr/AppData/Local/Programs/CLion/bin/ninja/win/x64/ninja.exe -G Ninja -S C:\Users\Piotr\CLionProjects\MSFS-controller -B C:\Users\Piotr\CLionProjects\MSFS-controller\cmake-build-debug
+-- The C compiler identification is GNU 13.1.0
+-- The CXX compiler identification is GNU 13.1.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: C:/Users/Piotr/AppData/Local/Programs/CLion/bin/mingw/bin/gcc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: C:/Users/Piotr/AppData/Local/Programs/CLion/bin/mingw/bin/g++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
 CMake Warning (dev) at C:/Users/Piotr/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.1/Modules/FetchContent.cmake:1373 (message):
   The DOWNLOAD_EXTRACT_TIMESTAMP option was not given and policy CMP0135 is
   not set.  The policy's OLD behavior will be used.  When using a URL
@@ -13,6 +25,7 @@ Call Stack (most recent call first):
   CMakeLists.txt:8 (FetchContent_Declare)
 This warning is for project developers.  Use -Wno-dev to suppress it.
 
--- Configuring done (0.3s)
+-- Found Python3: C:/Users/Piotr/AppData/Local/Programs/Python/Python312/python.exe (found version "3.12.5") found components: Interpreter
+-- Configuring done (1.7s)
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug

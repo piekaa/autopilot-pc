@@ -4,6 +4,7 @@
 #include "rw/MSFSAutopilotReader.h"
 #include "rw/MSFSAutopilotWriter.h"
 #include "../aircrafts/AutopilotWriter747.h"
+#include "../aircrafts/VisionJetWriter.h"
 #include "rw/MSFSInputEventsProvider.h"
 
 class MSFSDependencyResolver : public DependencyResolver {
@@ -21,6 +22,10 @@ public:
         if (aircraftName.contains("737")) {
             return new AutopilotWriter737(autopilotConnection, inputEvents);
         }
+        if (aircraftName.contains("Vision Jet")) {
+            return new VisionJetWriter(autopilotConnection, inputEvents);
+        }
+
         return new MSFSAutopilotWriter(autopilotConnection, inputEvents);
     }
 

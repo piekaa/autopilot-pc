@@ -6,17 +6,10 @@
 
 class AutopilotWriter737 : public MSFSAutopilotWriter {
 public:
-    unsigned long long fccSpeedHash;
-
     AutopilotWriter737(HANDLE *connection,
                        std::unordered_map<std::string, unsigned long long> inputEvents) : MSFSAutopilotWriter(
         connection, inputEvents) {
         altitudeIndex->value = 3;
-        for (const auto &[eventName, hash]: inputEvents) {
-            if (eventName == "FCC_SPEED") {
-                fccSpeedHash = hash;
-            }
-        }
     }
 
     void setAltitude(int altitudeValue) override {
