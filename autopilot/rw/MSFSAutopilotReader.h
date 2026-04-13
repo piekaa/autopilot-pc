@@ -20,7 +20,7 @@ class MSFSAutopilotReader : public AutopilotReader {
 
     void threadLoop() {
         using namespace std::chrono;
-        const milliseconds requestInterval(200);
+        const milliseconds requestInterval(100);
         auto lastRequestTime = steady_clock::now() - requestInterval;
         const milliseconds readInterval(50);
 

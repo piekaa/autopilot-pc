@@ -96,6 +96,10 @@ public:
     virtual ~MSFSAutopilotWriter() {
         delete heading;
     }
+
+    bool working() override {
+        return false;
+    }
 };
 
 #endif //MSFS_CONTROLLER_MSFSAUTOPILOTWRITER_H

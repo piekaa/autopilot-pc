@@ -8,7 +8,10 @@
 
 class FakeDependencyResolver : public DependencyResolver {
 public:
-    AutopilotWriter* resolveAutopilotWriter(const std::string& aircraftName, std::unordered_map<std::string, unsigned long long> inputEvents) override {
+    AutopilotWriter* resolveAutopilotWriter(
+        const std::string& aircraftName,
+        std::unordered_map<std::string, unsigned long long> inputEvents,
+        AutopilotReader* autopilotReader) override {
         return new FakeAutopilotWriter();
     }
 

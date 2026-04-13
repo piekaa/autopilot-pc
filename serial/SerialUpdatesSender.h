@@ -17,6 +17,11 @@ public:
     }
 
     void sendIfNeeded(AutopilotValues values) {
+
+        if (serial->shouldSkipUpdate()) {
+            return;
+        }
+
         if (i % 100 == 0) {
             serial->write(values.toFullCommunicationString());
         } else {

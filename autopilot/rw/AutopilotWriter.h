@@ -17,6 +17,7 @@ public:
     virtual void toggleLNav() = 0;
     virtual void toggleVNav() = 0;
     virtual void setAltitudeIndex() = 0;
+    virtual bool working() = 0;
 };
 
 #endif //MSFS_CONTROLLER_AUTOPILOTWRITER_H

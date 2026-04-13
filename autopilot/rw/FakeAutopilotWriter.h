@@ -52,6 +52,10 @@ public:
     void setAltitudeIndex()  override {
         // Fake implementation - no-op
     };
+
+    bool working() override {
+        return false;
+    }
 };
 
 #endif //MSFS_CONTROLLER_FAKEAUTOPILOTWRITER_H

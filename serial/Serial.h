@@ -73,6 +73,10 @@ public:
         std::cout << data << std::endl;
         return this->connection->write(data);
     }
+
+    bool shouldSkipUpdate() {
+        return autopilotWriter->working();
+    }
 };
 
 #endif //MSFS_CONTROLLER_SERIAL_H

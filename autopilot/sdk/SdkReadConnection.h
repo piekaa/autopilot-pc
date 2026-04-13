@@ -6,10 +6,12 @@
 #include <thread>
 #include <unordered_map>
 #include "../rw/AutopilotValues.h"
+#include "SdkConnectionMutex.h"
 
 class SdkReadConnection {
 public:
     static void registerForAircraftName(HANDLE *connection) {
+        std::lock_guard<std::mutex> lock(SdkConnectionMutex::mtx);
         auto hr = SimConnect_AddToDataDefinition(*connection,
                                                  1,
                                                  "TITLE",
@@ -21,6 +23,7 @@ public:
     }
 
     static void registerAutopilotField(HANDLE *connection, std::string fieldName, std::string units) {
+        std::lock_guard<std::mutex> lock(SdkConnectionMutex::mtx);
         auto hr = SimConnect_AddToDataDefinition(*connection,
                                                  0,
                                                  fieldName.c_str(),
@@ -32,6 +35,7 @@ public:
     }
 
     static AutopilotValues *readAutopilotData(HANDLE *connection) {
+        std::lock_guard<std::mutex> lock(SdkConnectionMutex::mtx);
         DWORD cbData;
         SIMCONNECT_RECV *pData;
         if (SUCCEEDED(SimConnect_GetNextDispatch(*connection, &pData, &cbData))) {
@@ -78,7 +82,9 @@ public:
             DWORD cbData;
             SIMCONNECT_RECV *pData;
 
-            if (SUCCEEDED(SimConnect_GetNextDispatch(*connection, &pData, &cbData))) {
+            {
+                std::lock_guard<std::mutex> lock(SdkConnectionMutex::mtx);
+                if (SUCCEEDED(SimConnect_GetNextDispatch(*connection, &pData, &cbData))) {
                 switch (pData->dwID) {
                     case SIMCONNECT_RECV_ID_ENUMERATE_INPUT_EVENTS: {
                         // Handle InputEvent enumeration responses
@@ -104,14 +110,16 @@ public:
                         // Ignore other message types and continue polling
                         break;
                 }
-            } else {
-                // No message available, sleep briefly to avoid busy-waiting
-                std::this_thread::sleep_for(std::chrono::milliseconds(10));
+                } else {
+                    // No message available, sleep briefly to avoid busy-waiting
+                    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+                }
             }
         }
     }
 
     static void requestAutopilotData(HANDLE *connection) {
+        std::lock_guard<std::mutex> lock(SdkConnectionMutex::mtx);
         HRESULT result = SimConnect_RequestDataOnSimObject(
             *connection,
             0,
@@ -126,6 +134,7 @@ public:
     }
 
     static void requestEnumerateInputEvents(HANDLE *connection) {
+        std::lock_guard<std::mutex> lock(SdkConnectionMutex::mtx);
         auto result = SimConnect_EnumerateInputEvents(*connection, 1000);
         if (result != S_OK) {
             std::cerr << "Warning: Failed to enumerate InputEvents (this is normal if aircraft doesn't support it)" <<
@@ -134,6 +143,7 @@ public:
     }
 
     static char *readAircraftName(HANDLE *connection) {
+        std::lock_guard<std::mutex> lock(SdkConnectionMutex::mtx);
         DWORD cbData;
         SIMCONNECT_RECV *pData;
         if (SUCCEEDED(SimConnect_GetNextDispatch(*connection, &pData, &cbData))) {
@@ -172,6 +182,7 @@ public:
     }
 
     static void requestAircraftName(HANDLE *connection) {
+        std::lock_guard<std::mutex> lock(SdkConnectionMutex::mtx);
         HRESULT hr = SimConnect_RequestDataOnSimObject(
             *connection,
             1,

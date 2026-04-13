@@ -9,7 +9,10 @@ class DependencyResolver {
 public:
     virtual ~DependencyResolver() = default;
 
-    virtual AutopilotWriter* resolveAutopilotWriter(const std::string& aircraftName, std::unordered_map<std::string, unsigned long long> inputEvents) = 0;
+    virtual AutopilotWriter* resolveAutopilotWriter(
+        const std::string& aircraftName,
+        std::unordered_map<std::string, unsigned long long> inputEvents,
+        AutopilotReader* autopilotReader) = 0;
     virtual AutopilotReader* resolveAutopilotReader(const std::string& aircraftName) = 0;
     virtual AircractNameProvider* resolveAircraftNameProvider() = 0;
     virtual InputEventsProvider* resolveInputEventsProvider() = 0;

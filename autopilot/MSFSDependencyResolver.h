@@ -3,8 +3,9 @@
 #include "DependencyResolver.h"
 #include "rw/MSFSAutopilotReader.h"
 #include "rw/MSFSAutopilotWriter.h"
-#include "../aircrafts/AutopilotWriter747.h"
+#include "../aircrafts/AutopilotWriter737.h"
 #include "../aircrafts/VisionJetWriter.h"
+#include "../aircrafts/AirbusWriter.h"
 #include "rw/MSFSInputEventsProvider.h"
 
 class MSFSDependencyResolver : public DependencyResolver {
@@ -18,12 +19,18 @@ public:
     }
 
 
-    AutopilotWriter* resolveAutopilotWriter(const std::string& aircraftName, std::unordered_map<std::string, unsigned long long> inputEvents) override {
-        if (aircraftName.contains("737")) {
+    AutopilotWriter* resolveAutopilotWriter(
+        const std::string& aircraftName,
+        std::unordered_map<std::string, unsigned long long> inputEvents,
+        AutopilotReader* autopilotReader) override {
+        if (aircraftName.contains("737") || aircraftName.contains("747")) {
             return new AutopilotWriter737(autopilotConnection, inputEvents);
         }
         if (aircraftName.contains("Vision Jet")) {
             return new VisionJetWriter(autopilotConnection, inputEvents);
+        }
+        if (aircraftName.contains("A310") || aircraftName.contains("A330")) {
+            return new AirbusWriter(autopilotConnection, inputEvents, autopilotReader);
         }
 
         return new MSFSAutopilotWriter(autopilotConnection, inputEvents);

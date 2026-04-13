@@ -33,10 +33,15 @@ class AutopilotManager {
 
             auto inputEvents = inputEventsProvider->getInputEvents();
 
-            autopilotWriter = dependencyResolver->resolveAutopilotWriter(aircraftName, inputEvents);
+            for (auto input_event : inputEvents) {
+                std::cout << "InputEvent: " << input_event.first << std::endl;
+            }
+
+            autopilotReader = dependencyResolver->resolveAutopilotReader(aircraftName);
+            autopilotWriter = dependencyResolver->resolveAutopilotWriter(aircraftName, inputEvents, autopilotReader);
             autopilotWriter->setAltitudeIndex();
             serial->setAutopilotWriter(autopilotWriter);
-            autopilotReader = dependencyResolver->resolveAutopilotReader(aircraftName);
+
             return true;
         }
         return false;

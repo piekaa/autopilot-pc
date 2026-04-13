@@ -1,0 +1,8 @@
+#ifndef MSFS_CONTROLLER_DOUBLEVALUE_H
+#define MSFS_CONTROLLER_DOUBLEVALUE_H
+
+struct DoubleValue {
+    double value;
+};
+
+#endif //MSFS_CONTROLLER_DOUBLEVALUE_H
