@@ -10,6 +10,7 @@
 class AirbusWriter : public MSFSAutopilotWriter {
     AutopilotReader *autopilotReader;
     int targetHeading = 12312312;
+    int targetAltitude = 12312312;
     std::thread workerThread;
     std::atomic<bool> running;
     bool settingsValue = false;
@@ -22,6 +23,7 @@ class AirbusWriter : public MSFSAutopilotWriter {
             std::this_thread::sleep_for(loopDelay);
 
             updateHeading();
+            updateAltitude();
         }
     }
 
@@ -76,6 +78,32 @@ class AirbusWriter : public MSFSAutopilotWriter {
         return diff;
     }
 
+    void updateAltitude() {
+        using namespace std::chrono;
+        const milliseconds eventRepeatDelay(10);
+        if (targetAltitude == 12312312) {
+            return;
+        }
+
+        auto values = autopilotReader->read();
+
+        int altitude = values.altitude;
+        if (altitude != targetAltitude) {
+            int direction = (targetAltitude > altitude) ? 1 : -1;
+            int diff = abs(targetAltitude - altitude) / 100;
+
+            SdkWriteConnection::sendInputEvent(connection, inputEvents["AIRLINER_MCU_ALT"], direction);
+
+            for (int i = 2 ; i < diff ; i+=2) {
+                std::this_thread::sleep_for(eventRepeatDelay);
+                SdkWriteConnection::sendInputEvent(connection, inputEvents["AIRLINER_MCU_ALT"], direction);
+            }
+
+        } else {
+            settingsValue = false;
+        }
+    }
+
 public:
     AirbusWriter(HANDLE *connection,
                  std::unordered_map<std::string, unsigned long long> inputEvents,
@@ -95,6 +123,11 @@ public:
 
     void setHeading(int headingValue) override {
         targetHeading = headingValue;
+        settingsValue = true;
+    }
+
+    void setAltitude(int altitudeValue) override {
+        targetAltitude = altitudeValue;
         settingsValue = true;
     }
 
