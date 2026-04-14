@@ -11,6 +11,8 @@ class AirbusWriter : public MSFSAutopilotWriter {
     AutopilotReader *autopilotReader;
     int targetHeading = 12312312;
     int targetAltitude = 12312312;
+    int targetSpeed = 12312312;
+    int targetVerticalSpeed = 12312312;
     std::thread workerThread;
     std::atomic<bool> running;
     bool settingsValue = false;
@@ -24,6 +26,8 @@ class AirbusWriter : public MSFSAutopilotWriter {
 
             updateHeading();
             updateAltitude();
+            updateSpeed();
+            updateVerticalSpeed();
         }
     }
 
@@ -104,6 +108,58 @@ class AirbusWriter : public MSFSAutopilotWriter {
         }
     }
 
+    void updateSpeed() {
+        using namespace std::chrono;
+        const milliseconds eventRepeatDelay(10);
+        if (targetSpeed == 12312312) {
+            return;
+        }
+
+        auto values = autopilotReader->read();
+
+        int speed = values.speed;
+        if (speed != targetSpeed) {
+            int direction = (targetSpeed > speed) ? 1 : -1;
+            int diff = abs(targetSpeed - speed);
+
+            SdkWriteConnection::sendInputEvent(connection, inputEvents["AIRLINER_MCU_SPEED"], direction);
+
+            for (int i = 2 ; i < diff ; i+=2) {
+                std::this_thread::sleep_for(eventRepeatDelay);
+                SdkWriteConnection::sendInputEvent(connection, inputEvents["AIRLINER_MCU_SPEED"], direction);
+            }
+
+        } else {
+            settingsValue = false;
+        }
+    }
+
+    void updateVerticalSpeed() {
+        using namespace std::chrono;
+        const milliseconds eventRepeatDelay(10);
+        if (targetVerticalSpeed == 12312312) {
+            return;
+        }
+
+        auto values = autopilotReader->read();
+
+        int verticalSpeed = values.verticalSpeed;
+        if (verticalSpeed != targetVerticalSpeed) {
+            int direction = (targetVerticalSpeed > verticalSpeed) ? 1 : -1;
+            int diff = abs(targetVerticalSpeed - verticalSpeed) / 100;
+
+            SdkWriteConnection::sendInputEvent(connection, inputEvents["AIRLINER_MCU_VS"], direction);
+
+            for (int i = 3 ; i < diff ; i+=3) {
+                std::this_thread::sleep_for(eventRepeatDelay);
+                SdkWriteConnection::sendInputEvent(connection, inputEvents["AIRLINER_MCU_VS"], direction);
+            }
+
+        } else {
+            settingsValue = false;
+        }
+    }
+
 public:
     AirbusWriter(HANDLE *connection,
                  std::unordered_map<std::string, unsigned long long> inputEvents,
@@ -131,12 +187,39 @@ public:
         settingsValue = true;
     }
 
+    void setSpeed(int speedValue) override {
+        targetSpeed = speedValue;
+        settingsValue = true;
+    }
+
+    void setVerticalSpeed(int verticalSpeedValue) override {
+        targetVerticalSpeed = verticalSpeedValue;
+        settingsValue = true;
+    }
+
     void toggleSpeed() override {
         SdkWriteConnection::sendInputEvent(connection, inputEvents["AIRLINER_ATHR_PUSH"], 1.0);
+        SdkWriteConnection::sendInputEvent(connection, inputEvents["AIRLINER_MCU_SPEED_PULL"], 1.0);
+    }
+
+    void toggleLNav() override {
+        SdkWriteConnection::sendInputEvent(connection, inputEvents["AIRLINER_MCU_HDG_PUSH"], 1.0);
+    }
+
+    void toggleHeading() override {
+        SdkWriteConnection::sendInputEvent(connection, inputEvents["AIRLINER_MCU_HDG_PULL"], 1.0);
     }
 
     void toggleAutopilot() override {
         SdkWriteConnection::sendInputEvent(connection, inputEvents["AIRLINER_AP1_PUSH"], 1.0);
+    }
+
+    void toggleVerticalSpeed() override {
+        SdkWriteConnection::sendInputEvent(connection, inputEvents["AIRLINER_MCU_VS_PUSH"], 1.0);
+    }
+
+    void toggleAltitude() override {
+        SdkWriteConnection::sendInputEvent(connection, inputEvents["AIRLINER_ALT_PUSH"], 1.0);
     }
 
     bool working() override {
