@@ -21,7 +21,6 @@ class AirbusWriter : public MSFSAutopilotWriter {
         using namespace std::chrono;
         while (running) {
             const milliseconds loopDelay(300);
-            const milliseconds eventRepeatDelay(10);
             std::this_thread::sleep_for(loopDelay);
 
             updateHeading();

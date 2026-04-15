@@ -13,6 +13,6 @@ Call Stack (most recent call first):
   CMakeLists.txt:8 (FetchContent_Declare)
 This warning is for project developers.  Use -Wno-dev to suppress it.
 
--- Configuring done (1.7s)
--- Generating done (0.1s)
+-- Configuring done (0.8s)
+-- Generating done (0.0s)
 -- Build files have been written to: C:/Users/Piotr/CLionProjects/MSFS-controller/cmake-build-debug
