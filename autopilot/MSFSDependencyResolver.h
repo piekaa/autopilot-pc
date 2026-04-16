@@ -6,6 +6,7 @@
 #include "../aircrafts/AutopilotWriter737.h"
 #include "../aircrafts/VisionJetWriter.h"
 #include "../aircrafts/AirbusWriter.h"
+#include "../aircrafts/Airbus320Writer.h"
 #include "rw/MSFSInputEventsProvider.h"
 
 class MSFSDependencyResolver : public DependencyResolver {
@@ -29,7 +30,12 @@ public:
         if (aircraftName.contains("Vision Jet")) {
             return new VisionJetWriter(autopilotConnection, inputEvents);
         }
-        if (aircraftName.contains("A310") || aircraftName.contains("A330")) {
+
+        if (aircraftName.contains("A320")) {
+            return new Airbus320Writer(autopilotConnection, inputEvents, autopilotReader);
+        }
+
+        if (aircraftName.contains("A320") || aircraftName.contains("A330")) {
             return new AirbusWriter(autopilotConnection, inputEvents, autopilotReader);
         }
 

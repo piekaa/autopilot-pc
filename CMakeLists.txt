@@ -53,6 +53,7 @@ add_executable(MSFS_controller
         autopilot/rw/FakeAutopilotWriter.h
         aircrafts/VisionJetWriter.h
         autopilot/sdk/DoubleValue.h
+        aircrafts/Airbus320Writer.h
 )
 
 # Link against SimConnect and Windows libraries
