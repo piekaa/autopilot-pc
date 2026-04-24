@@ -17,6 +17,8 @@ struct AutopilotValues {
   double lNavState;
   double vNavState;
   double groundVelocity;
+  double minSpeed;
+  double maxSpeed;
 
   std::string toShortCommunicationString() {
     std::ostringstream oss;
@@ -27,6 +29,8 @@ struct AutopilotValues {
     oss << "AP_ALTITUDE " << (altitudeState == 0 ? "OFF" : "ON") << "\n";
     oss << "AP_VS " << (verticalSpeedState == 0 ? "OFF" : "ON") << "\n";
     oss << "GV " << static_cast<int>(groundVelocity) << "\n";
+    oss << "AP_MIN_SPEED " << static_cast<int>(minSpeed) << "\n";
+    oss << "AP_MAX_SPEED " << static_cast<int>(maxSpeed) << "\n";
     return oss.str();
   }
 
@@ -44,6 +48,8 @@ struct AutopilotValues {
     oss << "AP_ALTITUDE " << (altitudeState == 0 ? "OFF" : "ON") << "\n";
     oss << "AP_VS " << (verticalSpeedState == 0 ? "OFF" : "ON") << "\n";
     oss << "GV " << static_cast<int>(groundVelocity) << "\n";
+    oss << "AP_MIN_SPEED " << static_cast<int>(minSpeed) << "\n";
+    oss << "AP_MAX_SPEED " << static_cast<int>(maxSpeed) << "\n";
     return oss.str();
   }
 

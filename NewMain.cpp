@@ -8,11 +8,11 @@
 int main() {
 
 
-    DependencyResolver* dependencyResolver = new MSFSDependencyResolver(
-    (new GameClient())->getConnection(),
-    (new GameClient())->getConnection());
+    // DependencyResolver* dependencyResolver = new MSFSDependencyResolver(
+    // (new GameClient())->getConnection(),
+    // (new GameClient())->getConnection());
 
-    // DependencyResolver* dependencyResolver = new FakeDependencyResolver();
+    DependencyResolver* dependencyResolver = new FakeDependencyResolver();
 
     new AutopilotManager(dependencyResolver);
 

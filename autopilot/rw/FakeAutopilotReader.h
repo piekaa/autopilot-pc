@@ -8,7 +8,7 @@ public:
     AutopilotValues read() override {
         AutopilotValues values;
         values.heading = 100.0;
-        values.speed = 250.0;
+        values.speed = 123.0;
         values.altitude = 10000.0;
         values.verticalSpeed = 0.0;
         values.autopilotMaster = 1.0;
@@ -18,6 +18,8 @@ public:
         values.verticalSpeedState = 0.0;
         values.lNavState = 0.0;
         values.vNavState = 0.0;
+        values.minSpeed = 100;
+        values.maxSpeed = 140;
         return values;
     }
 };

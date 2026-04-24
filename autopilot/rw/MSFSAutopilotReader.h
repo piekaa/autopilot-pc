@@ -65,6 +65,8 @@ public:
         SdkReadConnection::registerAutopilotField(connection, "AUTOPILOT NAV1 LOCK", "Bool");
         SdkReadConnection::registerAutopilotField(connection, "AUTOPILOT FLIGHT LEVEL CHANGE", "Bool");
         SdkReadConnection::registerAutopilotField(connection, "GROUND VELOCITY", "knots");
+        SdkReadConnection::registerAutopilotField(connection, "AUTOPILOT AIRSPEED MIN CALCULATED", "knots");
+        SdkReadConnection::registerAutopilotField(connection, "AUTOPILOT AIRSPEED MAX CALCULATED", "knots");
 
 
         // double vNavState;
